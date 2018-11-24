@@ -1,12 +1,12 @@
-#include "Grass.hpp"
+#include "Dungeon.hpp"
 
-Grass::Grass(){
+Dungeon::Dungeon(){
 	setUp(nullptr);
 	setDown(nullptr);
 	setLeft(nullptr);
 	setRight(nullptr);
-	setType(GRASS);
+	setType(DUNGEON);
 	setMonsters(nullptr);
 }
-
-Grass::~Grass(){}
+	
+Dungeon::~Dungeon(){}

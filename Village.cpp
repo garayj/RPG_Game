@@ -1,12 +1,12 @@
-#include "Grass.hpp"
+#include "Village.hpp"
 
-Grass::Grass(){
+Village::Village(){
 	setUp(nullptr);
 	setDown(nullptr);
 	setLeft(nullptr);
 	setRight(nullptr);
-	setType(GRASS);
+	setType(VILLAGE);
 	setMonsters(nullptr);
 }
 
-Grass::~Grass(){}
+Village::~Village(){}

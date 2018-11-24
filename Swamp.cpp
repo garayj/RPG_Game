@@ -1,12 +1,12 @@
-#include "Grass.hpp"
+#include "Swamp.hpp"
 
-Grass::Grass(){
+Swamp::Swamp(){
 	setUp(nullptr);
 	setDown(nullptr);
 	setLeft(nullptr);
 	setRight(nullptr);
-	setType(GRASS);
+	setType(SWAMP);
 	setMonsters(nullptr);
 }
 
-Grass::~Grass(){}
+Swamp::~Swamp(){}

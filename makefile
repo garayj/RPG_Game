@@ -4,17 +4,20 @@ CXXFLAGS += -Wall
 CXXFLAGS += -std=c++0x
 CXXFLAGS += -pedantic-errors
 
-SRC = main.cpp Map.cpp Space.cpp Grass.cpp
+#Credit: I learned how to use the wildcard and patsubst functions from GNU make manual as well as this stackoverflow question:
 
-HEADERS = Space.hpp Map.hpp Grass.hpp
+# https://stackoverflow.com/questions/2908057/can-i-compile-all-cpp-files-in-src-to-os-in-obj-then-link-to-binary-in
+	
+HEADERS =  $(wildcard *.hpp)
 
-OBJS = main.o Map.o Space.o Grass.o
+SRCS = $(wildcard *.cpp)
 
-test:${OBJS} ${HEADERS}
+OBJS = $(patsubst %.cpp, %.o, ${SRCS})
+
+test: ${OBJS} ${HEADERS}
 	${CXX} ${OBJS} -o test
 
-
-${OBJS}:${SRCS} 
+${OBJS}:${SRCS} ${HEADERS}
 	${CXX} ${CXXFLAGS} -c ${@:.o=.cpp}
 
 clean:

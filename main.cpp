@@ -1,70 +1,47 @@
+#include "Game.hpp"
 #include <iostream>
 #include <string>
+#include "Character.hpp"
+#include "Team.hpp"
+#include "Vampire.hpp"
 #include "Map.hpp"
+#include <ctime> 
+#include <cstdlib>
 
 using std::cout;
 using std::cin;
 using std::endl;
+void move(Team*);
 
 int main(int argc, char const *argv[])
 {
+	Game game;
+	game.run();
+	return 0;
 
+	
+	Team *heroTeam;
+	heroTeam = new Team();
+
+	srand(time(NULL));
 	Map map;
 	map.printMap();
-	// char move;
-	// cout << "Enter wasd" << endl;
-	// cin.get(move);
-	// cin.ignore();
-	// while(move != 'w' && move != 'a' && move != 's' && move != 'd'){
-	// 	cout << "Error. Retry" << endl;
-	// 	cout << move << endl;
-	// 	cin.get(move);
-	// 	cin.ignore();
-	// }
-	// if(move == 'w') {
-	// 	cout << "You moved up." << endl;
-	// }
-	// else if(move == 'a'){
-	// 	cout << "You moved left." << endl;
-	// }
-	// else if(move == 's'){
-	// 	cout << "You moved down." << endl;
-	// }
-	// else if(move == 'd'){
-	// 	cout << "You moved right." << endl;
-	// }
-	// char **array;
-	// int size = 4;
+	cout << endl;
 
-	// array = new char*[size];
+	map.setHeroes(heroTeam);
+	heroTeam->setLocation(map.getBoard()[0][0]);
+	map.printMap();
+	for(int n = 0; n < 3; n++){
+		move(heroTeam);
+		map.printMap();
+	}
 
-	// for(int n = 0; n < size; n++){
-	// 	array[n] = new char[size];
-	// }
-	// for(int n = 0; n < size; n++){
-	// 	for(int p = 0; p < size; p++){
-	// 		array[n][p] == '  ';
-	// 	}
-	// }
-	// for(int n = 0; n < size; n++){
-	// 	for(int p = 0; p < size; p++){
-	// 		cout << "|" << array[n][p] << "|";
-	// 	}
-	// 	cout << endl;
-	// }
-	// cout << endl << endl;
+	delete heroTeam;
 
-	// for(int n = 0; n < size; n++){
-	// 	array[1][n] = '#';
-	// }
 
-	// for(int n = 0; n < size; n++){
-	// 	for(int p = 0 ;p < size; p++){
-	// 		cout << "|" << array[n][p] << "|";
-	// 	}
-	// 	cout << endl;
-	// }
+
 
 
 	return 0;
 }
+

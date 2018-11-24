@@ -1,12 +1,13 @@
-#include "Grass.hpp"
+#include "Cave.hpp"
 
-Grass::Grass(){
+Cave::Cave(){
 	setUp(nullptr);
 	setDown(nullptr);
 	setLeft(nullptr);
 	setRight(nullptr);
-	setType(GRASS);
+	setType(CAVE);
 	setMonsters(nullptr);
 }
 
-Grass::~Grass(){}
+
+Cave::~Cave(){}

@@ -1,12 +1,12 @@
-#include "Grass.hpp"
+#include "Forest.hpp"
 
-Grass::Grass(){
+Forest::Forest(){
 	setUp(nullptr);
 	setDown(nullptr);
 	setLeft(nullptr);
 	setRight(nullptr);
-	setType(GRASS);
+	setType(FOREST); 
 	setMonsters(nullptr);
 }
 
-Grass::~Grass(){}
+Forest::~Forest(){}

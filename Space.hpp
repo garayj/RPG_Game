@@ -1,7 +1,8 @@
 #ifndef SPACE_HPP
 #define SPACE_HPP 
+#include "Character.hpp"
 
-enum spaceType {GRASS, CAVE, LAKE, VILLAGE, CASTLE};
+enum spaceType {GRASS, FOREST, CAVE, VILLAGE, DUNGEON, SWAMP};
 class Space
 {
 protected:
@@ -11,6 +12,7 @@ protected:
 	Space *right;
 	spaceType type;
 
+	Character **monsters;
 
 public:
 	Space();
@@ -20,11 +22,14 @@ public:
 	Space* getLeft(){return left;};
 	Space* getRight(){return right;};
 	spaceType getType(){return type;};
+	Character **getMonsters(){return monsters;};
+
 
 	void setUp(Space* up){this->up = up;};
 	void setDown(Space* down){this->down = down;};
 	void setLeft(Space* left){this->left = left;};
 	void setRight(Space* right){this->right = right;};
 	void setType(spaceType type){this->type = type;};
+	void setMonsters(Character **monsters){this->monsters = monsters;};
 };
 #endif
