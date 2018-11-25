@@ -3,7 +3,7 @@
 Team::Team(){
 	setTeamSize(3);
 	setLocation(nullptr);
-	setHeroes(nullptr);
+	heroes = new Character*[getTeamSize()];
 }
 
 Team::~Team(){
@@ -13,6 +13,6 @@ Team::~Team(){
 				delete getHeroes()[n];
 			}
 		}
-		delete getHeroes();
+		delete [] getHeroes();
 	}	
 }

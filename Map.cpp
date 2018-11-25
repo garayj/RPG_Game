@@ -7,6 +7,7 @@
 #include <iostream>
 #include "Grass.hpp"
 #include "Space.hpp"
+#include <stdlib.h>
 
 using std::cout;
 using std::endl;
@@ -121,32 +122,42 @@ void Map::printMap(){
 		cout << "|";
 		for(int p = 0; p < col; p++){
 			if(getHeroes() != nullptr && getBoard()[n][p] == getHeroes()->getLocation()){
-				cout << " X ";
+				//Credit: https://stackoverflow.com/questions/35431298/setting-individual-text-colors-in-c
+				//I found out how to color text in the terminal. It works on Flip and my own terminal.
+				//However I cannot guarentee that it will work anywhere else.
+				cout << " \033[5;1;35mX\033[0m ";
 			}
 			else{
 				if(board[n][p]->getType() == GRASS){
-					cout << " G ";
+					cout << " \033[1;37mG\033[0m ";
 				}
 				else if(board[n][p]->getType() == FOREST){
-					cout << " F ";
+					cout << " \033[1;32mF\033[0m ";
 				}
 				else if(board[n][p]->getType() == VILLAGE){
-					cout << " V ";
+					cout << " \033[1;33mV\033[0m ";
 				}
 				else if(board[n][p]->getType() == DUNGEON){
-					cout << " D ";
+					cout << " \033[1;31mD\033[0m ";
 				}
 				else if(board[n][p]->getType() == SWAMP){
-					cout << " S ";
+					cout << " \033[1;34mS\033[0m ";
 				}
 				else if(board[n][p]->getType() == CAVE){
-					cout << " C ";
+					cout << " \033[1;30mC\033[0m ";
 				}
 			}
 			cout <<"|";
 		}
 		cout << endl;
 	}
+	cout << "Legend:" << endl;
+	cout << "\033[1;37mG\033[0m: Grassland\n";
+	cout << "\033[1;32mF\033[0m: Forest\n";
+	cout << "\033[1;33mV\033[0m: Village\n";
+	cout << "\033[1;31mD\033[0m: Dungeon\n";
+	cout << "\033[1;34mS\033[0m: Swamp\n";
+	cout << "\033[1;30mC\033[0m: Cave\n";
 
 }
 

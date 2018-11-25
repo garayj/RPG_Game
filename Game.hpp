@@ -8,6 +8,7 @@ phases of the game.
 #define GAME_HPP 
 #include "Character.hpp"
 #include "Team.hpp"
+#include "Map.hpp"
 #include "Menu.hpp"
 #include <string>
 
@@ -15,10 +16,10 @@ phases of the game.
 class Game{
 private:
    bool isRunning;
-
    Menu menu;
    Map map;
    Team *heroes;
+
 /**************************************************************************************************
 ** Description: The startMenu method starts the game or exits.
 **************************************************************************************************/
@@ -47,16 +48,30 @@ be initialized.
 method returns one of the five hero characters to add to the Queue in the createTeam method.
 **************************************************************************************************/
    Character* characterSelection(int);
+
 /**************************************************************************************************
 ** Description: Method takes no arguments and returns nothing. Displays the teams rosters to the 
 console if there are any heros.
 **************************************************************************************************/
    void displayTeams();
+
 /**************************************************************************************************
 ** Description: Method takes a Team pointer as an argument and returns nothing. The move Method 
 moves the team into another space if the space is on the board.
 **************************************************************************************************/
    void move(Team*);
+
+/**************************************************************************************************
+** Description: Getter Function. Returns the heroes data member.
+**************************************************************************************************/
+   Team* getTeam(){return heroes;};
+
+/**************************************************************************************************
+** Description: Getter Function. Returns the heroes data member.
+**************************************************************************************************/
+   void setTeam(Team* heroes){this->heroes = heroes;};
+
+
 public:
 
 /**************************************************************************************************

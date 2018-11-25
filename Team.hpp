@@ -17,7 +17,7 @@ public:
 	Character** getHeroes(){return heroes;};
 	Space* getLocation(){return location;};
 
-	void setTeamSize(int){this->teamSize = teamSize;};
+	void setTeamSize(int teamSize){this->teamSize = teamSize;};
 	void setHeroes(Character **heroes){this->heroes = heroes;};
 	void setLocation(Space *location){this->location = location;};	
 };

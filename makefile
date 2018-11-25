@@ -20,6 +20,8 @@ test: ${OBJS} ${HEADERS}
 ${OBJS}:${SRCS} ${HEADERS}
 	${CXX} ${CXXFLAGS} -c ${@:.o=.cpp}
 
+zip:
+	zip -D FinalProject_Garay_Jose.zip ${HEADERS} ${SRCS} makefile
 clean:
 	rm ${OBJS} test
 
