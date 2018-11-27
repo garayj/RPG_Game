@@ -1,18 +1,33 @@
 #include "Team.hpp"
+#include <iostream>
+using std::cout;
+using std::endl;
 
 Team::Team(){
 	setTeamSize(3);
 	setLocation(nullptr);
-	heroes = new Character*[getTeamSize()];
+	characters = new Character*[getTeamSize()];
 }
 
 Team::~Team(){
-	if(getHeroes() != nullptr){
+	if(getCharacters() != nullptr){
 		for(int n = 0; n < getTeamSize(); n++){
-			if(getHeroes()[n] != nullptr){
-				delete getHeroes()[n];
+			if(getCharacters()[n] != nullptr){
+				delete getCharacters()[n];
 			}
 		}
-		delete [] getHeroes();
+		delete [] getCharacters();
 	}	
+}
+
+void Team::printCharacters(){
+	int place = 1; 
+	for(int n = 0; n < getTeamSize(); n++){
+		if(getCharacters()[n]->getIsAlive()){
+			cout << place << ". " << getCharacters()[n]->getName() << " the "<< getCharacters()[n]->getCharacterClassString() << endl;
+			place++;
+		}
+	}
+
+
 }

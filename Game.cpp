@@ -56,13 +56,13 @@ void Game::setup(){
 		cout << "What character do you want?" << endl;
 		cout << "1. Barbarian" << endl << "2. Vampire\n" << endl;
 		selection  = menu.checkInputInt("Select either 1 for Barb or 2 for Vamp", 1, 2);
-		heroes->getHeroes()[n] = characterSelection(selection);
+		heroes->getCharacters()[n] = characterSelection(selection);
 	}
 
 	//Print out team.
 	cout << "This is your team" << endl;
 	for(int n = 0; n < heroes->getTeamSize(); n++){
-		cout << n +1 << ". " << heroes->getHeroes()[n]->getType() << endl;
+		cout << n +1 << ". " << heroes->getCharacters()[n]->getCharacterClassString() << endl;
 	}
 	map.setHeroes(heroes);
 	heroes->setLocation(map.getBoard()[0][0]);

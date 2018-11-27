@@ -22,10 +22,31 @@ int Character::roll(int die, int sides){
 	}
 	return total;
 }
+
+std::string Character::getCharacterClassString(){
+	if(getCharacterClass() == PALADIN){
+		return "Paladin";
+	}
+	else if(getCharacterClass() == ROGUE){
+		return "Rogue";
+	}
+	else if(getCharacterClass() == WHITE_MAGE){
+		return "White Mage";
+	}
+	else if(getCharacterClass() == BLACK_MAGE){
+		return "Black Mage";
+	}
+	else if(getCharacterClass() == WARRIOR_GNOME){
+		return "Warrior Gnome";
+	}
+	else if(getCharacterClass() == ARCHER){
+		return "Archer";
+	}
+}
 int Character::attack(){
 	//Roll for attack.
 	int attack = roll(numberOfAttDie, attDieSides);
-	cout << getName() << " the " << getType() << " attacked for " << attack << " points." << endl;
+	cout << getName() << " the " << getCharacterClassString() << " attacked for " << attack << " points." << endl;
 
 	return attack;
 }
@@ -36,18 +57,18 @@ void Character::defend(int attack){
 	if(damage < 0){
 		damage = 0;
 	}
-	setStrength(getStrength()- damage);
+	setHealth(getHealth()- damage);
 
 	//Displays stats to the console.
-	cout << getName() << " the " << getType() << " rolled " << defense << " using " << getNumberOfDefDie() << "d" <<getDefDieSides() << endl;
-	cout << getName() << " the " << getType() << " has " << getArmor() << " armor." << endl;
-	cout << getName() << " the " << getType() << " defended for " << defense + getArmor() << "." << endl;
-	cout << getName() << " the " << getType() << " took " << damage << " point of damage." << endl;
-	cout << getName() << " has " << getStrength() << " strength." << endl;
+	cout << getName() << " the " << getCharacterClassString() << " rolled " << defense << " using " << getNumberOfDefDie() << "d" <<getDefDieSides() << endl;
+	cout << getName() << " the " << getCharacterClassString() << " has " << getArmor() << " armor." << endl;
+	cout << getName() << " the " << getCharacterClassString() << " defended for " << defense + getArmor() << "." << endl;
+	cout << getName() << " the " << getCharacterClassString() << " took " << damage << " point of damage." << endl;
+	cout << getName() << " has " << getHealth() << " strength." << endl;
 }
 
 void Character::recover(int damageTaken){
 	int recovery = damageTaken * 0.5;
-	setStrength(getStrength() + recovery);
+	setHealth(getHealth() + recovery);
 	cout << getName() << " recovers for " << recovery << " strength points." << endl; 
 }

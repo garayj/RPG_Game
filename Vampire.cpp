@@ -1,6 +1,5 @@
 /**************************************************************************************************
-** Author: Jose Garay
-** Date: 11/2/2018
+** Author: Jose Garay** Date: 11/2/2018
 ** Description: Interface for the Vampire class. The Vampire class simulates a vampire in a table
 top style game. The Vampire class has an armor of 1, strength of 18, attacks with 1d12, and defends
 with 1d6. The Vampire has a special ability to charm its way out of an attack. 50% of the time, it
@@ -13,9 +12,11 @@ using std::cout;
 using std::endl;
 
 Vampire::Vampire(){
-	setType("Vampire");
+	setCharacterType(HERO);
+	setCharacterClass(ROGUE);
 	setArmor(1);
-	setStrength(18);
+	setMaxHealth(18);
+	setHealth(getMaxHealth());
 	setNumberDefDie(1);
 	setNumberAttDie(1);
 	setDefDieSides(6);
@@ -32,7 +33,7 @@ bool Vampire::charm(){
 void Vampire::defend(int attack){
 	//If charm returns true, the Vampire takes no damage.
 	if(charm()){
-		cout << getName() << " the " << getType() << " is one smooth talker. " << getName() << " takes no damage." << endl;
+		cout << getName() << " the " << getCharacterClassString() << " is one smooth talker. " << getName() << " takes no damage." << endl;
 		return;
 	}
 	else{
@@ -43,15 +44,15 @@ void Vampire::defend(int attack){
 			damage = 0;
 		}
 
-		cout << getName() << " the " << getType() << " rolled " << defense << " using " << getNumberOfDefDie() << "d" <<getDefDieSides() << endl;
-		cout << getName() << " the " << getType() << " has " << getArmor() << " armor." << endl;
-		cout << getName() << " the " << getType() << " defended for " << defense + getArmor() << "." << endl;
-		cout << getName() << " the " << getType() << " took " << damage << " point of damage." << endl;
+		cout << getName() << " the " << getCharacterClassString() << " rolled " << defense << " using " << getNumberOfDefDie() << "d" <<getDefDieSides() << endl;
+		cout << getName() << " the " << getCharacterClassString() << " has " << getArmor() << " armor." << endl;
+		cout << getName() << " the " << getCharacterClassString() << " defended for " << defense + getArmor() << "." << endl;
+		cout << getName() << " the " << getCharacterClassString() << " took " << damage << " point of damage." << endl;
 
 
-		cout << getName() << " has " << getStrength() << " strength." << endl;
+		cout << getName() << " has " << getHealth() << " strength." << endl;
 		//Subtract damage from strength.
-		setStrength(getStrength()- damage);
+		setHealth(getHealth()- damage);
 
 	}
 }

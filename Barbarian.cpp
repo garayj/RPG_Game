@@ -10,12 +10,14 @@ defend with 2d6. The Barbarian class is the only class that does not have a spec
 
 Barbarian::Barbarian(){
 	setArmor(0);
-	setStrength(12);
+	setMaxHealth(12);
+	setHealth(getMaxHealth());
 	setNumberDefDie(2);
 	setNumberAttDie(2);
 	setDefDieSides(6);
 	setAttDieSides(6);
-	setType("Barbarian");
+	setCharacterType(HERO);
+	setCharacterClass(PALADIN);
 }
 
 Barbarian::~Barbarian(){
