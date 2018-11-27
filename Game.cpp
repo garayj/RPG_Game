@@ -1,18 +1,18 @@
 /**************************************************************************************************
 ** Author: Jose Garay
-** Date: 11/2/2018
+** Date: 11/27/2018
 ** Description: Implementation file for the Game Class. The Game Class organizes and conducts all the 
 phases of the game.
 **************************************************************************************************/
-// #include "menuStrings.hpp"
 #include "Game.hpp"
-#include "Barbarian.hpp"
-#include "Vampire.hpp"
+#include "Paladin.hpp"
+#include "Ranger.hpp"
 #include <iostream>
 #include <string>
 #include <limits>
 #include <cstdlib>
 #include <vector>
+#include "menuStrings.hpp"
 
 using std::streamsize;
 using std::numeric_limits;
@@ -41,28 +41,37 @@ void Game::run(){
 }
 
 void Game::startMenu(){	
-	cout << "Would you like to play a game?" << endl;
-	setIsRunning(menu.checkInputInt("Enter 1 or 0", 0, 1));	
+	menu.addMenuLine(HALFLIFE);
+	menu.printMenu();
+	int halflife = menu.checkInputInt(ERROR + HALFLIFE, 0 ,1);
+	menu.clear();
+
+	menu.addMenuLine(SNARK + MAIN_MENU);
+	menu.printMenu();
+	setIsRunning(menu.checkInputInt(ERROR + MAIN_MENU, 0, 1));	
+	menu.clear();
 }
 
 void Game::setup(){
 	int selection;
-	heroes = new Team();
+	heroes = new Team(3);
 
-	cout << "Select your team!" << endl;	
+	menu.addMenuLine(TEAM_CREATION_HEADER);
+	menu.printMenu();
 
 	//Team selection
 	for(int n = 0; n < heroes->getTeamSize(); n++){
-		cout << "What character do you want?" << endl;
-		cout << "1. Barbarian" << endl << "2. Vampire\n" << endl;
-		selection  = menu.checkInputInt("Select either 1 for Barb or 2 for Vamp", 1, 2);
+		menu.clear();
+		menu.addMenuLine(CHARACTER_SELECTION_MENU);
+		menu.printMenu();
+		selection  = menu.checkInputInt(ERROR + CHARACTER_SELECTION_MENU, 1, 2);
 		heroes->getCharacters()[n] = characterSelection(selection);
 	}
 
 	//Print out team.
 	cout << "This is your team" << endl;
 	for(int n = 0; n < heroes->getTeamSize(); n++){
-		cout << n +1 << ". " << heroes->getCharacters()[n]->getCharacterClassString() << endl;
+		// cout << n +1 << ". " << heroes->getCharacters()[n]->getCharacterClassString() << endl;
 	}
 	map.setHeroes(heroes);
 	heroes->setLocation(map.getBoard()[0][0]);
@@ -73,10 +82,10 @@ Character* Game::characterSelection(int selection){
 	Character *newCharacter;
 	switch(selection){
 		case 1:
-			newCharacter = new Barbarian();
+			newCharacter = new Paladin();
 			break;
 		case 2:
-			newCharacter = new Vampire();
+			newCharacter = new Ranger();
 			break;
 	}
 	return newCharacter;

@@ -39,15 +39,13 @@ std::string Character::getCharacterClassString(){
 	else if(getCharacterClass() == WARRIOR_GNOME){
 		return "Warrior Gnome";
 	}
-	else if(getCharacterClass() == ARCHER){
-		return "Archer";
+	else{
+		return "Ranger";
 	}
 }
 int Character::attack(){
 	//Roll for attack.
 	int attack = roll(numberOfAttDie, attDieSides);
-	cout << getName() << " the " << getCharacterClassString() << " attacked for " << attack << " points." << endl;
-
 	return attack;
 }
 void Character::defend(int attack){
@@ -60,9 +58,8 @@ void Character::defend(int attack){
 	setHealth(getHealth()- damage);
 
 	//Displays stats to the console.
-	cout << getName() << " the " << getCharacterClassString() << " rolled " << defense << " using " << getNumberOfDefDie() << "d" <<getDefDieSides() << endl;
 	cout << getName() << " the " << getCharacterClassString() << " has " << getArmor() << " armor." << endl;
-	cout << getName() << " the " << getCharacterClassString() << " defended for " << defense + getArmor() << "." << endl;
+	cout << getName() << " the " << getCharacterClassString() << " has " << getArmor() << " armor and defended for " << defense + getArmor() << "." << endl;
 	cout << getName() << " the " << getCharacterClassString() << " took " << damage << " point of damage." << endl;
 	cout << getName() << " has " << getHealth() << " strength." << endl;
 }

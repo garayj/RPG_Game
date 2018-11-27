@@ -17,19 +17,35 @@ private:
 	Character **characters;
 	Space *location;
 public:
-	Team();
+	Team(int);
 	~Team();
 
+
+
+
+
+	//Getter Functions for the Team class data members
 	int getTeamSize(){return teamSize;};
 	Character** getCharacters(){return characters;};
 	Space* getLocation(){return location;};
 	bool getIsTeamAlive(){return isTeamAlive;};
 
+
+
+
+
+	//Setter Functions for the Team class data members
 	void setTeamSize(int teamSize){this->teamSize = teamSize;};
-	void setHeroes(Character **characters){this->characters = characters;};
+	void setCharacters(Character **characters){this->characters = characters;};
 	void setLocation(Space *location){this->location = location;};	
 	void setIsTeamAlive(bool isTeamAlive){this->isTeamAlive = isTeamAlive;};
 
+
+
+
+	//Checks if the team any Character in the team is still alive.
+	bool teamAliveStatus();
+	//Prints out all the characters in the Team.
 	void printCharacters();
 };
 #endif

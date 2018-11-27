@@ -1,6 +1,6 @@
 /**************************************************************************************************
 ** Author: Jose Garay
-** Date: 11/2/2018
+** Date: 11/27/2018
 ** Description: Interface file for the Game Class. The Game Class organizes and conducts all the 
 phases of the game.
 **************************************************************************************************/

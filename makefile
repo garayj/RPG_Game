@@ -22,6 +22,9 @@ ${OBJS}:${SRCS} ${HEADERS}
 
 zip:
 	zip -D FinalProject_Garay_Jose.zip ${HEADERS} ${SRCS} makefile
+
+ctest: Character.cpp test.cpp Character.hpp
+	g++ Character.cpp test.cpp -o ctest
 clean:
 	rm ${OBJS} test
 

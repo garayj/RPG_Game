@@ -1,15 +1,18 @@
 /**************************************************************************************************
 ** Author: Jose Garay
-** Date: 11/2/2018
+** Date: 11/27/2018
 ** Description: Interface file for the Character Class. The Character Class is an Abstract class
 that simulates the base charcateristics of a character in a table top game. 
 **************************************************************************************************/
 #ifndef CHARACTER_HPP
 #define CHARACTER_HPP 
+
 #include <cstdlib>
 #include <string>
-enum characterType {MONSTER, HERO};
-enum characterClass{PALADIN, ROGUE, WHITE_MAGE, BLACK_MAGE, WARRIOR_GNOME, ARCHER};
+
+enum characterClass{PALADIN, ROGUE, BLACK_MAGE, WHITE_MAGE, WARRIOR_GNOME, RANGER};
+enum characterType{HERO, MONSTER};
+
 class Character{
 protected:
 
@@ -28,6 +31,9 @@ protected:
 	characterClass cClass;
 	std::string name;
 	bool isAlive;
+
+	// Item slot1;
+	// Item slot2;
 
 
 /**************************************************************************************************
