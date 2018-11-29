@@ -5,19 +5,28 @@
 phases of the game.
 **************************************************************************************************/
 #include "Game.hpp"
+
 #include "Paladin.hpp"
 #include "Ranger.hpp"
 #include "Rogue.hpp"
 #include "BlackMage.hpp"
 #include "WhiteMage.hpp"
 #include "WarriorGnome.hpp"
+
+#include "CaveEvent.hpp"
 #include "GrassEvent.hpp"
+#include "DungeonEvent.hpp"
+#include "ForestEvent.hpp"
+#include "SwampEvent.hpp"
+#include "VillageEvent.hpp"
+
+#include "menuStrings.hpp"
+
 #include <iostream>
 #include <string>
 #include <limits>
 #include <cstdlib>
 #include <vector>
-#include "menuStrings.hpp"
 
 using std::streamsize;
 using std::numeric_limits;
@@ -220,28 +229,28 @@ void Game::event(){
 			checkTeam();
 			break;
 		case FOREST:
-			// spaceEvent = new ForestEvent(heroes);
-			// delete spaceEvent;
+			spaceEvent = new ForestEvent(heroes);
+			delete spaceEvent;
 			checkTeam();
 			break;
 		case CAVE:
-			// spaceEvent = new CaveEvent(heroes);
-			// delete spaceEvent;
+			spaceEvent = new CaveEvent(heroes);
+			delete spaceEvent;
 			checkTeam();
 			break;
 		case VILLAGE:
-			// spaceEvent = new VillageEvent(heroes);
-			// delete spaceEvent;
+			spaceEvent = new VillageEvent(heroes);
+			delete spaceEvent;
 			checkTeam();
 			break;
 		case DUNGEON:
-			// spaceEvent = new DungeonEvent(heroes);
-			// delete spaceEvent;
+			spaceEvent = new DungeonEvent(heroes);
+			delete spaceEvent;
 			checkTeam();
 			break;
 		case SWAMP:
-			// spaceEvent = new SwampEvent(heroes);
-			// delete spaceEvent;
+			spaceEvent = new SwampEvent(heroes);
+			delete spaceEvent;
 			checkTeam();
 			break;
 	}

@@ -14,6 +14,7 @@ GrassEvent::GrassEvent(){}
 
 GrassEvent::GrassEvent(Team *heroes){
 	menu = new Menu();
+	monsters = nullptr;
 
 
 
