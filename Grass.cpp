@@ -5,7 +5,7 @@ Grass::Grass(){
 	setDown(nullptr);
 	setLeft(nullptr);
 	setRight(nullptr);
-	setType(GRASS);
+	setSpaceType(GRASS);
 	setMonsters(nullptr);
 }
 

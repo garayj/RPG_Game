@@ -2,7 +2,8 @@
 ** Author: Jose Garay
 ** Date: 11/26/2018
 ** Description: Interface for the Team class. The Team class simulates a team of characters that 
-may be either monsters or heroes. Teams have a location, size, 
+may be either monsters or heroes. Teams have a location, size, Characters, an inventory, and a 
+boolean data member to check whether the Team is alive or not.
 **************************************************************************************************/
 #ifndef TEAM_HPP
 #define TEAM_HPP 
@@ -16,6 +17,7 @@ private:
 	int teamSize;
 	Character **characters;
 	Space *location;
+	// Item **inventory;
 public:
 	Team(int);
 	~Team();

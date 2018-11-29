@@ -5,7 +5,7 @@ Forest::Forest(){
 	setDown(nullptr);
 	setLeft(nullptr);
 	setRight(nullptr);
-	setType(FOREST); 
+	setSpaceType(FOREST); 
 	setMonsters(nullptr);
 }
 

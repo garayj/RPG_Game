@@ -7,6 +7,11 @@ phases of the game.
 #include "Game.hpp"
 #include "Paladin.hpp"
 #include "Ranger.hpp"
+#include "Rogue.hpp"
+#include "BlackMage.hpp"
+#include "WhiteMage.hpp"
+#include "WarriorGnome.hpp"
+#include "GrassEvent.hpp"
 #include <iostream>
 #include <string>
 #include <limits>
@@ -64,14 +69,14 @@ void Game::setup(){
 		menu.clear();
 		menu.addMenuLine(CHARACTER_SELECTION_MENU);
 		menu.printMenu();
-		selection  = menu.checkInputInt(ERROR + CHARACTER_SELECTION_MENU, 1, 2);
+		selection  = menu.checkInputInt(ERROR + CHARACTER_SELECTION_MENU, 1, 6);
 		heroes->getCharacters()[n] = characterSelection(selection);
 	}
 
 	//Print out team.
 	cout << "This is your team" << endl;
 	for(int n = 0; n < heroes->getTeamSize(); n++){
-		// cout << n +1 << ". " << heroes->getCharacters()[n]->getCharacterClassString() << endl;
+		cout << n +1 << ". " << heroes->getCharacters()[n]->getCharacterClassString() << endl;
 	}
 	map.setHeroes(heroes);
 	heroes->setLocation(map.getBoard()[0][0]);
@@ -87,6 +92,18 @@ Character* Game::characterSelection(int selection){
 		case 2:
 			newCharacter = new Ranger();
 			break;
+		case 3:
+			newCharacter = new BlackMage();
+			break;
+		case 4:
+			newCharacter = new WhiteMage();
+			break;
+		case 5:
+			newCharacter = new Rogue();
+			break;
+		case 6:
+			newCharacter = new WarriorGnome();
+			break;
 	}
 	return newCharacter;
 }
@@ -95,9 +112,12 @@ void Game::gameplay(){
 	map.printMap();
 	while(isRunning){
 		move(heroes);
-		map.printMap();
-		cout << "Would you like to continue?" << endl;
-		setIsRunning(menu.checkInputInt("Enter 1 or 0", 0, 1));	
+		event();
+		if(isRunning){
+			map.printMap();
+			cout << "Would you like to continue?" << endl;
+			setIsRunning(menu.checkInputInt("Enter 1 or 0", 0, 1));	
+		}
 	}	
 }
 
@@ -169,6 +189,7 @@ void Game::move(Team *team){
 							team->setLocation(team->getLocation()->getRight());
 							isValidMove = false;
 						}
+
 						else{
 							cout << "If you go that way, you'll fall off the world!\nTry again" << endl;
 							getline(cin, input);
@@ -187,6 +208,48 @@ void Game::move(Team *team){
 			getline(cin,input);
 		}
 
+	}
+
+}
+
+void Game::event(){
+	switch(heroes->getLocation()->getSpaceType()){
+		case GRASS:
+			spaceEvent = new GrassEvent(heroes);
+			delete spaceEvent;
+			checkTeam();
+			break;
+		case FOREST:
+			// spaceEvent = new ForestEvent(heroes);
+			// delete spaceEvent;
+			checkTeam();
+			break;
+		case CAVE:
+			// spaceEvent = new CaveEvent(heroes);
+			// delete spaceEvent;
+			checkTeam();
+			break;
+		case VILLAGE:
+			// spaceEvent = new VillageEvent(heroes);
+			// delete spaceEvent;
+			checkTeam();
+			break;
+		case DUNGEON:
+			// spaceEvent = new DungeonEvent(heroes);
+			// delete spaceEvent;
+			checkTeam();
+			break;
+		case SWAMP:
+			// spaceEvent = new SwampEvent(heroes);
+			// delete spaceEvent;
+			checkTeam();
+			break;
+	}
+}
+
+void Game::checkTeam(){
+	if(!heroes->getIsTeamAlive()){
+		setIsRunning(false);
 	}
 }
 

@@ -5,7 +5,7 @@ Dungeon::Dungeon(){
 	setDown(nullptr);
 	setLeft(nullptr);
 	setRight(nullptr);
-	setType(DUNGEON);
+	setSpaceType(DUNGEON);
 	setMonsters(nullptr);
 }
 	

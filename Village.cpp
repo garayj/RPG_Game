@@ -5,7 +5,7 @@ Village::Village(){
 	setDown(nullptr);
 	setLeft(nullptr);
 	setRight(nullptr);
-	setType(VILLAGE);
+	setSpaceType(VILLAGE);
  	setMonsters(nullptr);
 }
 

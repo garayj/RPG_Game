@@ -9,8 +9,10 @@ defend with 3d6. The Paladin class is the only class that does not have a specia
 #include <iostream>
 
 Paladin::Paladin(){
+	setIsAlive(true);
 	setArmor(10);
 	setMaxHealth(30);
+	setSpeed(4);
 	setHealth(getMaxHealth());
 	setNumberDefDie(3);
 	setNumberAttDie(3);

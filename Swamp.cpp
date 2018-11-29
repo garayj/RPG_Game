@@ -5,7 +5,7 @@ Swamp::Swamp(){
 	setDown(nullptr);
 	setLeft(nullptr);
 	setRight(nullptr);
-	setType(SWAMP);
+	setSpaceType(SWAMP);
 	setMonsters(nullptr);
 }
 

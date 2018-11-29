@@ -12,6 +12,7 @@ using std::cout;
 using std::endl;
 
 BlackMage::BlackMage(){
+	setSpeed(5);
 	setArmor(0);
 	setMaxHealth(10);
 	setHealth(getMaxHealth());
@@ -22,6 +23,7 @@ BlackMage::BlackMage(){
 	setCharacterType(HERO);
 	setCharacterClass(BLACK_MAGE);
 	setMagicPower(10);
+	setIsAlive(true);
 	setMana(5);
 }
 

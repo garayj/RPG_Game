@@ -9,6 +9,8 @@ defend with 2d6.
 #include <iostream>
 
 Ranger::Ranger(){
+	setIsAlive(true);
+	setSpeed(8);
 	setArmor(3);
 	setMaxHealth(15);
 	setHealth(getMaxHealth());

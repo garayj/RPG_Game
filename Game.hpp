@@ -10,6 +10,7 @@ phases of the game.
 #include "Team.hpp"
 #include "Map.hpp"
 #include "Menu.hpp"
+#include "Event.hpp"
 #include <string>
 
 
@@ -19,6 +20,18 @@ private:
    Menu menu;
    Map map;
    Team *heroes;
+   Event *spaceEvent;
+
+/**************************************************************************************************
+** Description: The check team method checks to see if the party is alive. Sets the isRunning data
+member to false if the party is dead.
+**************************************************************************************************/
+   void checkTeam();
+
+/**************************************************************************************************
+** Description: The event method is responsible for handling the events that occur on the field.
+**************************************************************************************************/
+   void event();
 
 /**************************************************************************************************
 ** Description: The startMenu method starts the game or exits.
@@ -86,6 +99,7 @@ public:
 ** Description: Public Function. Excutes a series of functions that is the game.
 **************************************************************************************************/
 	void run();
+
 
 };
 #endif

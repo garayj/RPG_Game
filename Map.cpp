@@ -128,22 +128,22 @@ void Map::printMap(){
 				cout << " \033[5;1;35mX\033[0m ";
 			}
 			else{
-				if(board[n][p]->getType() == GRASS){
+				if(board[n][p]->getSpaceType() == GRASS){
 					cout << " \033[1;37mG\033[0m ";
 				}
-				else if(board[n][p]->getType() == FOREST){
+				else if(board[n][p]->getSpaceType() == FOREST){
 					cout << " \033[1;32mF\033[0m ";
 				}
-				else if(board[n][p]->getType() == VILLAGE){
+				else if(board[n][p]->getSpaceType() == VILLAGE){
 					cout << " \033[1;33mV\033[0m ";
 				}
-				else if(board[n][p]->getType() == DUNGEON){
+				else if(board[n][p]->getSpaceType() == DUNGEON){
 					cout << " \033[1;31mD\033[0m ";
 				}
-				else if(board[n][p]->getType() == SWAMP){
+				else if(board[n][p]->getSpaceType() == SWAMP){
 					cout << " \033[1;34mS\033[0m ";
 				}
-				else if(board[n][p]->getType() == CAVE){
+				else if(board[n][p]->getSpaceType() == CAVE){
 					cout << " \033[1;30mC\033[0m ";
 				}
 			}

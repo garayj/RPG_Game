@@ -21,7 +21,7 @@ public:
 	Space* getDown(){return down;};
 	Space* getLeft(){return left;};
 	Space* getRight(){return right;};
-	spaceType getType(){return type;};
+	spaceType getSpaceType(){return type;};
 	Character **getMonsters(){return monsters;};
 
 
@@ -29,7 +29,7 @@ public:
 	void setDown(Space* down){this->down = down;};
 	void setLeft(Space* left){this->left = left;};
 	void setRight(Space* right){this->right = right;};
-	void setType(spaceType type){this->type = type;};
+	void setSpaceType(spaceType type){this->type = type;};
 	void setMonsters(Character **monsters){this->monsters = monsters;};
 };
 #endif
