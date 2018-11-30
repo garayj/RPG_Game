@@ -14,7 +14,7 @@ const string TEAM_CREATION_HEADER= "Select your team!\n";
 
 const string CHARACTER_SELECTION_MENU = "What Hero would you like to add you your team?\n\n"
 										"1. Paladin: Tanky and strong. Not terribly fast though.\n"
-										"2. Ranger: Quick and nimble but to move so quick, the ranger don't have much armor.\n"
+										"2. Ranger: Quick and nimble but to move so quick, a ranger can't have much armor.\n"
 										"3. Black Mage: The ultimate glass canon. Very powerful, but also very fragile.\n"
 										"4. White Mage: The real MVP.\n"
 										"5. Rogue: Who needs to defend when you're this fast.\n"
@@ -25,4 +25,25 @@ const string CHARACTER_NAME_MENU = "What would you like to name this hero?\n";
 
 const string ERROR_CHARACTER_NAME_MENU = "Oops! They have to have a legendary name.\n" 
 											"What would you like to name this hero?\n";
+
+const string CONTINUE = "Would you like to continue?\n"
+						"1: Yes\n"
+						"0: Exit Game\n";
+
+const string MOVEMENT_PROMPT = "Select a direction to move using wasd.\n"
+								"w: Up\n"
+								"a: Left\n"
+								"s: Down\n"
+								"d: Right\n";
+
+const string FALL_OFF_MAP = "If you go that way, you'll fall off the world!\nTry again";
+
+const string WRONG_CHAR = "That isn't a direction. It's something. Maybe a direction in another language. Try one of the following:\n"
+						"w a s d\n";
+const string TOO_LONG = "You said a whole bunch of not a direction. Try one of the following:\nw a s d\n";
+
+const string THIS_IS_YOUR_TEAM = "This is your team:";
+
+const string LOST_TIMER = "You took too much time and the land has been overcome by the Demon King and his terrible army!\n"
+							"Better luck next time.\n";
 #endif

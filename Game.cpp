@@ -39,6 +39,7 @@ using std::string;
 using std::vector;
 
 Game::Game(){
+	timer = 0;
 }
 
 Game::~Game(){
@@ -85,13 +86,16 @@ void Game::setup(){
 
 	//Print out team.
 	clearScreen();
-	cout << "This is your team" << endl;
+
+	menu.clear();
+	menu.addMenuLine(THIS_IS_YOUR_TEAM);
+	menu.printMenu();
 
 	heroes->printCharacters();
-	// for(int n = 0; n < heroes->getTeamSize(); n++){
-	// 	cout << n +1 << ". " << heroes->getCharacters()[n]->getCharacterClassString() << endl;
-	// }
+
+	//Add the Heroes to the map so the map can know the location of the heroes.
 	map.setHeroes(heroes);
+	//Set the heroes on the map so they can move around.
 	heroes->setLocation(map.getBoard()[0][0]);
 }
 
@@ -123,16 +127,23 @@ Character* Game::characterSelection(int selection){
 
 void Game::gameplay(){
 	map.printMap();
-	while(isRunning){
+	while(isRunning && timer <= 30){
 		move(heroes);
 		clearScreen();
 		event();
 		if(isRunning){
 			map.printMap();
-			cout << "Would you like to continue?" << endl;
-			setIsRunning(menu.checkInputInt("Enter 1 or 0", 0, 1));	
+			menu.clear();
+			menu.addMenuLine(CONTINUE);
+			menu.printMenu();
+			setIsRunning(menu.checkInputInt(ERROR + CONTINUE, 0, 1));	
 		}
 	}	
+	if(timer == 30 && won){
+		menu.clear();
+		menu.addMenuLine(LOST_TIMER);
+		menu.printMenu();
+	}
 }
 
 // void Game::fight(Character *player1, Character *player2){
@@ -147,26 +158,37 @@ void Game::displayTeams(){
 }
 
 void Game::move(Team *team){
+
+	//All needed variables for the method.
 	string input;
 	int direction;
 	bool isValidMove = true, isInArray = false;
 	vector<int> numArray = {97, 100, 115, 119};
 
-	cout << "Enter wasd" << endl;
+	//Print movement options menu.
+	menu.clear();
+	menu.addMenuLine(MOVEMENT_PROMPT);
+	menu.printMenu();
+	menu.clear();
 
 
 	getline(cin, input);
-
+	//Checks if the move is a valid move.
 	while(isValidMove){
-
+		//Checks if the input is just one character long.
 		if(input.length() == 1){
 			direction = input[0];
 			isInArray = false;
+
+
+			//If the input is one character long, look to see if the character is one of the ASCII 
+			//values of w a s or d.
 			for(int n = 0; n < numArray.size(); n++){
 				if(direction == numArray[n]){
 					isInArray = true;
 				}
 			}
+			//If it is one of the values, check if that direction is a valid space and not null.
 			if(isInArray){
 				switch(direction){
 					case 119:
@@ -175,7 +197,8 @@ void Game::move(Team *team){
 							isValidMove = false;
 						}
 						else{
-							cout << "If you go that way, you'll fall off the world!\nTry again" << endl;
+							menu.addMenuLine(FALL_OFF_MAP);
+							menu.printMenu();
 							getline(cin, input);
 						}
 						break;
@@ -185,7 +208,8 @@ void Game::move(Team *team){
 							isValidMove = false;
 						}
 						else{
-							cout << "If you go that way, you'll fall off the world!\nTry again" << endl;
+							menu.addMenuLine(FALL_OFF_MAP);
+							menu.printMenu();
 							getline(cin, input);
 						}
 						break;
@@ -195,7 +219,8 @@ void Game::move(Team *team){
 							isValidMove = false;
 						}
 						else{
-							cout << "If you go that way, you'll fall off the world!\nTry again" << endl;
+							menu.addMenuLine(FALL_OFF_MAP);
+							menu.printMenu();
 							getline(cin, input);
 						}
 						break;
@@ -206,25 +231,25 @@ void Game::move(Team *team){
 						}
 
 						else{
-							cout << "If you go that way, you'll fall off the world!\nTry again" << endl;
+							menu.addMenuLine(FALL_OFF_MAP);
+							menu.printMenu();
 							getline(cin, input);
 						}
 						break;
 				}
 			}
 			else{
-				cout << "That isn't a direction. It's something. Maybe a direction in another language. Try one of the following:\n"
-						"w a s d" << endl;
+				menu.addMenuLine(WRONG_CHAR);
+				menu.printMenu();
 				getline(cin, input);
 			}
 		}	
 		else{
-			cout << "You said a whole bunch of not a direction. Try one of the following:\nw a s d\n";
+			menu.addMenuLine(TOO_LONG);
+			menu.printMenu();
 			getline(cin,input);
 		}
-
 	}
-
 }
 
 void Game::event(){

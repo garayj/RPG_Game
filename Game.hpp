@@ -16,7 +16,9 @@ phases of the game.
 
 class Game{
 private:
+   int timer;
    bool isRunning;
+   bool won;
    Menu menu;
    Map map;
    Team *heroes;

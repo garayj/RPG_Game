@@ -3,7 +3,7 @@
 
 CaveEvent::CaveEvent(Team *heroes){
 	int chanceOfEncounter = rand() % 10 + 1;
-	if(chanceOfEncounter > 7){
+	if(chanceOfEncounter < 7){
 		//fight
 		std::cout << "A fight should happen here." << std::endl;
 	}

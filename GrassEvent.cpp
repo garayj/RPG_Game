@@ -58,19 +58,21 @@ GrassEvent::GrassEvent(Team *heroes){
 		getMenu()->printMenu();
 		selection = getMenu()->checkInputInt(ERROR_MENU, 0, 3);
 	}
-
+	//Quit the Game
 	if(selection == 0){
 		heroes->setIsTeamAlive(false);	
 		getMenu()->clear();
 		getMenu()->addMenuLine(QUIT);
 		getMenu()->printMenu();
 	}
+	//Rest for the night.
 	else if(selection == 2){
 		getMenu()->clear();
 		getMenu()->addMenuLine(REST);
 		getMenu()->printMenu();
 		rest(heroes);
 	}
+	//Mosey on.
 	else{
 		getMenu()->clear();
 		getMenu()->addMenuLine(CONTINUE);
