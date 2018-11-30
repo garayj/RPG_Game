@@ -151,6 +151,7 @@ void Map::printMap(){
 		}
 		cout << endl;
 	}
+	cout << "\n\n";
 	cout << "Legend:" << endl;
 	cout << "\033[1;37mG\033[0m: Grassland\n";
 	cout << "\033[1;32mF\033[0m: Forest\n";
@@ -158,6 +159,7 @@ void Map::printMap(){
 	cout << "\033[1;31mD\033[0m: Dungeon\n";
 	cout << "\033[1;34mS\033[0m: Swamp\n";
 	cout << "\033[1;30mC\033[0m: Cave\n";
+	cout << "\n\n";
 
 }
 

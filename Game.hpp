@@ -23,6 +23,11 @@ private:
    Event *spaceEvent;
 
 /**************************************************************************************************
+** Description: My probably not the best way to clear the screen.
+**************************************************************************************************/
+   void clearScreen();
+
+/**************************************************************************************************
 ** Description: The check team method checks to see if the party is alive. Sets the isRunning data
 member to false if the party is dead.
 **************************************************************************************************/

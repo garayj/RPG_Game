@@ -20,6 +20,8 @@ Ranger::Ranger(){
 	setAttDieSides(4);
 	setCharacterType(HERO);
 	setCharacterClass(RANGER);
+	setSlot1(nullptr);
+	setSlot2(nullptr);
 }
 
 Ranger::~Ranger(){

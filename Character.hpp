@@ -9,6 +9,7 @@ that simulates the base charcateristics of a character in a table top game.
 
 #include <cstdlib>
 #include <string>
+#include "Equipment.hpp"
 
 enum characterClass{PALADIN, ROGUE, BLACK_MAGE, WHITE_MAGE, WARRIOR_GNOME, RANGER};
 enum characterType{HERO, MONSTER};
@@ -32,8 +33,8 @@ protected:
 	std::string name;
 	bool isAlive;
 
-	// Item slot1;
-	// Item slot2;
+	Equipment *slot1;
+	Equipment *slot2;
 
 
 /**************************************************************************************************
@@ -78,6 +79,15 @@ taken and recovers 50% of the damage taken.
 
 
 
+/**************************************************************************************************
+** Description: Getter Funciton. Returns an representing the speed a character has.
+**************************************************************************************************/
+	Equipment* getSlot1(){ return slot1;};
+
+/**************************************************************************************************
+** Description: Getter Funciton. Returns an representing the speed a character has.
+**************************************************************************************************/
+	Equipment* getSlot2(){ return slot2;};
 
 /**************************************************************************************************
 ** Description: Getter Funciton. Returns an integer representing the speed a character has.
@@ -158,6 +168,18 @@ class is. Takes no arguments.
 
 
 
+
+/**************************************************************************************************
+** Description: Setter Funciton. Takes an Equipment pointer argument and sets the slot1 a character
+has.
+**************************************************************************************************/
+	void setSlot1(Equipment *slot1){ this->slot1 = slot1;};
+
+/**************************************************************************************************
+** Description: Setter Funciton. Takes an Equipment pointer argument and sets the slot2 a character
+has.
+**************************************************************************************************/
+	void setSlot2(Equipment *slot2){ this->slot2 = slot2;};
 
 /**************************************************************************************************
 ** Description: Setter Funciton. Takes an integer argument and sets the speed a character has.

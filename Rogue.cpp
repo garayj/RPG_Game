@@ -20,6 +20,8 @@ Rogue::Rogue(){
 	setCharacterType(HERO);
 	setCharacterClass(ROGUE);
 	setSpeed(10);
+	setSlot1(nullptr);
+	setSlot2(nullptr);
 }
 
 Rogue::~Rogue(){

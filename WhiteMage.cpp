@@ -13,6 +13,8 @@ using std::endl;
 
 WhiteMage::WhiteMage(){
 	setIsAlive(true);
+	setSlot1(nullptr);
+	setSlot2(nullptr);
 	setArmor(0);
 	setMaxHealth(10);
 	setHealth(getMaxHealth());

@@ -13,6 +13,8 @@ phases of the game.
 #include "WhiteMage.hpp"
 #include "WarriorGnome.hpp"
 
+#include "Item.hpp"
+
 #include "CaveEvent.hpp"
 #include "GrassEvent.hpp"
 #include "DungeonEvent.hpp"
@@ -55,12 +57,7 @@ void Game::run(){
 }
 
 void Game::startMenu(){	
-	menu.addMenuLine(HALFLIFE);
-	menu.printMenu();
-	int halflife = menu.checkInputInt(ERROR + HALFLIFE, 0 ,1);
-	menu.clear();
-
-	menu.addMenuLine(SNARK + MAIN_MENU);
+	menu.addMenuLine(MAIN_MENU);
 	menu.printMenu();
 	setIsRunning(menu.checkInputInt(ERROR + MAIN_MENU, 0, 1));	
 	menu.clear();
@@ -80,13 +77,20 @@ void Game::setup(){
 		menu.printMenu();
 		selection  = menu.checkInputInt(ERROR + CHARACTER_SELECTION_MENU, 1, 6);
 		heroes->getCharacters()[n] = characterSelection(selection);
+		menu.clear();
+		menu.addMenuLine(CHARACTER_NAME_MENU);
+		menu.printMenu();
+		heroes->getCharacters()[n]->setName(menu.checkInputString(ERROR_CHARACTER_NAME_MENU));
 	}
 
 	//Print out team.
+	clearScreen();
 	cout << "This is your team" << endl;
-	for(int n = 0; n < heroes->getTeamSize(); n++){
-		cout << n +1 << ". " << heroes->getCharacters()[n]->getCharacterClassString() << endl;
-	}
+
+	heroes->printCharacters();
+	// for(int n = 0; n < heroes->getTeamSize(); n++){
+	// 	cout << n +1 << ". " << heroes->getCharacters()[n]->getCharacterClassString() << endl;
+	// }
 	map.setHeroes(heroes);
 	heroes->setLocation(map.getBoard()[0][0]);
 }
@@ -121,6 +125,7 @@ void Game::gameplay(){
 	map.printMap();
 	while(isRunning){
 		move(heroes);
+		clearScreen();
 		event();
 		if(isRunning){
 			map.printMap();
@@ -134,6 +139,7 @@ void Game::gameplay(){
 // }
 
 void Game::end(){
+
 	delete heroes;
 }
 
@@ -259,6 +265,12 @@ void Game::event(){
 void Game::checkTeam(){
 	if(!heroes->getIsTeamAlive()){
 		setIsRunning(false);
+	}
+}
+
+void Game::clearScreen(){
+	for(int n = 0; n < 1000; n++){
+		cout << "\n";
 	}
 }
 

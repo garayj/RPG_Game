@@ -4,12 +4,7 @@
 
 using std::string;
 
-const string HALFLIFE = "Would you like to play Half Life 3?\n"
-						"1. Yes\n"
-						"0. No\n";
 const string ERROR = "Error! Please select one of the options below:\n";
-
-const string SNARK = "Me too! But that's never coming out\n";
 
 const string MAIN_MENU = "Would you like to play my game instead?\n"
 						"1. Yes\n"
@@ -25,4 +20,9 @@ const string CHARACTER_SELECTION_MENU = "What Hero would you like to add you you
 										"5. Rogue: Who needs to defend when you're this fast.\n"
 										"6. Warrior Gnome: Best gnome.\n";
 
+const string CHARACTER_NAME_MENU = "What would you like to name this hero?\n";
+
+
+const string ERROR_CHARACTER_NAME_MENU = "Oops! They have to have a legendary name.\n" 
+											"What would you like to name this hero?\n";
 #endif

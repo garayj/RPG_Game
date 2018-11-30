@@ -15,9 +15,10 @@ class Team
 private:
 	bool isTeamAlive;
 	int teamSize;
+	int inventorySize;
 	Character **characters;
 	Space *location;
-	// Item **inventory;
+	Item **inventory;
 public:
 	Team(int);
 	~Team();
@@ -28,9 +29,11 @@ public:
 
 	//Getter Functions for the Team class data members
 	int getTeamSize(){return teamSize;};
+	int getInventorySize(){return inventorySize;};
 	Character** getCharacters(){return characters;};
 	Space* getLocation(){return location;};
 	bool getIsTeamAlive(){return isTeamAlive;};
+	Item** getInventory(){return inventory;};
 
 
 
@@ -38,9 +41,11 @@ public:
 
 	//Setter Functions for the Team class data members
 	void setTeamSize(int teamSize){this->teamSize = teamSize;};
+	void setInventorySize(int inventorySize){this->inventorySize = inventorySize;};
 	void setCharacters(Character **characters){this->characters = characters;};
 	void setLocation(Space *location){this->location = location;};	
 	void setIsTeamAlive(bool isTeamAlive){this->isTeamAlive = isTeamAlive;};
+	void setInventory(Item ** inventory){ this->inventory = inventory;};
 
 
 
@@ -49,5 +54,10 @@ public:
 	bool teamAliveStatus();
 	//Prints out all the characters in the Team.
 	void printCharacters();
+	//Add item to inventory.
+	void addItemToInventory(Item*);
+	//Check if the inventory is full
+	bool isInventoryEmpty();
+	void removeItemFromInventory(int);
 };
 #endif

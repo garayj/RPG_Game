@@ -20,6 +20,8 @@ WarriorGnome::WarriorGnome(){
 	setCharacterClass(WARRIOR_GNOME);
 	setSpeed(5);
 	setIsAlive(true);
+	setSlot1(nullptr);
+	setSlot2(nullptr);
 }
 
 WarriorGnome::~WarriorGnome(){

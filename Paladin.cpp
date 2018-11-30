@@ -20,6 +20,8 @@ Paladin::Paladin(){
 	setAttDieSides(6);
 	setCharacterType(HERO);
 	setCharacterClass(PALADIN);
+	setSlot1(nullptr);
+	setSlot2(nullptr);
 }
 
 Paladin::~Paladin(){

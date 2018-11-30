@@ -13,7 +13,14 @@ using std::endl;
 
 Character::Character(){}
 
-Character::~Character(){}
+Character::~Character(){
+	if(getSlot1() != nullptr){
+		delete slot1;
+	}
+	if(getSlot2() != nullptr){
+		delete slot2;
+	}
+}
 
 int Character::roll(int die, int sides){
 	int total = 0;
@@ -46,10 +53,24 @@ std::string Character::getCharacterClassString(){
 int Character::attack(){
 	//Roll for attack.
 	int attack = roll(numberOfAttDie, attDieSides);
+	if(slot1 != nullptr && slot1->getType() == WEAPON){
+		attack += slot1->getEffect();
+	}
+	if(slot2 != nullptr && slot2->getType() == WEAPON){
+		attack += slot2->getEffect();
+	}
 	return attack;
 }
 void Character::defend(int attack){
+
 	int defense = roll(getNumberOfDefDie(), getDefDieSides());
+	
+	if(slot1 != nullptr && slot1->getType() == ARMOR){
+		defense += slot1->getEffect();
+	}
+	if(slot2 != nullptr && slot2->getType() == ARMOR){
+		defense += slot2->getEffect();
+	}
 	int damage = attack - getArmor() - defense;
 
 	if(damage < 0){

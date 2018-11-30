@@ -24,6 +24,8 @@ BlackMage::BlackMage(){
 	setCharacterClass(BLACK_MAGE);
 	setMagicPower(10);
 	setIsAlive(true);
+	setSlot1(nullptr);
+	setSlot2(nullptr);
 	setMana(5);
 }
 
