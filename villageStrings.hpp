@@ -33,15 +33,15 @@ const string USE_ITEM = "Select the item you would like to use or select 0 to go
 
 const string MERCHANT = "Welcome Travelers!\n"
 						"Take a look at my wares\n"
-						"1: 1000G Greater Sword - Hard as a diamond, strong as a bear. This blade was made for cutting up baddies. +10 to all attacks. (For the Paladin class)\n"
+						"1: 1000G Greater Sword - Hard as a diamond, strong as a bear. This blade was made for cutting up baddies. +10 Damage(For the Paladin class)\n"
 						"2: 400G Magic Shield - A little pendant that absorbs damage that you may take. +5 Armor (For any class)\n"
 						"3: 2000G Battle Wand - A stick. It just looks like a stick. +15 Damage(For Black Mage only)\n"
 						"4: 500G Healing Wand - A unicorn lost it's horn for this. +10 Healing(For White Mage only)\n"
 						"5: 1000G Great Hammer - The perfect hammer. Made by the Dwarves of Dwarvington, +10 Damage(For Warrior Gnome class)\n"
 						"6: 2000G Sharp Dagger - A knife from Target. +30 Damage (For Rogue class)\n"
-						"7: 1500G Crossbow - Shoots arrows with such accuracy. Use this instead of a bow you scrub. +15 Damage (For Ranger class)\n"
+						"7: 1500G Crossbow - Shoots arrows with such accuracy. Use this instead of a bow you scrub. +15 Damage(For Ranger class)\n"
 						"8: 100G Health Potion - Tastes like cherries. +5 HP\n"
-						"9: 1000G Strength Potion - Tastes like a protein shake. +5 Damage\n"
+						"9: 1000G Phoenix Down - Pigeon feathers. Heroes are revived with full health (and mana)\n"
 						"10: 1000G Defense Potion - Tastes like a castle. +5 Defense\n"
 						"0: Walk away.\n";
 #endif

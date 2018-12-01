@@ -1,10 +1,24 @@
 #include "VillageEvent.hpp"
 #include "villageStrings.hpp"
 #include "WhiteMage.hpp"
-#include "BlackMage.hpp"					
+#include "BlackMage.hpp"
+
+#include "DefensePotion.hpp"
+#include "HealthPotion.hpp"
+#include "PhoenixDown.hpp"
+
+#include "GreaterSword.hpp"
+#include "SharpDagger.hpp"
+#include "GreatHammer.hpp"
+#include "BattleWand.hpp"
+#include "HealingWand.hpp"
+#include "MagicShield.hpp"
+#include "Crossbow.hpp"
+
 #include <iostream>
 
 VillageEvent::VillageEvent(Team *heroes){
+	int itemSelection;
 	monsters = nullptr;
 	setMenu(new Menu());
 
@@ -33,19 +47,24 @@ VillageEvent::VillageEvent(Team *heroes){
 
 					//check inventory
 					heroes->inventoryMenu(selection);
-					getMenu()->clear();
-					getMenu()->addMenuLine(MAIN_MENU);	
-					getMenu()->printMenu();
-					selection = getMenu()->checkInputInt(ERROR_MENU, 0, 3);
 				}
 				break;
 			case 4:
 				getMenu()->clear();
 				getMenu()->addMenuLine(MERCHANT);
 				getMenu()->printMenu();
+				itemSelection =getMenu()->checkInputInt(ERROR,0 ,10);
+				if(itemSelection){
+					heroes->getInventory()->push_back(createItem(itemSelection));
+
+				}
 
 				break;
 		}
+		getMenu()->clear();
+		getMenu()->addMenuLine(MAIN_MENU);	
+		getMenu()->printMenu();
+		selection = getMenu()->checkInputInt(ERROR_MENU, 0, 3);
 	}
 	//Quit the Game
 	if(selection == 0){
@@ -92,5 +111,41 @@ void VillageEvent::rest(Team *hero){
 
 			}
 		}
+	}
+}
+
+Item* VillageEvent::createItem(int input){
+	Item *output;
+	switch(input){
+		case 1:
+			output = new GreaterSword();
+			break;
+		case 2:
+			output = new MagicShield();
+			break;
+		case 3:
+			output = new BattleWand();
+			break;
+		case 4:
+			output = new HealingWand();
+			break;
+		case 5:
+			output = new GreatHammer();
+			break;
+		case 6:
+			output = new SharpDagger();
+			break;
+		case 7:
+			output = new Crossbow();
+			break;
+		case 8:
+			output = new HealthPotion();
+			break;
+		case 9:
+			output = new PhoenixDown();
+			break;
+		case 10:
+			output = new DefensePotion();
+			break;
 	}
 }
