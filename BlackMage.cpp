@@ -26,7 +26,8 @@ BlackMage::BlackMage(){
 	setIsAlive(true);
 	setSlot1(nullptr);
 	setSlot2(nullptr);
-	setMana(5);
+	setMaxMana(5);
+	setMana(getMaxMana());
 }
 
 BlackMage::~BlackMage(){

@@ -70,12 +70,6 @@ method returns one of the five hero characters to add to the Queue in the create
    Character* characterSelection(int);
 
 /**************************************************************************************************
-** Description: Method takes no arguments and returns nothing. Displays the teams rosters to the 
-console if there are any heros.
-**************************************************************************************************/
-   void displayTeams();
-
-/**************************************************************************************************
 ** Description: Method takes a Team pointer as an argument and returns nothing. The move Method 
 moves the team into another space if the space is on the board.
 **************************************************************************************************/
@@ -90,6 +84,8 @@ moves the team into another space if the space is on the board.
 ** Description: Getter Function. Returns the heroes data member.
 **************************************************************************************************/
    void setTeam(Team* heroes){this->heroes = heroes;};
+
+   void damage();
 
 
 public:

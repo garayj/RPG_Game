@@ -127,9 +127,12 @@ Character* Game::characterSelection(int selection){
 
 void Game::gameplay(){
 	map.printMap();
+	heroes->teamStats();
+	damage();
 	while(isRunning && timer <= 30){
 		move(heroes);
 		clearScreen();
+		heroes->teamStats();
 		event();
 		if(isRunning){
 			map.printMap();
@@ -154,8 +157,6 @@ void Game::end(){
 	delete heroes;
 }
 
-void Game::displayTeams(){
-}
 
 void Game::move(Team *team){
 
@@ -299,3 +300,8 @@ void Game::clearScreen(){
 	}
 }
 
+void Game::damage(){
+	for(int n = 0; n < heroes->getTeamSize(); n++){
+		heroes->getCharacters()[n]->setHealth(5);
+	}
+}

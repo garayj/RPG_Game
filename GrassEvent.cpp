@@ -10,51 +10,51 @@ inventory, camp, move on, or end the game. No monster battles can occur here.
 #include "grassStrings.hpp"
 #include "GreaterSword.hpp"
 #include "Equipment.hpp"
+#include "Potion.hpp"
+#include "HealthPotion.hpp"
 #include <iostream>
+
+using std::cout;
 
 GrassEvent::GrassEvent(){}
 
 GrassEvent::GrassEvent(Team *heroes){
-	menu = new Menu();
 	monsters = nullptr;
-
-	Equipment *sword;
+	setMenu(new Menu());
+	//This is for testing.
+	// Equipment *sword1 = new GreaterSword();
+	// Equipment *sword2 = new GreaterSword();
+	// Equipment *sword3 = new GreaterSword();
+	// heroes->getInventory()->push_back(sword1);
+	// heroes->getInventory()->push_back(sword2);
+	// heroes->getInventory()->push_back(sword3);
 
 	getMenu()->addMenuLine(MAIN_MENU);
 	getMenu()->printMenu();
 
 	int selection = getMenu()->checkInputInt(ERROR_MENU, 0, 3);
+	//Go into the inventory and either equip weapons and armor or use a potion.
 	while(selection == 1){
-		std::cout << "Would you like to equip a sword?" << std::endl;
-		selection = getMenu()->checkInputInt(ERROR_MENU, 0, 1);
-		if(selection){
-			sword = new GreaterSword();
-			std::cout << "Which character?\n\n";
-			for(int n = 0; n < heroes->getTeamSize(); n++){
-				std:: cout  << n +1 << ": " << heroes->getCharacters()[n]->getCharacterClassString() << std::endl;
-			}
-			selection = menu->checkInputInt("Select a character", 1, heroes->getTeamSize());
-			if(heroes->getCharacters()[selection - 1]->getCharacterClass() == PALADIN){
-				if(heroes->getCharacters()[selection - 1]->getSlot1() == nullptr ){
-					heroes->getCharacters()[selection - 1]->setSlot1(sword);
-				}
-				else if(heroes->getCharacters()[selection - 1]->getSlot2() == nullptr){
-					heroes->getCharacters()[selection - 1]->setSlot2(sword);
-				}
-				else{
-					std::cout << "There are no more slots left!" << std::endl;
-					delete sword;
-				}
-			}
 
-			else{
-				delete sword;
-				std::cout << "That character cannot use that!\n\n";
-			}
+		getMenu()->clear();
+		getMenu()->addMenuLine(INVENTORY);
+		getMenu()->printMenu();
+		//Print out all the things in the inventory.
+		heroes->printInventory();
+
+		getMenu()->clear();
+		getMenu()->addMenuLine(USE_ITEM);
+		getMenu()->printMenu();
+
+		selection = getMenu()->checkInputInt(ERROR + USE_ITEM, 0, heroes->getInventory()->size());
+
+		//If the user decides to equip a weapon or armor or use a potion the item is checked here.
+		if(selection > 0){
+			//check inventory
+			heroes->inventoryMenu(selection);
 		}
-
-
-		//check inventory
+		getMenu()->clear();
+		getMenu()->addMenuLine(MAIN_MENU);	
 		getMenu()->printMenu();
 		selection = getMenu()->checkInputInt(ERROR_MENU, 0, 3);
 	}

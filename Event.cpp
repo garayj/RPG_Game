@@ -8,3 +8,4 @@ that will occur on each space on the board.
 
 Event::Event(){}
 Event::~Event(){}
+// Event::fight(){}

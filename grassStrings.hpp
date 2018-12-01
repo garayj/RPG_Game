@@ -14,7 +14,7 @@ const string MAIN_MENU = "Ahhh. The good ol' grasslands. Ain't no monsters here.
 						"3. Continue on the Path.\n"
 						"0. Quit Game.\n";
 
-const string ERROR_MENU = "Oops. Select one of the options below:\n"
+const string ERROR_MENU = "Oops. Select one of the options:\n"
 						"1. Look at inventory.\n"
 						"2. Camp. Party rests and 5 points of health and mana are restored.\n"
 						"3. Continue on the Path.\n"
@@ -22,9 +22,17 @@ const string ERROR_MENU = "Oops. Select one of the options below:\n"
 
 const string QUIT = "Aw well. It was fun while it lasted. At least I hope it was.\n\n";
 
+const string ERROR = "Ooops. Try selecting something on the screen.\n\n";
+
+const string INVENTORY = "Here is your inventory:\n\n";
+
 const string REST = "The group settles in for the night.\n"
 					"Fire, food and drinks. The team goes to sleep after a long day.\n\n";
 
 const string CONTINUE = "Why wait around while there's still the world to save?\n"
 						"The heroes pack up and head out\n";
+
+const string USE_ITEM = "Select the item you would like to use or select 0 to go back.\n";
+
+
 #endif

@@ -12,6 +12,7 @@ defends with 4d6. The Black Mage class as the special ability to attack with mag
 class WhiteMage: public Character
 {
 private:
+	int maxMana;
 	int mana;
 	int magicPower;
 public:
@@ -30,6 +31,11 @@ public:
 
 
 /**************************************************************************************************
+** Description: Getter Function. Returns an integer representing the max mana the Black Mage has.
+*************************************************************************************************/
+	int getMaxMana(){return maxMana;};
+
+/**************************************************************************************************
 ** Description: Getter Function. Returns an integer representing how much mana the Black Mage has.
 If the Black Mage has no mana, then the Black Mage cannot cast magicMissle.
 *************************************************************************************************/
@@ -44,6 +50,11 @@ If the Black Mage has no mana, then the Black Mage cannot cast magicMissle.
 
 
 
+/**************************************************************************************************
+** Description: Setter Function. Sets the max amount of mana the Black Mage has.
+*************************************************************************************************/
+	void setMaxMana(int maxMana){this->maxMana = maxMana;};
+	
 /**************************************************************************************************
 ** Description: Setter Function. Sets the amount of mana the Black Mage has.
 *************************************************************************************************/

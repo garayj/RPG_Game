@@ -10,8 +10,8 @@ that simulates the base charcateristics of a character in a table top game.
 #include <cstdlib>
 #include <string>
 #include "Equipment.hpp"
+#include "characterClass.hpp"
 
-enum characterClass{PALADIN, ROGUE, BLACK_MAGE, WHITE_MAGE, WARRIOR_GNOME, RANGER};
 enum characterType{HERO, MONSTER};
 
 class Character{

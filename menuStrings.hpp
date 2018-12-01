@@ -6,7 +6,7 @@ using std::string;
 
 const string ERROR = "Error! Please select one of the options below:\n";
 
-const string MAIN_MENU = "Would you like to play my game instead?\n"
+const string MAIN_MENU = "Would you like to play Hero Quest?\n"
 						"1. Yes\n"
 						"0. No\n";
 

@@ -22,6 +22,7 @@ public:
 	void setEffect(int effect){this->effect = effect;};
 	void setItemName(std::string itemName){this->itemName = itemName;};
 	void setDescription(std::string description){this->description = description;};
+
 	
 };
 #endif

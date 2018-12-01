@@ -9,6 +9,9 @@ boolean data member to check whether the Team is alive or not.
 #define TEAM_HPP 
 #include "Space.hpp"
 #include "Character.hpp"
+#include <vector>
+
+using std::vector;
 
 class Team
 {
@@ -18,7 +21,8 @@ private:
 	int inventorySize;
 	Character **characters;
 	Space *location;
-	Item **inventory;
+	vector<Item*>* inventory;
+	int gold;
 public:
 	Team(int);
 	~Team();
@@ -33,7 +37,8 @@ public:
 	Character** getCharacters(){return characters;};
 	Space* getLocation(){return location;};
 	bool getIsTeamAlive(){return isTeamAlive;};
-	Item** getInventory(){return inventory;};
+	vector<Item*>* getInventory(){return inventory;};
+	int getGold(){return gold;};
 
 
 
@@ -45,7 +50,8 @@ public:
 	void setCharacters(Character **characters){this->characters = characters;};
 	void setLocation(Space *location){this->location = location;};	
 	void setIsTeamAlive(bool isTeamAlive){this->isTeamAlive = isTeamAlive;};
-	void setInventory(Item ** inventory){ this->inventory = inventory;};
+	void setInventory(vector<Item*>* inventory){ this->inventory = inventory;};
+	void setGold(int gold){this->gold = gold;};
 
 
 
@@ -56,8 +62,13 @@ public:
 	void printCharacters();
 	//Add item to inventory.
 	void addItemToInventory(Item*);
-	//Check if the inventory is full
-	bool isInventoryEmpty();
+	//Remove an item from integerventory. Takes an integer as input and to use as an index.
 	void removeItemFromInventory(int);
+	//Prints out all the contents of the inventory to the console for the user.
+	void printInventory();
+	//Opens a menu to the user and prompts them to use items in their inventory if there are any items.
+	void inventoryMenu(int);
+
+	void teamStats();
 };
 #endif
