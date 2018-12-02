@@ -4,7 +4,6 @@
 class CaveEvent : public Event
 {
 public:
-	CaveEvent(){};
 	CaveEvent(Team*);
 	~CaveEvent(){};
 };

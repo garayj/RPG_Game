@@ -2,6 +2,7 @@
 #include <iostream>
 
 DefensePotion::DefensePotion(){
+	setIsBirdFeather(false);
 	setItemType(POTION);
 	setEffect(5);
 	setItemName("Defense Potion");

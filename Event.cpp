@@ -5,7 +5,33 @@
 that will occur on each space on the board.
 **************************************************************************************************/
 #include "Event.hpp"
+#include "inventoryStrings.hpp"
 
 Event::Event(){}
 Event::~Event(){}
-// Event::fight(){}
+bool Event::inventoryAction(){
+	bool noActionMade;	
+	int selection;
+	getMenu()->clear();
+	getMenu()->addMenuLine(INVENTORY);
+	getMenu()->printMenu();
+	//Print out all the things in the inventory.
+	getHeroes()->printInventory();
+
+	getMenu()->clear();
+	getMenu()->addMenuLine(USE_ITEM);
+	getMenu()->printMenu();
+
+	selection = getMenu()->checkInputInt(ERROR + USE_ITEM, 0, getHeroes()->getInventory()->size());
+
+	//If the user decides to equip a weapon or armor or use a potion the item is checked here.
+	if(selection == 0){
+		noActionMade = false;
+	}
+	else{
+		//check inventory
+		noActionMade = getHeroes()->inventoryMenu(selection);
+	}
+
+	return noActionMade;
+}

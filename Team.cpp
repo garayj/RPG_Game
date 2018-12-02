@@ -22,7 +22,7 @@ Team::Team(int size){
 	setIsTeamAlive(true);
 	setTeamSize(size);
 	setLocation(nullptr);
-	setGold(3000);
+	setGold(1000000);
 	setInventory(new vector<Item*>());
 
 	characters = new Character*[getTeamSize()];
@@ -47,14 +47,14 @@ Team::~Team(){
 
 }
 
-bool Team::teamAliveStatus(){
+void Team::teamAliveStatus(){
 	for(int n = 0; n < getTeamSize(); n++){
 		if(getCharacters()[n]->getIsAlive()){
-			return true;
+			return;
 		}
 	}
 	setIsTeamAlive(false);
-	return false;
+	return;
 }
 
 void Team::printCharacters(){
@@ -175,46 +175,52 @@ void Team::printInventory(){
 }
 
 
-void Team::inventoryMenu(int itemIndex){
+bool Team::inventoryMenu(int itemIndex){
 	Menu menu;
 	int input;
-	cout << "This is the item index: "<<itemIndex << endl;
-	cout << "Would you like to use this Item or throw it away?\n1: Use/Equip it\n0: Remove it from inventory.\n";
-	input = menu.checkInputInt("Error!\n1: Use/Equip it\n0: Remove it from inventory.\n", 0, 1);
+	cout << "Would you like to use this Item or throw it away?\n"
+			"1: Use/Equip it\n2: Remove it from inventory.\n"
+			"0: Go Back\n";
+	input = menu.checkInputInt("Error!\n1: Use/Equip it\n2: Remove it from inventory.\n0: Go Back\n", 0, 2);
 
 	if(input == 1){
-		useItem(itemIndex);
+		return useItem(itemIndex);
+	}
+	else if(input == 2){
+		removeItemFromInventory(itemIndex - 1);
+		return false;
 	}
 	else{
-		removeItemFromInventory(itemIndex - 1);
+		return false;
 	}
 
 
 }
 
-void Team::useItem(int itemIndex){
+bool Team::useItem(int itemIndex){
 
 	//Check if the item the user wants to use is a potion.
 	if(getInventory()->at(itemIndex - 1)->getItemType() == POTION){
-		usePotion(itemIndex);
+		return usePotion(itemIndex);
 	}
 	//If the item is not a Potion type then it must be an Equipment type.
 	else{
-		equip(itemIndex);
+		return equip(itemIndex);
 	}
 
 }
 
-void Team::equip(int itemIndex){
+bool Team::equip(int itemIndex){
 	Menu menu;
 	int characterIndex;
+	cout << "Who would you like to hold this?\n";
+	printCharacters();
+
+	//Validate user input.
+	characterIndex = menu.checkInputInt("Ooops! Please select a hero in the menu\n", 1, getTeamSize());
+
 	//Check if the item is a Weapon type.
 	if(dynamic_cast<Equipment*>(getInventory()->at(itemIndex - 1))->getType() == WEAPON){
-		cout << "Who would you like to hold this?\n";
-		printCharacters();
-
-		//Validate user input.
-		characterIndex = menu.checkInputInt("Ooops! Please select a hero in the menu\n", 1, getTeamSize());
 
 		//Check if the Equipment is made for the Character.
 		if(getCharacters()[characterIndex - 1]->getCharacterClass() == dynamic_cast<Equipment*>(getInventory()->at(itemIndex - 1))->getClassType()){
@@ -226,6 +232,7 @@ void Team::equip(int itemIndex){
 					getCharacters()[characterIndex - 1]->setSlot1(dynamic_cast<Equipment*>(getInventory()->at(itemIndex - 1)));
 					cout << getCharacters()[characterIndex - 1]->getName() << " is now holding " << getCharacters()[characterIndex - 1]->getSlot1()->getItemName() << " in slot 1." << std::endl;
 					getInventory()->erase(getInventory()->begin() + itemIndex - 1);
+					return false;
 					
 			}
 			//Check if the second slot is taken.
@@ -235,13 +242,16 @@ void Team::equip(int itemIndex){
 				getCharacters()[characterIndex - 1]->setSlot2(dynamic_cast<Equipment*>(getInventory()->at(itemIndex - 1)));
 				cout << getCharacters()[characterIndex - 1]->getName() << " is now holding " << getCharacters()[characterIndex - 1]->getSlot2()->getItemName() << " in slot 2." << std::endl;
 				getInventory()->erase(getInventory()->begin() + itemIndex - 1);
+				return false;
 			}
 			else{
 				cout << "This hero is already holding two pieces of Equipment.\n" << endl;
+				return true;
 			}
 		}
 		else{
 			cout << "This is not meant for this hero!" << endl;
+			return true;
 		}
 	}
 	//If the equipment is a shield
@@ -253,6 +263,7 @@ void Team::equip(int itemIndex){
 				getCharacters()[characterIndex - 1]->setSlot1(dynamic_cast<Equipment*>(getInventory()->at(itemIndex - 1)));
 				cout << getCharacters()[characterIndex - 1]->getName() << " is now holding " << getCharacters()[characterIndex - 1]->getSlot1()->getItemName() << " in slot 1." << std::endl;
 				getInventory()->erase(getInventory()->begin() + itemIndex - 1);
+				return false;
 				
 		}
 		//Check if the second slot is taken.
@@ -262,25 +273,33 @@ void Team::equip(int itemIndex){
 			getCharacters()[characterIndex - 1]->setSlot2(dynamic_cast<Equipment*>(getInventory()->at(itemIndex - 1)));
 			cout << getCharacters()[characterIndex - 1]->getName() << " is now holding " << getCharacters()[characterIndex - 1]->getSlot2()->getItemName() << " in slot 2." << std::endl;
 			getInventory()->erase(getInventory()->begin() + itemIndex - 1);
+			return false;
 		}
 		else{
 			cout << "This hero is already holding two pieces of Equipment.\n" << endl;
+			return true;
 		}
 	}
 
 }
 
-void Team::usePotion(int itemIndex){
+bool Team::usePotion(int itemIndex){
 	Menu menu;
 	cout << "Select the hero you would like to use the item on.\n";
 	printCharacters();				
 
 	//Validate the user is entering a valid character to use the potion type on.
 	int characterIndex = menu.checkInputInt("Oops please select a hero in your party.\n", 1, getTeamSize());
+	while(!getCharacters()[characterIndex - 1]->getIsAlive() && !dynamic_cast<Potion*>(getInventory()->at(itemIndex - 1))->getIsBirdFeather()){
+		cout << "You can't use that! The hero has already fallen. Choose another.\n";
+		characterIndex = menu.checkInputInt("Oops please select a hero in your party.\n", 1, getTeamSize());
+	}
 
 	//Use the potion, free the memory and remove it from the inventory.
+
 	dynamic_cast<Potion*>(getInventory()->at(itemIndex - 1))->usePotion(getCharacters()[characterIndex - 1]);
 	delete getInventory()->at(itemIndex - 1);
 	getInventory()->erase(getInventory()->begin() + itemIndex - 1);
+	return false;
 
 }

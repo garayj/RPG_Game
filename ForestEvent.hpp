@@ -4,7 +4,6 @@
 class ForestEvent : public Event
 {
 public:
-	ForestEvent(){};
 	ForestEvent(Team *);
 	~ForestEvent(){};
 	

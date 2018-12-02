@@ -2,6 +2,7 @@
 #include <iostream>
 
 HealthPotion::HealthPotion(){
+	setIsBirdFeather(false);
 	setItemType(POTION);
 	setEffect(5);
 	setItemName("Health Potion");

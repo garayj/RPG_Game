@@ -1,3 +1,8 @@
+/**************************************************************************************************
+** Author: Jose Garay
+** Date: 11/27/2018
+** Description: Header file for all the strings within the main Game portion of the game. 
+**************************************************************************************************/
 #ifndef MENU_STRINGS_HPP
 #define MENU_STRINGS_HPP 
 #include <string>

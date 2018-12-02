@@ -26,15 +26,15 @@ private:
 
 	//Takes in an integer representing the index of the item the user would like to use.
 	//Used in the inventoryMenu method only.
-	void useItem(int);
+	bool useItem(int);
 
 	//Takes in an integer representing the index of the item the user would like to use.
 	//Used in the useItem method only.
-	void equip(int);
-	
+	bool equip(int);
+
 	//Takes in an integer representing the index of the item the user would like to use.
 	//Used in the useItem method only.
-	void usePotion(int);
+	bool usePotion(int);
 public:
 	Team(int);
 	~Team();
@@ -69,7 +69,7 @@ public:
 
 
 	//Checks if the team any Character in the team is still alive.
-	bool teamAliveStatus();
+	void teamAliveStatus();
 	//Prints out all the characters in the Team.
 	void printCharacters();
 	//Add item to inventory.
@@ -79,7 +79,7 @@ public:
 	//Prints out all the contents of the inventory to the console for the user.
 	void printInventory();
 	//Opens a menu to the user and prompts them to use items in their inventory if there are any items.
-	void inventoryMenu(int);
+	bool inventoryMenu(int);
 	//Check if the inventory is full.
 	bool isInventoryFull();
 	//Prints out the Character stats to the console.

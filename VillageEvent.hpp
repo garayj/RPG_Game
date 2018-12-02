@@ -6,12 +6,11 @@
 class VillageEvent : public Event
 {
 public:
-	VillageEvent(){};
 	VillageEvent(Team*);
 	~VillageEvent(){};
 
-	void rest(Team*);
-	Item* createItem(int, Team*);
+	void rest();
+	Item* createItem(int);
 	
 };
 #endif

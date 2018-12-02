@@ -8,21 +8,29 @@ that will occur on each space on the board.
 #define EVENT_HPP 
 #include "Menu.hpp"
 #include "Team.hpp"
+#include "Space.hpp"
 class Event
 {
 protected:
+	Space *space;
 	Menu *menu;
+	Team *heroes;
 
 public:
 	Event();
 	virtual ~Event()=0;
 	// virtual void fight()=0;
+	bool inventoryAction();	
 
 	//Getter functions for the private data members.
 	Menu *getMenu(){return menu;};
+	Team *getHeroes(){return heroes;};
+	Space *getSpace(){return space;};
 
 	//Setter functions for the private data members.
 	void setMenu(Menu *menu){this->menu = menu;};
+	void setHeroes(Team *heroes){this->heroes = heroes;};
+	void setSpace(Space *space){this->space = space;};
 	
 };
 #endif

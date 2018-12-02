@@ -4,7 +4,6 @@
 class DungeonEvent : public Event
 {
 public:
-	DungeonEvent(){};
 	DungeonEvent(Team*);
 	~DungeonEvent(){};
 	

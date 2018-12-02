@@ -29,8 +29,10 @@ the game. No monster battles can occur here.
 
 
 VillageEvent::VillageEvent(Team *heroes){
+	setHeroes(heroes);
 	int itemSelection;
 	setMenu(new Menu());
+
 	//Vector holding all the prices of the items.
 	std::vector<int>prices = {1000,400,2000,500,1000,2000,1500,100,1000,1000};
 
@@ -38,27 +40,15 @@ VillageEvent::VillageEvent(Team *heroes){
 	getMenu()->printMenu();
 
 	int selection = getMenu()->checkInputInt(ERROR_MENU, 0, 4);
+	bool noActionMade = true;
 	//Go into the inventory and either equip weapons and armor or use a potion.
 	while(selection == 1 || selection == 4){
 		switch(selection){
 			//The user chooses to look at the inventory.
 			case 1:
-				getMenu()->clear();
-				getMenu()->addMenuLine(INVENTORY);
-				getMenu()->printMenu();
-				//Print out all the things in the inventory.
-				heroes->printInventory();
-
-				getMenu()->clear();
-				getMenu()->addMenuLine(USE_ITEM);
-				getMenu()->printMenu();
-
-				selection = getMenu()->checkInputInt(ERROR + USE_ITEM, 0, heroes->getInventory()->size());
-
-				//If the user decides to equip a weapon or armor or use a potion the item is checked here.
-				if(selection > 0){
-					//check inventory
-					heroes->inventoryMenu(selection);
+				noActionMade = true;
+				while(noActionMade){
+					noActionMade = inventoryAction();
 				}
 				break;
 			//The user chooses to buy something from the shop.
@@ -70,9 +60,9 @@ VillageEvent::VillageEvent(Team *heroes){
 				itemSelection = getMenu()->checkInputInt(ERROR,0 ,10);
 
 				if(itemSelection){
-					if(!heroes->isInventoryFull()){
-						if(heroes->getGold() >= prices.at(itemSelection - 1)){
-							heroes->getInventory()->push_back(createItem(itemSelection, heroes));
+					if(!getHeroes()->isInventoryFull()){
+						if(getHeroes()->getGold() >= prices.at(itemSelection - 1)){
+							getHeroes()->getInventory()->push_back(createItem(itemSelection));
 						}
 						else{
 							std::cout << "You don't have enough money!\n\n";
@@ -104,7 +94,7 @@ VillageEvent::VillageEvent(Team *heroes){
 		getMenu()->clear();
 		getMenu()->addMenuLine(REST);
 		getMenu()->printMenu();
-		rest(heroes);
+		rest();
 	}
 	//Mosey on.
 	else{
@@ -114,25 +104,25 @@ VillageEvent::VillageEvent(Team *heroes){
 	}
 	delete menu;
 }
-void VillageEvent::rest(Team *hero){
+void VillageEvent::rest(){
 
 	//I adapted the White Mages healParty method for this.
-	for(int n = 0; n < hero->getTeamSize(); n++){
-		if(hero->getCharacters()[n]->getIsAlive()){
-			switch(hero->getCharacters()[n]->getCharacterClass()){
+	for(int n = 0; n < getHeroes()->getTeamSize(); n++){
+		if(getHeroes()->getCharacters()[n]->getIsAlive()){
+			switch(getHeroes()->getCharacters()[n]->getCharacterClass()){
 				case WHITE_MAGE:
-					dynamic_cast<WhiteMage*>(hero->getCharacters()[n])->setMana(dynamic_cast<WhiteMage*>(hero->getCharacters()[n])->getMaxMana());
-					hero->getCharacters()[n]->setHealth(hero->getCharacters()[n]->getMaxHealth());
+					dynamic_cast<WhiteMage*>(getHeroes()->getCharacters()[n])->setMana(dynamic_cast<WhiteMage*>(getHeroes()->getCharacters()[n])->getMaxMana());
+					getHeroes()->getCharacters()[n]->setHealth(getHeroes()->getCharacters()[n]->getMaxHealth());
 					break;
 				case BLACK_MAGE:
-					dynamic_cast<BlackMage*>(hero->getCharacters()[n])->setMana(dynamic_cast<BlackMage*>(hero->getCharacters()[n])->getMaxMana());
-					hero->getCharacters()[n]->setHealth(hero->getCharacters()[n]->getMaxHealth());
+					dynamic_cast<BlackMage*>(getHeroes()->getCharacters()[n])->setMana(dynamic_cast<BlackMage*>(getHeroes()->getCharacters()[n])->getMaxMana());
+					getHeroes()->getCharacters()[n]->setHealth(getHeroes()->getCharacters()[n]->getMaxHealth());
 					break;
 				case PALADIN:
 				case ROGUE:
 				case RANGER:
 				case WARRIOR_GNOME:
-					hero->getCharacters()[n]->setHealth(hero->getCharacters()[n]->getMaxHealth());
+					getHeroes()->getCharacters()[n]->setHealth(getHeroes()->getCharacters()[n]->getMaxHealth());
 					break;
 
 			}
@@ -140,7 +130,7 @@ void VillageEvent::rest(Team *hero){
 	}
 }
 
-Item* VillageEvent::createItem(int input, Team *heroes){
+Item* VillageEvent::createItem(int input){
 	Item *output;
 	int swordPrice = 1000,
 		shieldPrice = 400,
@@ -157,52 +147,52 @@ Item* VillageEvent::createItem(int input, Team *heroes){
 		case 1:
 			output = new GreaterSword();
 			std::cout << "You bought a Greater Sword!\n\n";
-			heroes->setGold(heroes->getGold() - swordPrice);
+			getHeroes()->setGold(getHeroes()->getGold() - swordPrice);
 			break;
 		case 2:
 			output = new MagicShield();
 			std::cout << "You bought a Magic Shield!\n\n";
-			heroes->setGold(heroes->getGold() - shieldPrice);
+			getHeroes()->setGold(getHeroes()->getGold() - shieldPrice);
 			break;
 		case 3:
 			output = new BattleWand();
 			std::cout << "You bought a Battle Wand!\n\n";
-			heroes->setGold(heroes->getGold() - bWandPrice);
+			getHeroes()->setGold(getHeroes()->getGold() - bWandPrice);
 			break;
 		case 4:
 			output = new HealingWand();
 			std::cout << "You bought a Healing Wand!\n\n";
-			heroes->setGold(heroes->getGold() - hWandPrice);
+			getHeroes()->setGold(getHeroes()->getGold() - hWandPrice);
 			break;
 		case 5:
 			output = new GreatHammer();
 			std::cout << "You bought a Great Hammer!\n\n";
-			heroes->setGold(heroes->getGold() - hammerPrice);
+			getHeroes()->setGold(getHeroes()->getGold() - hammerPrice);
 			break;
 		case 6:
 			output = new SharpDagger();
 			std::cout << "You bought a Sharp Dagger!\n\n";
-			heroes->setGold(heroes->getGold() - daggerPrice);
+			getHeroes()->setGold(getHeroes()->getGold() - daggerPrice);
 			break;
 		case 7:
 			output = new Crossbow();
 			std::cout << "You bought a Crossbow!\n\n";
-			heroes->setGold(heroes->getGold() - xbowPrice);
+			getHeroes()->setGold(getHeroes()->getGold() - xbowPrice);
 			break;
 		case 8:
 			output = new HealthPotion();
 			std::cout << "You bought a Healing Potion!\n\n";
-			heroes->setGold(heroes->getGold() - hPotPrice);
+			getHeroes()->setGold(getHeroes()->getGold() - hPotPrice);
 			break;
 		case 9:
 			output = new PhoenixDown();
 			std::cout << "You bought a Phoenix Down!\n\n";
-			heroes->setGold(heroes->getGold() - pDownPrice);
+			getHeroes()->setGold(getHeroes()->getGold() - pDownPrice);
 			break;
 		case 10:
 			output = new DefensePotion();
 			std::cout << "You bought a Defense Potion!\n\n";
-				heroes->setGold(heroes->getGold() - dPotPrice);
+			getHeroes()->setGold(getHeroes()->getGold() - dPotPrice);
 			break;
 	}
 	return output;

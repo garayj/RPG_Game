@@ -16,9 +16,9 @@ inventory, camp, move on, or end the game. No monster battles can occur here.
 
 using std::cout;
 
-GrassEvent::GrassEvent(){}
 
 GrassEvent::GrassEvent(Team *heroes){
+	setHeroes(heroes);
 	setMenu(new Menu());
 
 	getMenu()->addMenuLine(MAIN_MENU);
@@ -26,24 +26,11 @@ GrassEvent::GrassEvent(Team *heroes){
 
 	int selection = getMenu()->checkInputInt(ERROR_MENU, 0, 3);
 	//Go into the inventory and either equip weapons and armor or use a potion.
+	bool noActionMade = true;
 	while(selection == 1){
-
-		getMenu()->clear();
-		getMenu()->addMenuLine(INVENTORY);
-		getMenu()->printMenu();
-		//Print out all the things in the inventory.
-		heroes->printInventory();
-
-		getMenu()->clear();
-		getMenu()->addMenuLine(USE_ITEM);
-		getMenu()->printMenu();
-
-		selection = getMenu()->checkInputInt(ERROR + USE_ITEM, 0, heroes->getInventory()->size());
-
-		//If the user decides to equip a weapon or armor or use a potion the item is checked here.
-		if(selection > 0){
-			//check inventory
-			heroes->inventoryMenu(selection);
+		noActionMade = true;
+		while(noActionMade){
+			noActionMade = inventoryAction();
 		}
 		getMenu()->clear();
 		getMenu()->addMenuLine(MAIN_MENU);	
@@ -52,7 +39,7 @@ GrassEvent::GrassEvent(Team *heroes){
 	}
 	//Quit the Game
 	if(selection == 0){
-		heroes->setIsTeamAlive(false);	
+		getHeroes()->setIsTeamAlive(false);	
 		getMenu()->clear();
 		getMenu()->addMenuLine(QUIT);
 		getMenu()->printMenu();
@@ -62,7 +49,7 @@ GrassEvent::GrassEvent(Team *heroes){
 		getMenu()->clear();
 		getMenu()->addMenuLine(REST);
 		getMenu()->printMenu();
-		rest(heroes);
+		rest();
 	}
 	//Mosey on.
 	else{
@@ -73,17 +60,17 @@ GrassEvent::GrassEvent(Team *heroes){
 	delete menu;
 }
 
-void GrassEvent::rest(Team *hero){
+void GrassEvent::rest(){
 	int heal = 5;
 
 	//I adapted the White Mages healParty method for this.
-	for(int n = 0; n < hero->getTeamSize(); n++){
-		if(hero->getCharacters()[n]->getIsAlive()){
-			if(heal + hero->getCharacters()[n]->getHealth() > hero->getCharacters()[n]->getMaxHealth()){
-				hero->getCharacters()[n]->setHealth(hero->getCharacters()[n]->getMaxHealth());
+	for(int n = 0; n < getHeroes()->getTeamSize(); n++){
+		if(getHeroes()->getCharacters()[n]->getIsAlive()){
+			if(heal + getHeroes()->getCharacters()[n]->getHealth() > getHeroes()->getCharacters()[n]->getMaxHealth()){
+				getHeroes()->getCharacters()[n]->setHealth(getHeroes()->getCharacters()[n]->getMaxHealth());
 			}
 			else{
-				hero->getCharacters()[n]->setHealth(heal + hero->getCharacters()[n]->getHealth());
+				getHeroes()->getCharacters()[n]->setHealth(heal + getHeroes()->getCharacters()[n]->getHealth());
 			}
 		}
 	}

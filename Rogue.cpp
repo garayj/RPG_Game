@@ -9,7 +9,6 @@ defend with 1d5.
 #include <iostream>
 
 Rogue::Rogue(){
-	setIsAlive(true);
 	setArmor(2);
 	setMaxHealth(12);
 	setHealth(getMaxHealth());
@@ -20,6 +19,7 @@ Rogue::Rogue(){
 	setCharacterType(HERO);
 	setCharacterClass(ROGUE);
 	setSpeed(10);
+	setIsAlive(true);
 	setSlot1(nullptr);
 	setSlot2(nullptr);
 }

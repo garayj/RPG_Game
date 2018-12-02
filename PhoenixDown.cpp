@@ -8,6 +8,7 @@ PhoenixDown::PhoenixDown(){
 	setEffect(0);
 	setItemName("Phoenix Down");
 	setDescription("A feather of a blessed seagull.\n");
+	setIsBirdFeather(true);
 }
 
 PhoenixDown::~PhoenixDown(){
