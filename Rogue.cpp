@@ -3,7 +3,7 @@
 ** Date: 11/27/2018
 ** Description: Implementation file for the Rogue Class. The Rogue Class is a character within
 the unknown Fantasy Game. Rogue has an Armor rating of 2, Max Health of 12, attacks with 4d6 and
-defend with 1d5. The Rogue class is the only class that does not have a special ability.
+defend with 1d5. 
 *************************************************************************************************/
 #include "Rogue.hpp"
 #include <iostream>

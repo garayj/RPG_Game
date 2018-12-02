@@ -1,24 +1,24 @@
 /**************************************************************************************************
 ** Author: Jose Garay
-** Date: 11/27/2018
-** Description: Interface file for the Rogue Class. The Rogue Class is a character within
-the unknown Fantasy Game. Rogue has an Armor rating of 10, Max Health of 30, attacks with 3d6 and
-defend with 3d6. 
+** Date: 12/01/2018
+** Description: Interface file for the MudGoblin Class. The MudGoblin Class is a character within
+the Heroes Quest Game. MudGoblin has an Armor rating of 0, Max Health of 10, attacks with 3d3 and
+defend with 2d6. 
 *************************************************************************************************/
-#ifndef ROGUE_HPP
-#define ROGUE_HPP
+#ifndef MUD_GOBLIN_HPP
+#define MUD_GOBLIN_HPP
 #include "Character.hpp"
-class Rogue: public Character
+class MudGoblin: public Character
 {
 public:
 /**************************************************************************************************
-** Description: Constructor for the Rogue Class.
+** Description: Constructor for the MudGoblin Class.
 *************************************************************************************************/
-	Rogue();
+	MudGoblin();
 /**************************************************************************************************
-** Description: Deconstructor for the Rogue Class.
+** Description: Deconstructor for the MudGoblin Class.
 *************************************************************************************************/
-	~Rogue();
+	~MudGoblin();
 
 	
 };

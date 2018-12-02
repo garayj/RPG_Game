@@ -3,7 +3,7 @@
 ** Date: 11/27/2018
 ** Description: Implementation file for the WarriorGnome Class. The WarriorGnome Class is a character within
 the unknown Fantasy Game. WarriorGnome has an Armor rating of 7, Max Health of 20, attacks with 4d4 and
-defend with 5d5. The WarriorGnome class is the only class that does not have a special ability.
+defend with 5d5. 
 *************************************************************************************************/
 #include "WarriorGnome.hpp"
 #include <iostream>

@@ -23,6 +23,18 @@ private:
 	Space *location;
 	vector<Item*>* inventory;
 	int gold;
+
+	//Takes in an integer representing the index of the item the user would like to use.
+	//Used in the inventoryMenu method only.
+	void useItem(int);
+
+	//Takes in an integer representing the index of the item the user would like to use.
+	//Used in the useItem method only.
+	void equip(int);
+	
+	//Takes in an integer representing the index of the item the user would like to use.
+	//Used in the useItem method only.
+	void usePotion(int);
 public:
 	Team(int);
 	~Team();
@@ -68,7 +80,9 @@ public:
 	void printInventory();
 	//Opens a menu to the user and prompts them to use items in their inventory if there are any items.
 	void inventoryMenu(int);
-
+	//Check if the inventory is full.
+	bool isInventoryFull();
+	//Prints out the Character stats to the console.
 	void teamStats();
 };
 #endif

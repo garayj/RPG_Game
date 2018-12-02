@@ -3,7 +3,7 @@
 ** Date: 11/27/2018
 ** Description: Interface file for the WhiteMage Class. The WhiteMage Class is a character within
 the unknown Fantasy Game. White Mage has an Armor rating of 0, Max Health of 10, attacks with 1d4 and
-defends with 4d6. The White Mage class as the special ability to attack with magic missle.
+defends with 4d6. The White Mage class as the special ability to heal party or hero.
 *************************************************************************************************/
 #include "WhiteMage.hpp"
 #include <iostream>

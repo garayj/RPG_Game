@@ -15,6 +15,7 @@ const string ERROR_MENU = "Oops. Select one of the options:\n"
 						"1. Look at inventory.\n"
 						"2. Camp. Party rests and 5 points of health and mana are restored.\n"
 						"3. Continue on the Path.\n"
+						"4. Buy goods from the the Weapons \'n Stuff\n"
 						"0. Quit Game.\n";
 
 const string QUIT = "Aw well. It was fun while it lasted. At least I hope it was.\n\n";
@@ -44,4 +45,6 @@ const string MERCHANT = "Welcome Travelers!\n"
 						"9: 1000G Phoenix Down - Pigeon feathers. Heroes are revived with full health (and mana)\n"
 						"10: 1000G Defense Potion - Tastes like a castle. +5 Defense\n"
 						"0: Walk away.\n";
+
+const string INVENTORY_FULL = "You have no space in your inventory!\nFree some space if you want to buy stuff.\n\n";
 #endif

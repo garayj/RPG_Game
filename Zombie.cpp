@@ -1,29 +1,29 @@
 /**************************************************************************************************
 ** Author: Jose Garay
 ** Date: 11/27/2018
-** Description: Implementation file for the Paladin Class. The Paladin Class is a character within
-the unknown Fantasy Game. Paladin has an Armor rating of 10, Max Health of 30, attacks with 3d6 and
-defend with 3d6. 
+** Description: Implementation file for the Zombie Class. The Zombie Class is a character within
+the unknown Fantasy Game. Zombie has an Armor rating of 0, Max Health of 15, attacks with 3d6 and
+defend with 1d6. 
 *************************************************************************************************/
-#include "Paladin.hpp"
+#include "Zombie.hpp"
 #include <iostream>
 
-Paladin::Paladin(){
+Zombie::Zombie(){
 	setIsAlive(true);
-	setArmor(10);
-	setMaxHealth(30);
-	setSpeed(4);
+	setArmor(0);
+	setMaxHealth(15);
+	setSpeed(3);
 	setHealth(getMaxHealth());
-	setNumberDefDie(3);
+	setNumberDefDie(1);
 	setNumberAttDie(3);
 	setDefDieSides(6);
 	setAttDieSides(6);
-	setCharacterType(HERO);
-	setCharacterClass(PALADIN);
+	setCharacterType(MONSTER);
+	setCharacterClass(ZOMBIE);
 	setSlot1(nullptr);
 	setSlot2(nullptr);
 }
 
-Paladin::~Paladin(){
+Zombie::~Zombie(){
 
 }

@@ -11,7 +11,7 @@ public:
 	~VillageEvent(){};
 
 	void rest(Team*);
-	Item* createItem(int);
+	Item* createItem(int, Team*);
 	
 };
 #endif

@@ -46,6 +46,12 @@ std::string Character::getCharacterClassString(){
 	else if(getCharacterClass() == WARRIOR_GNOME){
 		return "Warrior Gnome";
 	}
+	else if(getCharacterClass() == MUD_GOBLIN){
+		return "Mud Goblin";
+	}
+	else if(getCharacterClass() == ZOMBIE){
+		return "Zombie";
+	}
 	else{
 		return "Ranger";
 	}
@@ -64,7 +70,7 @@ int Character::attack(){
 void Character::defend(int attack){
 
 	int defense = roll(getNumberOfDefDie(), getDefDieSides());
-	
+
 	if(slot1 != nullptr && slot1->getType() == ARMOR){
 		defense += slot1->getEffect();
 	}

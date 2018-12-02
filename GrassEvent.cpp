@@ -19,15 +19,7 @@ using std::cout;
 GrassEvent::GrassEvent(){}
 
 GrassEvent::GrassEvent(Team *heroes){
-	monsters = nullptr;
 	setMenu(new Menu());
-	//This is for testing.
-	// Equipment *sword1 = new GreaterSword();
-	// Equipment *sword2 = new GreaterSword();
-	// Equipment *sword3 = new GreaterSword();
-	// heroes->getInventory()->push_back(sword1);
-	// heroes->getInventory()->push_back(sword2);
-	// heroes->getInventory()->push_back(sword3);
 
 	getMenu()->addMenuLine(MAIN_MENU);
 	getMenu()->printMenu();

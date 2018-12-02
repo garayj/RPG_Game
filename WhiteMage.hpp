@@ -3,7 +3,7 @@
 ** Date: 11/27/2018
 ** Description: Interface file for the WhiteMage Class. The WhiteMage Class is a character within
 the unknown Fantasy Game. Black Mage has an Armor rating of 0, Max Health of 10, attacks with 1d4 and
-defends with 4d6. The Black Mage class as the special ability to attack with magic missle.
+defends with 4d6. The White Mage class as the special ability to heal party or one hero.
 *************************************************************************************************/
 #ifndef WHITE_MAGE_HPP 
 #define WHITE_MAGE_HPP 
@@ -54,7 +54,7 @@ If the Black Mage has no mana, then the Black Mage cannot cast magicMissle.
 ** Description: Setter Function. Sets the max amount of mana the Black Mage has.
 *************************************************************************************************/
 	void setMaxMana(int maxMana){this->maxMana = maxMana;};
-	
+
 /**************************************************************************************************
 ** Description: Setter Function. Sets the amount of mana the Black Mage has.
 *************************************************************************************************/

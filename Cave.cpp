@@ -6,7 +6,6 @@ Cave::Cave(){
 	setLeft(nullptr);
 	setRight(nullptr);
 	setSpaceType(CAVE);
-	setMonsters(nullptr);
 }
 
 

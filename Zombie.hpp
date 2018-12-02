@@ -1,24 +1,24 @@
 /**************************************************************************************************
 ** Author: Jose Garay
-** Date: 11/27/2018
-** Description: Interface file for the Rogue Class. The Rogue Class is a character within
-the unknown Fantasy Game. Rogue has an Armor rating of 10, Max Health of 30, attacks with 3d6 and
-defend with 3d6. 
+** Date: 12/01/2018
+** Description: Interface file for the Zombie Class. The Zombie Class is a character within
+the Heroes Quest Game. Zombie has an Armor rating of 0, Max Health of 15, attacks with 3d6 and
+defend with 1d6. 
 *************************************************************************************************/
-#ifndef ROGUE_HPP
-#define ROGUE_HPP
+#ifndef ZOMBIE_HPP 
+#define ZOMBIE_HPP 
 #include "Character.hpp"
-class Rogue: public Character
+class Zombie: public Character
 {
 public:
 /**************************************************************************************************
-** Description: Constructor for the Rogue Class.
+** Description: Constructor for the Zombie Class.
 *************************************************************************************************/
-	Rogue();
+	Zombie();
 /**************************************************************************************************
-** Description: Deconstructor for the Rogue Class.
+** Description: Deconstructor for the Zombie Class.
 *************************************************************************************************/
-	~Rogue();
+	~Zombie();
 
 	
 };

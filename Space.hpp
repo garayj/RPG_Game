@@ -6,6 +6,7 @@ enum spaceType {GRASS, FOREST, CAVE, VILLAGE, DUNGEON, SWAMP};
 class Space
 {
 protected:
+	int monsterCount;
 	Space *up;
 	Space *down;
 	Space *left;
@@ -23,6 +24,7 @@ public:
 	Space* getRight(){return right;};
 	spaceType getSpaceType(){return type;};
 	Character **getMonsters(){return monsters;};
+	int getMonsterCount(){return monsterCount;};
 
 
 	void setUp(Space* up){this->up = up;};
@@ -31,5 +33,6 @@ public:
 	void setRight(Space* right){this->right = right;};
 	void setSpaceType(spaceType type){this->type = type;};
 	void setMonsters(Character **monsters){this->monsters = monsters;};
+	void setMonsterCount(int monsterCount){this->monsterCount = monsterCount;};
 };
 #endif

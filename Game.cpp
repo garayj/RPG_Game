@@ -281,7 +281,7 @@ void Game::event(){
 			checkTeam();
 			break;
 		case SWAMP:
-			spaceEvent = new SwampEvent(heroes);
+			spaceEvent = new SwampEvent(heroes, heroes->getLocation());
 			delete spaceEvent;
 			checkTeam();
 			break;

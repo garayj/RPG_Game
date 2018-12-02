@@ -12,19 +12,17 @@ class Event
 {
 protected:
 	Menu *menu;
-	Team *monsters;
 
 public:
 	Event();
 	virtual ~Event()=0;
 	// virtual void fight()=0;
+
 	//Getter functions for the private data members.
 	Menu *getMenu(){return menu;};
-	Team* getMonsters(){return monsters;};
 
 	//Setter functions for the private data members.
 	void setMenu(Menu *menu){this->menu = menu;};
-	void setMonsters(){this->monsters = monsters;};
 	
 };
 #endif

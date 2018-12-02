@@ -6,7 +6,6 @@ Village::Village(){
 	setLeft(nullptr);
 	setRight(nullptr);
 	setSpaceType(VILLAGE);
- 	setMonsters(nullptr);
 }
 
 Village::~Village(){}

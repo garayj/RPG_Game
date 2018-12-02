@@ -6,7 +6,6 @@ Dungeon::Dungeon(){
 	setLeft(nullptr);
 	setRight(nullptr);
 	setSpaceType(DUNGEON);
-	setMonsters(nullptr);
 }
 	
 Dungeon::~Dungeon(){}
