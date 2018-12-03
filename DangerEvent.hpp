@@ -5,7 +5,7 @@
 #include <vector>
 using std::vector;
 
-class DangerEvent : Event
+class DangerEvent :public  Event
 {
 protected:
 	//Returns a boolean if the user actually made a magic attack or not using a magical hero.
@@ -44,7 +44,7 @@ protected:
 	bool heroAttacking(Character*);
 public:
 	DangerEvent();
-	~DangerEvent();
+	virtual ~DangerEvent()=0;
 	
 };
 #endif

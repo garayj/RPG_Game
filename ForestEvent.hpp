@@ -1,7 +1,7 @@
 #ifndef FOREST_EVENT_HPP
 #define FOREST_EVENT_HPP 
-#include "Event.hpp"
-class ForestEvent : public Event
+#include "DangerEvent.hpp"
+class ForestEvent : public DangerEvent
 {
 public:
 	ForestEvent(Team *);

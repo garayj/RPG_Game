@@ -1,7 +1,7 @@
 #ifndef DUNGEON_EVENT_HPP
 #define DUNGEON_EVENT_HPP 
-#include "Event.hpp"
-class DungeonEvent : public Event
+#include "DangerEvent.hpp"
+class DungeonEvent : public DangerEvent
 {
 public:
 	DungeonEvent(Team*);

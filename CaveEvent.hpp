@@ -1,7 +1,7 @@
 #ifndef CAVE_EVENT_HPP
 #define CAVE_EVENT_HPP 
-#include "Event.hpp"
-class CaveEvent : public Event
+#include "DangerEvent.hpp"
+class CaveEvent : public DangerEvent 
 {
 public:
 	CaveEvent(Team*);

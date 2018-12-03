@@ -12,6 +12,9 @@ using std::setw;
 using std::cout;
 using std::endl;
 
+DangerEvent::DangerEvent(){}
+DangerEvent::~DangerEvent(){}
+
 
 
 void DangerEvent::encounter(){
