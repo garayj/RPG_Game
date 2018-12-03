@@ -1,7 +1,7 @@
 /**************************************************************************************************
 ** Author: Jose Garay
 ** Date: 12/01/2018
-** Description: The SwapEvent Class extends the Event class and contains the events that occur on
+** Description: The SwampEvent Class extends the Event class and contains the events that occur on
 a Swamp Space. On a Swamp Space, things are dangerous. If there are monsters alive, the user has a
 small chance to sneak on by or walk into trouble. If the user has already defeated the monsters,
 the user walks into no more trouble. Zombies and mud goblins live here.
@@ -17,8 +17,6 @@ SwampEvent::SwampEvent(Team *heroes, Space *swamp){
 	setMenu(new Menu());
 	setHeroes(heroes);
 	setSpace(swamp);
-	getHeroes()->getCharacters()[2]->setHealth(0);
-	getHeroes()->getCharacters()[2]->setIsAlive(false);
 	if(areMonstersAlive()){
 		int chance = rand() %10;
 		if(chance < 6){

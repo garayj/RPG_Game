@@ -24,6 +24,19 @@ private:
    Team *heroes;
    Event *spaceEvent;
 
+
+/**************************************************************************************************
+** Description: Checks to see if the player has all the four keys to win the game! Sets the won
+bool.
+**************************************************************************************************/
+   void fourKeys();
+
+/**************************************************************************************************
+** Description: Checks to see if any member of the team has health. Return true if one character 
+has health above 0 and false if they are all dead.
+**************************************************************************************************/
+   bool checkTeamHealth();
+
 /**************************************************************************************************
 ** Description: My probably not the best way to clear the screen.
 **************************************************************************************************/
@@ -81,11 +94,14 @@ moves the team into another space if the space is on the board.
    Team* getTeam(){return heroes;};
 
 /**************************************************************************************************
-** Description: Getter Function. Returns the heroes data member.
+** Description: Setter Function. Sets the heroes data member.
 **************************************************************************************************/
    void setTeam(Team* heroes){this->heroes = heroes;};
 
    void damage();
+
+
+
 
 
 public:

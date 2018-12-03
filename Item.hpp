@@ -7,7 +7,7 @@ basic components of all items. All items inherit from the Item class.
 #ifndef ITEM_HPP
 #define ITEM_HPP 
 #include <string>
-enum itemType{EQUIPMENT, POTION};
+enum itemType{EQUIPMENT, POTION, KEY};
 class Item
 {
 protected:

@@ -80,7 +80,7 @@ bool DangerEvent::useMagic(Character *magicUser){
 					"0.) No\n";
 			selection = getMenu()->checkInputInt("Make a selection:", 0 , 1);	
 			if(selection){
-				if(dynamic_cast<BlackMage*>(magicUser)->getMana() >= 5){
+				if(dynamic_cast<BlackMage*>(magicUser)->getMana() > 0){
 
 					displayMonsters();
 					cout << "\nWhich monster would you like to cast Magic Missle on?\n"
@@ -118,6 +118,7 @@ bool DangerEvent::useMagic(Character *magicUser){
 						std::cout << getSpace()->getMonsters()[monster]->getCharacterClassString() << " has fallen!" << std::endl;
 					return false;
 					}
+					return false;
 				}
 
 				else{
@@ -141,8 +142,10 @@ bool DangerEvent::useMagic(Character *magicUser){
 			switch(selection){
 				//The case that you want to heal one hero.
 				case 1:
+					//case Healing Touch if there is mana available.
 					if(dynamic_cast<WhiteMage*>(magicUser)->getMana() > 0){
 
+						//Select a hero.	
 						getHeroes()->teamStats();
 						cout << "\nWhich hero would you like to heal?\n"
 						"Select 0 to go back.\n\n";
@@ -175,7 +178,7 @@ bool DangerEvent::useMagic(Character *magicUser){
 
 					break;
 				case 2:
-					//heal all heroes.
+					//heal all heroes if the mana is available.
 					if(dynamic_cast<WhiteMage*>(magicUser)->getMana() > 0){
 						dynamic_cast<WhiteMage*>(magicUser)->healParty(getHeroes());
 						return false;
@@ -185,12 +188,14 @@ bool DangerEvent::useMagic(Character *magicUser){
 						return true;
 					}
 					break;
+				//The case the the user wants to just go back.
 				case 0:
 					return true;
 					break;
 			}	
 			break;
 	}
+	return false;
 }
 
 void DangerEvent::monsterAttacks(Character *fighter){

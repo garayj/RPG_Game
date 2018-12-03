@@ -39,7 +39,6 @@ using std::string;
 using std::vector;
 
 Game::Game(){
-	timer = 0;
 }
 
 Game::~Game(){
@@ -48,6 +47,8 @@ Game::~Game(){
 
 
 void Game::run(){
+	timer = 1;
+	won = false;
 	//Display start menu and if isRunning is true, runs the game.
 	startMenu();
 	while(isRunning){
@@ -65,9 +66,24 @@ void Game::startMenu(){
 }
 
 void Game::setup(){
+	string pause;
+
+	menu.clear();
+	menu.addMenuLine(WELCOME);
+	menu.printMenu();
+
+	cout << endl;
+
+	menu.clear();
+	menu.addMenuLine(PRESS);
+	menu.printMenu();
+
+	getline(cin,pause);
+
 	int selection;
 	heroes = new Team(3);
 
+	menu.clear();
 	menu.addMenuLine(TEAM_CREATION_HEADER);
 	menu.printMenu();
 
@@ -126,12 +142,14 @@ Character* Game::characterSelection(int selection){
 }
 
 void Game::gameplay(){
-	damage();
+
 	map.printMap();
 	heroes->teamStats();
-	while(isRunning && timer <= 30){
+	//While the game is running, the timer is less than 30 and tthe user has not won, the game will continue.
+	while(isRunning && timer <= 30 && !won){
 		move(heroes);
 		clearScreen();
+		cout << "Day "<< timer << "\n\n";
 		heroes->teamStats();
 		event();
 		if(isRunning){
@@ -139,21 +157,32 @@ void Game::gameplay(){
 			menu.clear();
 			menu.addMenuLine(CONTINUE);
 			menu.printMenu();
-			setIsRunning(menu.checkInputInt(ERROR + CONTINUE, 0, 1));	
+			setIsRunning(menu.checkInputInt(ERROR + CONTINUE, 0, 1));
 		}
+		timer++;
 	}	
-	if(timer == 30 && won){
+	setIsRunning(false);
+}
+
+void Game::end(){
+	//Then case that the party died during combat.
+	if(!heroes->getIsTeamAlive() && !checkTeamHealth()){
+		menu.clear();
+		menu.addMenuLine(DIED);
+		menu.printMenu();
+	}
+	//The case that the user has run out of time.
+	else if(timer >= 30 && !won){
 		menu.clear();
 		menu.addMenuLine(LOST_TIMER);
 		menu.printMenu();
 	}
-}
-
-// void Game::fight(Character *player1, Character *player2){
-// }
-
-void Game::end(){
-
+	//The case that the user has won!
+	else if(timer < 30 && won){
+		menu.clear();
+		menu.addMenuLine(WON);
+		menu.printMenu();
+	}
 	delete heroes;
 }
 
@@ -261,12 +290,12 @@ void Game::event(){
 			checkTeam();
 			break;
 		case FOREST:
-			spaceEvent = new ForestEvent(heroes);
+			spaceEvent = new ForestEvent(heroes, heroes->getLocation());
 			delete spaceEvent;
 			checkTeam();
 			break;
 		case CAVE:
-			spaceEvent = new CaveEvent(heroes);
+			spaceEvent = new CaveEvent(heroes, heroes->getLocation());
 			delete spaceEvent;
 			checkTeam();
 			break;
@@ -276,9 +305,10 @@ void Game::event(){
 			checkTeam();
 			break;
 		case DUNGEON:
-			spaceEvent = new DungeonEvent(heroes);
+			spaceEvent = new DungeonEvent(heroes, heroes->getLocation());
 			delete spaceEvent;
 			checkTeam();
+			fourKeys();
 			break;
 		case SWAMP:
 			spaceEvent = new SwampEvent(heroes, heroes->getLocation());
@@ -292,6 +322,30 @@ void Game::checkTeam(){
 	if(!heroes->getIsTeamAlive()){
 		setIsRunning(false);
 	}
+}
+
+void Game::fourKeys(){
+	int counter = 0;
+	for(int n = 0; n < heroes->getInventory()->size(); n++){
+
+		if(heroes->getInventory()->at(n)->getItemType() == KEY){
+			counter++;
+		}
+	}
+	if(counter == 4){
+		setIsRunning(false);
+		won = true;
+	}
+
+}
+
+bool Game::checkTeamHealth(){
+	for(int n = 0; n < heroes->getTeamSize(); n++){
+		if(heroes->getCharacters()[n]->getHealth() > 0){
+			return true;
+		}
+	}
+	return false;
 }
 
 void Game::clearScreen(){

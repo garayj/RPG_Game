@@ -2,7 +2,7 @@
 ** Author: Jose Garay
 ** Date: 11/27/2018
 ** Description: Interface file for the Ranger Class. The Ranger Class is a character within
-the unknown Fantasy Game. Ranger has an Armor rating of 3, Max Health of 15, attacks with 4d4 and
+the unknown Fantasy Game. Ranger has an Armor rating of 3, Max Health of 15, attacks with 6d4 and
 defend with 2d6. 
 *************************************************************************************************/
 #include "Ranger.hpp"
@@ -15,7 +15,7 @@ Ranger::Ranger(){
 	setMaxHealth(15);
 	setHealth(getMaxHealth());
 	setNumberDefDie(2);
-	setNumberAttDie(4);
+	setNumberAttDie(6);
 	setDefDieSides(6);
 	setAttDieSides(4);
 	setCharacterType(HERO);

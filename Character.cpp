@@ -52,6 +52,24 @@ std::string Character::getCharacterClassString(){
 	else if(getCharacterClass() == ZOMBIE){
 		return "Zombie";
 	}
+	else if(getCharacterClass() == GIANTSPIDER){
+		return "Giant Spider";
+	}
+	else if(getCharacterClass() == CAVE_TROLL){
+		return "Cave Troll";
+	}
+	else if(getCharacterClass() == DEMON){
+		return "Demon";
+	}
+	else if(getCharacterClass() == DRAGON){
+		return "Dragon";
+	}
+	else if(getCharacterClass() == BANDITS){
+		return "Bandits";
+	}
+	else if(getCharacterClass() == FOREST_TROLL){
+		return "Forest Troll";
+	}
 	else{
 		return "Ranger";
 	}

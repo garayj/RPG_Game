@@ -56,6 +56,7 @@ VillageEvent::VillageEvent(Team *heroes){
 				getMenu()->clear();
 				getMenu()->addMenuLine(MERCHANT);
 				getMenu()->printMenu();
+				std::cout << std::endl << "You have:" << getHeroes()->getGold() << "G." << std::endl << std::endl;
 				//Select an option.
 				itemSelection = getMenu()->checkInputInt(ERROR,0 ,10);
 

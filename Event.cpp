@@ -28,6 +28,12 @@ bool Event::inventoryAction(){
 	if(selection == 0){
 		noActionMade = false;
 	}
+	else if(getHeroes()->getInventory()->at(selection - 1)->getItemType() == KEY){
+		getMenu()->clear();
+		getMenu()->addMenuLine(KEY_WARNING);
+		getMenu()->printMenu();
+		noActionMade = false;
+	}
 	else{
 		//check inventory
 		noActionMade = getHeroes()->inventoryMenu(selection);

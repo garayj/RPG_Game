@@ -67,32 +67,36 @@ void Team::printCharacters(){
 }
 
 void Team::teamStats(){
-		cout << "#  ";
-		cout << "|";
-		cout << setw(10);
-		cout << "Name";
-		cout << "|";
-		cout << setw(15);
-		cout << "Class";
-		cout << "|";
-		cout << setw(6);
-		cout << "Armor";
-		cout << "|";
-		cout << setw(4);
-		cout << "HP";
-		cout << "|";
-		cout << setw(6);
-		cout << "Max HP";
-		cout << "|";
-		cout << setw(4);
-		cout << "Mana";
-		cout << "|";
-		cout << setw(9);
-		cout << "Max Mana";
-		cout << endl;
-		cout << "----------------------------------------------------------------"<< endl;
+	cout << "You have " << getGold() << "G." << endl << endl;	
+	cout << "#";
+	cout << "|";
+	cout << setw(10);
+	cout << "Name";
+	cout << "|";
+	cout << setw(15);
+	cout << "Class";
+	cout << "|";
+	cout << setw(6);
+	cout << "Armor";
+	cout << "|";
+	cout << setw(6);
+	cout << "Speed";
+	cout << "|";
+	cout << setw(4);
+	cout << "HP";
+	cout << "|";
+	cout << setw(6);
+	cout << "Max HP";
+	cout << "|";
+	cout << setw(4);
+	cout << "Mana";
+	cout << "|";
+	cout << setw(9);
+	cout << "Max Mana";
+	cout << endl;
+	cout << "----------------------------------------------------------------"<< endl;
 	for(int n = 1; n <= getTeamSize(); n++){
-		cout << n << ": ";
+		cout << n;
 		cout << setw(10);
 		cout << getCharacters()[n -1]->getName();
 		cout << "|";
@@ -102,12 +106,16 @@ void Team::teamStats(){
 		cout << setw(6);
 		cout << getCharacters()[n -1]->getArmor();
 		cout << "|";
+		cout << setw(6);
+		cout << getCharacters()[n -1]->getSpeed();
+		cout << "|";
 		cout << setw(4);
 		cout << getCharacters()[n -1]->getHealth();
 		cout << "|";
 		cout << setw(6);
 		cout << getCharacters()[n -1]->getMaxHealth();
 		cout << "|";
+		//If the Characters are magic users they will display mana else they will display N/A.
 		if(getCharacters()[n -1]->getCharacterClass() == BLACK_MAGE || getCharacters()[n -1]->getCharacterClass() == WHITE_MAGE){
 			switch(getCharacters()[n -1]->getCharacterClass()){
 				case BLACK_MAGE:

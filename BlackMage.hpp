@@ -42,7 +42,7 @@ If the Black Mage has no mana, then the Black Mage cannot cast magicMissle.
 /**************************************************************************************************
 ** Description: Getter Function. Returns an integer representing the magicPower of a Black Mage. 
 *************************************************************************************************/
-	int getMagicPower(){return mana;};
+	int getMagicPower(){return magicPower;};
 
 
 

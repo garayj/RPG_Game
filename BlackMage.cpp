@@ -12,11 +12,11 @@ using std::cout;
 using std::endl;
 
 BlackMage::BlackMage(){
-	setSpeed(5);
+	setSpeed(5); 
 	setArmor(0);
 	setMaxHealth(10);
 	setHealth(getMaxHealth());
-	setNumberDefDie(4);
+	setNumberDefDie(4); 
 	setNumberAttDie(1);
 	setDefDieSides(6);
 	setAttDieSides(4);
@@ -26,7 +26,7 @@ BlackMage::BlackMage(){
 	setIsAlive(true);
 	setSlot1(nullptr);
 	setSlot2(nullptr);
-	setMaxMana(10);
+	setMaxMana(3);
 	setMana(getMaxMana());
 }
 
@@ -37,6 +37,6 @@ BlackMage::~BlackMage(){
 int BlackMage::magicMissle(){
 	int magicDmg = getMagicPower() + roll(getNumberOfAttDie(), getAttDieSides());
 	cout << "Black Mage conjures the most magic of missles and attacks for " << magicDmg << " points." << endl;
-	setMana(getMana() - 5);
+	setMana(getMana() - 1);
 	return magicDmg;
 }

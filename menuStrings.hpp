@@ -9,6 +9,8 @@
 
 using std::string;
 
+const string DIED = "\nYou died!\nGoodbye\n\n";
+
 const string ERROR = "Error! Please select one of the options below:\n";
 
 const string MAIN_MENU = "Would you like to play Hero Quest?\n"
@@ -49,6 +51,22 @@ const string TOO_LONG = "You said a whole bunch of not a direction. Try one of t
 
 const string THIS_IS_YOUR_TEAM = "This is your team:";
 
-const string LOST_TIMER = "You took too much time and the land has been overcome by the Demon King and his terrible army!\n"
-							"Better luck next time.\n";
+const string LOST_TIMER = "You took too much time! The King couldn't wait and decided to lop off your heads instead.\n"
+							"Better luck next time!\n";
+
+const string WON = "Sweet! You won! The King has access to his dresser, shoe collection, desk file, and gym locker.\n"
+					"As a reward he gives you a high five.\n"
+					"Good job!\n\n";
+
+const string WELCOME = "Welcome to my game!\n"
+						"The King has lost his four keys and it's up to you to get them back.\n"
+						"The keys can be found in the dungeons.\n"
+						"You have 30 days to get all the keys. After every event is the close of the day.\n"
+						"Villages and Grasslands are safe zones.\n"
+						"Tip: Get the weapons and defense potions\n"
+						"Tip: Phoenix Downs are the only way to revive a Character that is downed.\n\n";
+
+						
+const string PRESS = "Press enter to continue.\n";
+
 #endif
