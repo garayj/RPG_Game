@@ -22,11 +22,11 @@ BlackMage::BlackMage(){
 	setAttDieSides(4);
 	setCharacterType(HERO);
 	setCharacterClass(BLACK_MAGE);
-	setMagicPower(10);
+	setMagicPower(30);
 	setIsAlive(true);
 	setSlot1(nullptr);
 	setSlot2(nullptr);
-	setMaxMana(5);
+	setMaxMana(10);
 	setMana(getMaxMana());
 }
 
@@ -37,5 +37,6 @@ BlackMage::~BlackMage(){
 int BlackMage::magicMissle(){
 	int magicDmg = getMagicPower() + roll(getNumberOfAttDie(), getAttDieSides());
 	cout << "Black Mage conjures the most magic of missles and attacks for " << magicDmg << " points." << endl;
+	setMana(getMana() - 5);
 	return magicDmg;
 }

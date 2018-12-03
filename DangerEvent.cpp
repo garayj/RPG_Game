@@ -1,17 +1,9 @@
-/**************************************************************************************************
-** Author: Jose Garay
-** Date: 12/01/2018
-** Description: The SwapEvent Class extends the Event class and contains the events that occur on
-a Swamp Space. On a Swamp Space, things are dangerous. If there are monsters alive, the user has a
-small chance to sneak on by or walk into trouble. If the user has already defeated the monsters,
-the user walks into no more trouble. Zombies and mud goblins live here.
-**************************************************************************************************/
-#include "SwampEvent.hpp"
+#include "DangerEvent.hpp"
+
+
 #include "WhiteMage.hpp"
 #include "BlackMage.hpp"
-#include "Zombie.hpp"
 #include "quickSort.hpp"
-#include "MudGoblin.hpp"
 #include <iomanip>
 #include <iostream>
 #include <string>
@@ -20,29 +12,9 @@ using std::setw;
 using std::cout;
 using std::endl;
 
-SwampEvent::SwampEvent(Team *heroes, Space *swamp){
 
-	setMenu(new Menu());
-	setHeroes(heroes);
-	setSpace(swamp);
-	getHeroes()->getCharacters()[2]->setHealth(0);
-	getHeroes()->getCharacters()[2]->setIsAlive(false);
-	if(areMonstersAlive()){
-		int chance = rand() %10;
-		if(chance < 6){
-			encounter();
-		}
-		else{
-			std::cout << "You stay quiet and move quickly. You escape without confrontation.\n\n";
-		}
-	}
-	else{
-		std::cout << "Looks like you already beat these guys to a pulp. Lets get out of this creepy place.\n\n";
-	}
-	delete menu;
-}
 
-void SwampEvent::encounter(){
+void DangerEvent::encounter(){
 	string holder;
 	vector<Character*>allFighters;
 	vector<Character*>temp;
@@ -92,10 +64,9 @@ void SwampEvent::encounter(){
 			temp.pop_back();
 		}
 	}
-
 }
 
-bool SwampEvent::useMagic(Character *magicUser){
+bool DangerEvent::useMagic(Character *magicUser){
 	int monster;
 	int hero;
 	int selection;
@@ -219,7 +190,7 @@ bool SwampEvent::useMagic(Character *magicUser){
 	}
 }
 
-void SwampEvent::monsterAttacks(Character *fighter){
+void DangerEvent::monsterAttacks(Character *fighter){
 	int damage;
 	//Select an index at random until a hero that is alive is chosen.
 	int randomHero = rand() % getHeroes()->getTeamSize();
@@ -246,7 +217,7 @@ void SwampEvent::monsterAttacks(Character *fighter){
 	}
 }
 
-bool SwampEvent::magicUserMove(Character* hero){
+bool DangerEvent::magicUserMove(Character* hero){
 	cout << "What would you like to to?\n"
 			"1.) Attack\n"
 			"2.) Use Item\n"
@@ -268,7 +239,7 @@ bool SwampEvent::magicUserMove(Character* hero){
 	}
 }
 
-void SwampEvent::heroAttacks(Character *fighter){
+void DangerEvent::heroAttacks(Character *fighter){
 	//Display who is attacking.
 	std::cout << fighter->getName() << " the " << fighter->getCharacterClassString() << "'s turn!" << endl;
 	bool madeAction = true;
@@ -289,7 +260,7 @@ void SwampEvent::heroAttacks(Character *fighter){
 	}
 }
 
-bool SwampEvent::nonMagicUserMove(Character *hero){
+bool DangerEvent::nonMagicUserMove(Character *hero){
 	cout << "What would you like to to?\n"
 			"1.) Attack\n"
 			"2.) Use Item\n";
@@ -308,7 +279,7 @@ bool SwampEvent::nonMagicUserMove(Character *hero){
 
 }
 
-bool SwampEvent::heroAttacking(Character *fighter){
+bool DangerEvent::heroAttacking(Character *fighter){
 	displayMonsters();
 
 	cout << "\nWhich monster would you like to attack?\n";
@@ -351,7 +322,7 @@ bool SwampEvent::heroAttacking(Character *fighter){
 
 }
 
-void SwampEvent::addFightersToVector(vector<Character*>*allFighters){
+void DangerEvent::addFightersToVector(vector<Character*>*allFighters){
 
 	//Add heroes to a vector.
 	for(int n = 0; n < getHeroes()->getTeamSize(); n++){
@@ -363,7 +334,7 @@ void SwampEvent::addFightersToVector(vector<Character*>*allFighters){
 	}
 }
 
-void SwampEvent::displayMonsters(){
+void DangerEvent::displayMonsters(){
 	cout << setw(4);
 	cout << "#";
 	cout << "|";
@@ -392,7 +363,7 @@ void SwampEvent::displayMonsters(){
 	}	
 }
 
-bool SwampEvent::areMonstersAlive(){
+bool DangerEvent::areMonstersAlive(){
 	for(int n = 0; n < getSpace()->getMonsterCount(); n++){
 		if(getSpace()->getMonsters()[n]->getIsAlive()){
 			return getSpace()->getMonsters()[n]->getIsAlive();
@@ -400,12 +371,12 @@ bool SwampEvent::areMonstersAlive(){
 	}
 	return false;
 }
-void SwampEvent::monsterDies(Character* monster){
+void DangerEvent::monsterDies(Character* monster){
 	monster->setHealth(0);
 	monster->setIsAlive(false);
 }
 
-void SwampEvent::heroDies(Character *hero){
+void DangerEvent::heroDies(Character *hero){
 	hero->setHealth(0);
 	hero->setIsAlive(false);
 }

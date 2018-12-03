@@ -25,7 +25,7 @@ WhiteMage::WhiteMage(){
 	setCharacterType(HERO);
 	setCharacterClass(WHITE_MAGE);
 	setMagicPower(10);
-	setMaxMana(5);
+	setMaxMana(20);
 	setMana(getMaxMana());
 	setSpeed(5);
 }

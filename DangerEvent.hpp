@@ -1,22 +1,13 @@
-/**************************************************************************************************
-** Author: Jose Garay
-** Date: 12/01/2018
-** Description: The SwapEvent Class extends the Event class and contains the events that occur on
-a Swamp Space. On a Swamp Space, things are dangerous. If there are monsters alive, the user has a
-small chance to sneak on by or walk into trouble. If the user has already defeated the monsters,
-the user walks into no more trouble. Zombies and mud goblins live here.
-**************************************************************************************************/
-#ifndef SWAMP_EVENT_HPP
-#define SWAMP_EVENT_HPP 
+#ifndef DANGER_EVENT_HPP
+#define DANGER_EVENT_HPP 
 #include "Event.hpp"
 #include "Character.hpp"
 #include <vector>
 using std::vector;
 
-class SwampEvent : public Event
+class DangerEvent : Event
 {
-private:
-
+protected:
 	//Returns a boolean if the user actually made a magic attack or not using a magical hero.
 	bool useMagic(Character*);
 	//Displays the monsters to the screen.
@@ -51,11 +42,9 @@ private:
 
 	//Simulates a hero attacking returns a bool on whether or not the user went through with the attack.
 	bool heroAttacking(Character*);
-
 public:
-	SwampEvent(Team*,Space*);
-	~SwampEvent(){};
-
-
+	DangerEvent();
+	~DangerEvent();
+	
 };
 #endif

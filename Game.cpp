@@ -126,6 +126,7 @@ Character* Game::characterSelection(int selection){
 }
 
 void Game::gameplay(){
+	damage();
 	map.printMap();
 	heroes->teamStats();
 	while(isRunning && timer <= 30){
