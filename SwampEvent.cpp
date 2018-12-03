@@ -7,6 +7,8 @@ small chance to sneak on by or walk into trouble. If the user has already defeat
 the user walks into no more trouble. Zombies and mud goblins live here.
 **************************************************************************************************/
 #include "SwampEvent.hpp"
+#include "WhiteMage.hpp"
+#include "BlackMage.hpp"
 #include "Zombie.hpp"
 #include "quickSort.hpp"
 #include "MudGoblin.hpp"
@@ -92,6 +94,39 @@ void SwampEvent::encounter(){
 	}
 
 }
+bool SwapEvent::blackMagicAttack(BlackMage *mage){
+}
+
+bool SwampEvent::useMagic(Character *magicUser){
+	int selection;
+	switch(magicUser->getCharacterClass()){
+		case BLACK_MAGE:
+			cout << "Would you like to use Magic Missle?\n" 
+					"1.) Yes\n"
+					"0.) No\n";
+			selection = getMenu()->checkInputInt("")	
+			if(selection){
+				displayMonsters();
+				cout << "\nWhich monster would you like to cast Magic Missle on?\n"
+				"Select 0 to go back.\n\n";
+				selection = getMenu()->checkInputInt("Select a menu option.\n", 0, )
+				if(selection == 0){
+					return true;
+				}
+
+				dynamic_cast<BlackMage*>(magicUser)->
+
+			}
+			else{
+				return true;
+			}
+			return blackMagicAttack();
+			break;
+		case WHITE_MAGE:
+			return whiteMagicAttack(dynamic_cast<WhiteMage*>(magicUser));
+			break;
+	}
+}
 
 void SwampEvent::monsterAttacks(Character *fighter){
 	int damage;
@@ -119,45 +154,26 @@ void SwampEvent::monsterAttacks(Character *fighter){
 		}
 	}
 }
-bool SwampEvent::magicUserMove(Character*){
-	return false;
-	// bool madeAction;
-	// while(selection){
-	// 	switch(selection){
-	// 		case 1:
-	// 			// heroAttack(fighter,swamp);
-	// 			break;
-	// 		case 2:
-	// 			madeAction = inventoryAction();
-	// 			break;
-	// 		case 3:
-	// 			switch(fighter->getCharacterClass()){
-	// 				case WHITE_MAGE:
-	// 					cout << "What spell would you like to cast?\n"
-	// 							"1.) Healing Touch: Heals one hero for a random amount between 1 and 10. Costs 1 Mana\n"
-	// 							"2.) Healing Aura: Heals the entire party for between 1 and 10 HP. Costs 5 Mana\n"
-	// 							"0.) Back\n";
-	// 					selection = getMenu()->checkInputInt("Selection an option above:", 1, 2);
-	// 					if(selection == 1){
-	// 						cout << "Who would you like to heal?" << endl << endl;
-	// 						getHeroes()->teamStats();
-	// 						int healCharacter = getMenu()->checkInputInt("Select a hero.", 1, getHeroes()->getTeamSize())
-	// 						while(!getHeroes()->getCharacters()[healCharacter - 1]->isAlive()){
-	// 							cout << "That hero is dead"
-	// 						}
-
-
-
-	// 					}
-	// 					break;
-	// 				case BLACK_MAGE:
-	// 					break;
-	// 			}
-
-	// 			break;
-
-	// 	}
-	// }
+bool SwampEvent::magicUserMove(Character* hero){
+	cout << "What would you like to to?\n"
+			"1.) Attack\n"
+			"2.) Use Item\n"
+			"3.) Use Magic\n";
+	int selection = getMenu()->checkInputInt("Error!\nMake a selection that's on the screen", 1, 3);
+	if(selection == 1){
+		return heroAttacking(hero);
+	}
+	else if(selection == 2){
+		if(inventoryAction()){
+			return false;
+		}
+		else{
+			return true;
+		}
+	}
+	else{
+		return useMagic(hero);
+	}
 }
 
 void SwampEvent::heroAttacks(Character *fighter){
@@ -179,22 +195,6 @@ void SwampEvent::heroAttacks(Character *fighter){
 		}
 
 	}
-	// if(fighter->getType() == BLACK_MAGE || fighter->getType() == WHITE_MAGE){
-	// 	cout << "3.) Use Magic\n";
-	// 	int selection = getMenu()->checkInputInt("Error!\nMake a selection that's on the screen", 1, 3);
-	// 	isTurnt = magicUserMove(selection);
-	// }
-
-
-	// //Prompt the user to make an attack.
-	// cout << "Who do you want to attack?" << endl << endl;
-	// displayMonsters();
-	// int selection = getMenu()->checkInputInt("Error select one of the numbers to the left", 1, getSpace()->getMonsterCount());
-	// while(!getSpace()->getMonsters()[selection - 1]->isAlive()){
-	// 	cout << "Ah, that monster is already dead!\nPick another\n";
-	// 	int selection = getMenu()->checkInputInt("Error select one of the numbers to the left", 1, getSpace()->getMonsterCount());
-	// }
-
 }
 
 bool SwampEvent::nonMagicUserMove(Character *hero){

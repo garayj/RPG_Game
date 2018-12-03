@@ -69,7 +69,7 @@ If the Black Mage has no mana, then the Black Mage cannot cast magicMissle.
 
 /**************************************************************************************************
 ** Description: Public Function. The magicMissle method simulates a magic attack from the Black 
-Mage. Signigicantly more powerful than regular attack.
+Mage. Signigicantly more powerful than regular attack. Monsters cannot dodge.
 *************************************************************************************************/
 	int magicMissle();
 	
