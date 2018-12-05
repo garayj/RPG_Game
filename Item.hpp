@@ -16,14 +16,18 @@ protected:
 	std::string itemName;
 	std::string description;
 public:
+	//Constructor for the Item Class.
 	Item();
+	//Deconstructor for the Item Class. Pure Virtual Method.
 	virtual ~Item()=0;
 
+	//Getter functions for the Item Class.
 	itemType getItemType(){return iType;};
 	int getEffect(){return effect;};
 	std::string getItemName(){return itemName;};
 	std::string getDescription(){return description;};
  
+	//Setter functions for the Item Class.
  	void setItemType(itemType iType){this->iType = iType;};
 	void setEffect(int effect){this->effect = effect;};
 	void setItemName(std::string itemName){this->itemName = itemName;};

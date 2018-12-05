@@ -22,7 +22,7 @@ Team::Team(int size){
 	setIsTeamAlive(true);
 	setTeamSize(size);
 	setLocation(nullptr);
-	setGold(1000000);
+	setGold(2000);
 	setInventory(new vector<Item*>());
 
 	characters = new Character*[getTeamSize()];
@@ -97,6 +97,7 @@ void Team::teamStats(){
 	cout << "----------------------------------------------------------------"<< endl;
 	for(int n = 1; n <= getTeamSize(); n++){
 		cout << n;
+		cout << "|";
 		cout << setw(10);
 		cout << getCharacters()[n -1]->getName();
 		cout << "|";
@@ -222,7 +223,7 @@ bool Team::equip(int itemIndex){
 	Menu menu;
 	int characterIndex;
 	cout << "Who would you like to hold this?\n";
-	printCharacters();
+	teamStats();
 
 	//Validate user input.
 	characterIndex = menu.checkInputInt("Ooops! Please select a hero in the menu\n", 1, getTeamSize());
@@ -294,7 +295,7 @@ bool Team::equip(int itemIndex){
 bool Team::usePotion(int itemIndex){
 	Menu menu;
 	cout << "Select the hero you would like to use the item on.\n";
-	printCharacters();				
+	teamStats();
 
 	//Validate the user is entering a valid character to use the potion type on.
 	int characterIndex = menu.checkInputInt("Oops please select a hero in your party.\n", 1, getTeamSize());
@@ -306,8 +307,10 @@ bool Team::usePotion(int itemIndex){
 	//Use the potion, free the memory and remove it from the inventory.
 
 	dynamic_cast<Potion*>(getInventory()->at(itemIndex - 1))->usePotion(getCharacters()[characterIndex - 1]);
+	cout << getCharacters()[characterIndex - 1]->getName() << " drinks a "<< getInventory()->at(itemIndex -1)->getItemName() << "." << endl << endl;
 	delete getInventory()->at(itemIndex - 1);
 	getInventory()->erase(getInventory()->begin() + itemIndex - 1);
+	teamStats();
 	return false;
 
 }

@@ -23,7 +23,7 @@ const string CHARACTER_SELECTION_MENU = "What Hero would you like to add you you
 										"1. Paladin: Tanky and strong. Not terribly fast though.\n"
 										"2. Ranger: Quick and nimble but to move so quick, a ranger can't have much armor.\n"
 										"3. Black Mage: The ultimate glass canon. Very powerful, but also very fragile.\n"
-										"4. White Mage: The real MVP.\n"
+										"4. White Mage: The real MVP. Healer for the group.\n"
 										"5. Rogue: Who needs to defend when you're this fast.\n"
 										"6. Warrior Gnome: Best gnome.\n";
 
@@ -63,8 +63,13 @@ const string WELCOME = "Welcome to my game!\n"
 						"The keys can be found in the dungeons.\n"
 						"You have 30 days to get all the keys. After every event is the close of the day.\n"
 						"Villages and Grasslands are safe zones.\n"
-						"Tip: Get the weapons and defense potions\n"
-						"Tip: Phoenix Downs are the only way to revive a Character that is downed.\n\n";
+						"Tips: Buy and equip weapons and use defense potions\n"
+						"Phoenix Downs are the only way to revive a Character that is downed.\n"
+						"Black Mage's magic always hits.\n"
+						"Dungeons are pretty hard so at least have weapons on each one of your heroes before attempting.\n"
+						"Characters have two slots for any combination of weapons or shield\n"
+						"My girlfriend was frustrated that she couldn't beat this game so this is why these tips are here.\n";
+
 
 						
 const string PRESS = "Press enter to continue.\n";

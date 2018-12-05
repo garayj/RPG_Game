@@ -16,7 +16,9 @@ protected:
 	characterClass classType;
 	equipmentType type;	
 public:
+	//Constructor for the Equipment Class.
 	Equipment();
+	//Deconstructor for the Equipment Class.
 	virtual ~Equipment()=0;
 
 	//Getter Methods for the data members of the Equipment Class

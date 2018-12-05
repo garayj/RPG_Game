@@ -12,7 +12,9 @@ about!
 class Dungeon:public Space
 {
 public:
+	//Constructor for the Dungeon Class.
 	Dungeon();
+	//Deconstructor for the Dungeon Class.
 	~Dungeon();
 	
 };

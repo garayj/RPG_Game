@@ -11,7 +11,9 @@ giant spiders about. Not a fun place to be. Stay safe!
 class Cave:public Space
 {
 public:
+	//Constructor for the Cave Class.
 	Cave();
+	//Deconstructor for the Cave Class.
 	~Cave();
 	
 };

@@ -1,5 +1,13 @@
+/**************************************************************************************************
+** Author: Jose Garay
+** Date: 11/27/2018
+** Description: The DangerEvent class inherits from the Event class. The DangerEvent class is an 
+Event that happens in a dangerous area such as in the Swamps, Caves or Dungeons. The DangerEvent
+class holds the fighting events that will occur. Characters are transferred into a vector and sorted
+by their speed attribute. Then, one by one they attack. Monsters attack alive heros at random while 
+the user can choose which monster to attack that is alive.
+**************************************************************************************************/
 #include "DangerEvent.hpp"
-
 
 #include "WhiteMage.hpp"
 #include "BlackMage.hpp"
@@ -18,6 +26,7 @@ DangerEvent::~DangerEvent(){}
 
 
 void DangerEvent::encounter(){
+	int count = 1;;
 	string holder;
 	vector<Character*>allFighters;
 	vector<Character*>temp;
@@ -35,11 +44,15 @@ void DangerEvent::encounter(){
 
 		//Loop until all the characters in the vector have been popped off.
 		cout << endl;
-		cout << "This is the fighting order:\n";
 		while(temp.size() != 0 && areMonstersAlive() && getHeroes()->getIsTeamAlive()){
+			cout << "Fighting order:\n\n";
 			for(int n = temp.size() - 1; n >= 0; n--){
-				cout << temp.at(n)->getCharacterClassString() << endl;
+				if(temp.at(n)->getIsAlive()){
+					cout << count << ".) " << temp.at(n)->getCharacterClassString() << endl;
+					count++;
+				}
 			}
+			count = 1;
 			cout << endl;
 			cout << "Press enter to continue." << endl;
 			getline(std::cin, holder);
@@ -51,8 +64,15 @@ void DangerEvent::encounter(){
 			fighter = temp.back();
 
 			//Check if the fighter object is pointing to something and if it is, checks to see if it is alive.
-			if(fighter != nullptr && fighter->getIsAlive()){
+			//If either condition is true, remove the last character until one that is alive is found.
+			while(temp.size() > 0  && (fighter == nullptr || !fighter->getIsAlive())){
 
+				temp.pop_back();
+				if(temp.size() != 0){
+					fighter = temp.back();
+				}
+			}
+			if(temp.size() > 0){
 				//If that character is a monster.
 				if(fighter->getType() == MONSTER){
 					monsterAttacks(fighter);
@@ -63,8 +83,11 @@ void DangerEvent::encounter(){
 					heroAttacks(fighter);
 					cout << endl;
 				}
-			}	
-			temp.pop_back();
+				temp.pop_back();
+
+			}
+
+
 		}
 	}
 }
@@ -75,7 +98,7 @@ bool DangerEvent::useMagic(Character *magicUser){
 	int selection;
 	switch(magicUser->getCharacterClass()){
 		case BLACK_MAGE:
-			cout << "Would you like to use Magic Missle?\n" 
+			cout << "Would you like to use Magic Missle? Costs 1 Mana.\n" 
 					"1.) Yes\n"
 					"0.) No\n";
 			selection = getMenu()->checkInputInt("Make a selection:", 0 , 1);	
@@ -133,8 +156,8 @@ bool DangerEvent::useMagic(Character *magicUser){
 		case WHITE_MAGE:
 			//select a spell to cast
 			cout << "What healing spell would you like to cast?\n"
-					"1.) Healing Touch\n"
-					"2.) Healing Aura\n"
+					"1.) Healing Touch - Costs 1 Mana and heals one Hero\n"
+					"2.) Healing Aura - Costs 5 Mana and heals all Heroes\n"
 					"0.) Return\n";
 
 			selection = getMenu()->checkInputInt("Select an option on the menu", 0, 2);
@@ -213,7 +236,8 @@ void DangerEvent::monsterAttacks(Character *fighter){
 	}
 	else{
 		damage = fighter->attack();
-		cout << fighter->getCharacterClassString() << " is attacking for " << damage << " points." << endl;
+		cout << fighter->getCharacterClassString() << " is attacks for " << damage << " points." << endl;
+
 		getHeroes()->getCharacters()[randomHero]->defend(damage);
 
 		//The case that the hero dies to the attack.
@@ -249,7 +273,8 @@ bool DangerEvent::magicUserMove(Character* hero){
 
 void DangerEvent::heroAttacks(Character *fighter){
 	//Display who is attacking.
-	std::cout << fighter->getName() << " the " << fighter->getCharacterClassString() << "'s turn!" << endl;
+	std::cout << endl;
+	std::cout << fighter->getName() << " the " << fighter->getCharacterClassString() << "'s turn!" << endl << endl;
 	bool madeAction = true;
 	while(madeAction){
 		switch(fighter->getCharacterClass()){
@@ -273,6 +298,7 @@ bool DangerEvent::nonMagicUserMove(Character *hero){
 			"1.) Attack\n"
 			"2.) Use Item\n";
 	int selection = getMenu()->checkInputInt("Error!\nMake a selection that's on the screen", 1, 2);
+	blankScreen();
 	if(selection == 1){
 		return heroAttacking(hero);
 	}
@@ -287,8 +313,15 @@ bool DangerEvent::nonMagicUserMove(Character *hero){
 
 }
 
+void DangerEvent::blankScreen(){
+	for(int n = 0; n < 1000; n++){
+		cout << endl;
+	}
+}
+
 bool DangerEvent::heroAttacking(Character *fighter){
 	displayMonsters();
+	int damage;
 
 	cout << "\nWhich monster would you like to attack?\n";
 	cout << "Press 0 to go back\n";
@@ -318,7 +351,9 @@ bool DangerEvent::heroAttacking(Character *fighter){
 		return false;
 	}
 	else{
-		getSpace()->getMonsters()[monster]->defend(fighter->attack());
+		damage = fighter->attack();
+		cout << fighter->getName() << " the " << fighter->getCharacterClassString() << " is attacking for " << damage << " points." << endl;
+		getSpace()->getMonsters()[monster]->defend(damage);
 
 		//The case that the monster dies to the attack.
 		if(getSpace()->getMonsters()[monster]->getHealth() <= 0 ){

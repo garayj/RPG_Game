@@ -63,18 +63,13 @@ public:
 ** Description: Abstract Function. Defined in derived class. Calculates the attack the character
 makes.
 **************************************************************************************************/
-	virtual int attack();
+	int attack();
 
 /**************************************************************************************************
 ** Description: Abstract Function. Defined in derived class. Calculates the defense the character
 makes and sets the strength of the character.
 **************************************************************************************************/
-	virtual void defend(int);
-/**************************************************************************************************
-** Description: Public Function. Takes in an integer that represents the damage the Charcter has 
-taken and recovers 50% of the damage taken.
-**************************************************************************************************/
-	void recover(int);
+	void defend(int);
 
 
 

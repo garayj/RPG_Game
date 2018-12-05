@@ -17,7 +17,9 @@ protected:
 	Team *heroes;
 
 public:
+	//Constructor for the Event Class.
 	Event();
+	//Deconstructor for the Event Class. Pure Virtual Function.
 	virtual ~Event()=0;
 	// virtual void fight()=0;
 	bool inventoryAction();	

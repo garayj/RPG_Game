@@ -10,14 +10,14 @@ defend with 4d6.
 
 Dragon::Dragon(){
 	setIsAlive(true);
-	setArmor(15);
+	setArmor(10);
 	setMaxHealth(50);
 	setSpeed(4);
 	setHealth(getMaxHealth());
 	setNumberDefDie(4);
 	setNumberAttDie(6);
 	setDefDieSides(6);
-	setAttDieSides(8);
+	setAttDieSides(10);
 	setCharacterType(MONSTER);
 	setCharacterClass(DRAGON);
 	setSlot1(nullptr);

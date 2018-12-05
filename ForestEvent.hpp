@@ -12,7 +12,9 @@ and beat them.
 class ForestEvent : public DangerEvent
 {
 public:
+	//Constructor for the ForestEvent Class.
 	ForestEvent(Team *, Space*);
+	//Deconstuctor for the ForestEvent Class.
 	~ForestEvent(){};
 	
 };

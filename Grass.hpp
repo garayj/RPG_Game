@@ -11,7 +11,9 @@ good places to rest at and maybe drink a potion or two.
 class Grass:public Space
 {
 public:
+	//Constructor for the Grass Class.
 	Grass();
+	//Deconstructor for the Grass Class.
 	~Grass();
 	
 };

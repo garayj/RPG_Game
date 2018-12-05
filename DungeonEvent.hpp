@@ -12,8 +12,11 @@ keys here as reward though.
 class DungeonEvent : public DangerEvent
 {
 public:
+	//Constructor for the Dungeon Event Class.
 	DungeonEvent(Team*, Space*);
+	//Deconstructor for the DungeonEvent Class.
 	~DungeonEvent(){};
+
 	
 };
 #endif

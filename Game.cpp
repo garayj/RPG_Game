@@ -79,6 +79,7 @@ void Game::setup(){
 	menu.printMenu();
 
 	getline(cin,pause);
+	clearScreen();
 
 	int selection;
 	heroes = new Team(3);
@@ -108,6 +109,12 @@ void Game::setup(){
 	menu.printMenu();
 
 	heroes->printCharacters();
+
+	menu.clear();
+	menu.addMenuLine(PRESS);
+	menu.printMenu();
+
+	getline(cin,pause);
 
 	//Add the Heroes to the map so the map can know the location of the heroes.
 	map.setHeroes(heroes);
@@ -143,22 +150,27 @@ Character* Game::characterSelection(int selection){
 
 void Game::gameplay(){
 
-	map.printMap();
-	heroes->teamStats();
 	//While the game is running, the timer is less than 30 and tthe user has not won, the game will continue.
+	//The format of the game is the hero stats are printed to the screen, the map is printed, the heroes move
+	//the screen is cleared and an event occurs. If the game is still running after the event, the user is 
+	//prompted to continue.
 	while(isRunning && timer <= 30 && !won){
-		move(heroes);
-		clearScreen();
+
 		cout << "Day "<< timer << "\n\n";
 		heroes->teamStats();
+		map.printMap();
+		move(heroes);
+		clearScreen();
+		heroes->teamStats();
+		cout << endl;
 		event();
 		if(isRunning){
-			map.printMap();
 			menu.clear();
 			menu.addMenuLine(CONTINUE);
 			menu.printMenu();
 			setIsRunning(menu.checkInputInt(ERROR + CONTINUE, 0, 1));
 		}
+		clearScreen();
 		timer++;
 	}	
 	setIsRunning(false);

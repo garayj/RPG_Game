@@ -1,3 +1,9 @@
+/**************************************************************************************************
+** Author: Jose Garay
+** Date: 12/4/2018
+** Description: Implementation for the HealthPotion class. The HealthPotion class is an Item that 
+inherits from the Potion class. A HealthPotion can be used to heal for 5 HP.
+**************************************************************************************************/
 #include "HealthPotion.hpp"
 #include <iostream>
 

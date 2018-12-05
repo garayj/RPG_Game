@@ -103,14 +103,9 @@ void Character::defend(int attack){
 	setHealth(getHealth()- damage);
 
 	//Displays stats to the console.
-	cout << getCharacterClassString() << " has " << getArmor() << " armor." << endl;
+
 	cout << getCharacterClassString() << " has " << getArmor() << " armor and defended for " << defense + getArmor() << "." << endl;
 	cout << getCharacterClassString() << " took " << damage << " point of damage." << endl;
-	cout << getCharacterClassString() << " has " << getHealth() << " strength." << endl;
+	cout << getCharacterClassString() << " has " << getHealth() << " HP." << endl;
 }
 
-void Character::recover(int damageTaken){
-	int recovery = damageTaken * 0.5;
-	setHealth(getHealth() + recovery);
-	cout << getName() << " recovers for " << recovery << " strength points." << endl; 
-}

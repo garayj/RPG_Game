@@ -1,3 +1,8 @@
+/**************************************************************************************************
+** Author: Jose Garay
+** Date: 11/27/2018
+** Description: Header file for all the strings in the inventoryMenu.
+**************************************************************************************************/
 #ifndef INVENTORY_STRINGS_HPP
 #define INVENTORY_STRINGS_HPP
 #include <string>

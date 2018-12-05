@@ -1,9 +1,9 @@
 /**************************************************************************************************
 ** Author: Jose Garay
 ** Date: 11/27/2018
-** Description: Interface file for the WarriorGnome Class. The WarriorGnome Class is a character within
-the unknown Fantasy Game. WarriorGnome has an Armor rating of 10, Max Health of 30, attacks with 3d6 and
-defend with 3d6. 
+** Description: Implementation file for the WarriorGnome Class. The WarriorGnome Class is a character within
+the unknown Fantasy Game. WarriorGnome has an Armor rating of 7, Max Health of 20, attacks with 8d8 and
+defend with 5d5. 
 *************************************************************************************************/
 #ifndef WARRIOR_GNOME_HPP 
 #define WARRIOR_GNOME_HPP 

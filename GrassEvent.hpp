@@ -14,7 +14,9 @@ private:
 	//The rest method is if the party decides to camp. 5 HP are gained after a night of sleep.
 	void rest();
 public:
+	//Constructor for the GrassEvent Class.
 	GrassEvent(Team*);
+	//Deconstructor for the GrassEvent Class.	
 	~GrassEvent();
 
 };

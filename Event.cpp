@@ -9,6 +9,8 @@ that will occur on each space on the board.
 
 Event::Event(){}
 Event::~Event(){}
+
+
 bool Event::inventoryAction(){
 	bool noActionMade;	
 	int selection;

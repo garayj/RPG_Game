@@ -1,3 +1,11 @@
+/**************************************************************************************************
+** Author: Jose Garay
+** Date: 11/26/2018
+** Description: Implementation for the Map class. The Map class simulates a Map of the entire world 
+that this game is set in. Holds spaces of all types and the board is randomized every playthrough. 
+Each space is stitched together and the user can have a visual representation of the board printed to 
+the screen.
+**************************************************************************************************/
 #include "Map.hpp"
 #include "Swamp.hpp"
 #include "Dungeon.hpp"
@@ -164,24 +172,28 @@ void Map::printMap(){
 }
 
 void Map::connect(int n, int p){
+	//connect the down pointer and the up pointer of the space below the current space.
 	if(n + 1 < row){
 		board[n][p]->setDown(board[n+1][p]);	
 		if(board[n+1][p] != nullptr){
 			board[n+1][p]->setUp(board[n][p]);
 		}
 	}
+	//connect the up pointer and the down pointer of the space above the current space.
 	if(n - 1 >= 0){
 		board[n][p]->setUp(board[n-1][p]);	
 		if(board[n-1][p] != nullptr){
 			board[n-1][p]->setDown(board[n][p]);
 		}
 	}
+	//connect the right pointer and the left pointer of the space to the right of the current space.
 	if(p + 1 < col){
 		board[n][p]->setRight(board[n][p+1]);	
 		if(board[n][p+1] != nullptr){
 			board[n][p+1]->setLeft(board[n][p]);
 		}
 	}
+	//connect the left pointer and the right pointer of the space to the left of the current space.
 	if(p - 1 >= 0){
 		board[n][p]->setLeft(board[n][p-1]);	
 		if(board[n][p-1] != nullptr){

@@ -14,9 +14,10 @@ ForestEvent::ForestEvent(Team *heroes, Space *forest){
 	setMenu(new Menu());
 	setHeroes(heroes);
 	setSpace(forest);
+	//Checks if there are monsters alive and gives a random chance to fight them.
 	if(areMonstersAlive()){
 		int chance = rand() %10;
-		if(chance < 2){
+		if(chance < 4){
 			encounter();
 			if(getHeroes()->getIsTeamAlive()){
 				int reward = 4000;

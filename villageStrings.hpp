@@ -1,3 +1,8 @@
+/**************************************************************************************************
+** Author: Jose Garay
+** Date: 12/4/2018
+** Description: Header file that holds most of the string for the village menu system.
+**************************************************************************************************/
 #ifndef VILLAGESTRINGS_HPP
 #define VILLAGESTRINGS_HPP 
 #include <string>
@@ -35,7 +40,7 @@ const string USE_ITEM = "Select the item you would like to use or select 0 to go
 const string MERCHANT = "Welcome Travelers!\n"
 						"Take a look at my wares\n"
 						"1: 1000G Greater Sword - Hard as a diamond, strong as a bear. This blade was made for cutting up baddies. +10 Damage(For the Paladin class)\n"
-						"2: 400G Magic Shield - A little pendant that absorbs damage that you may take. +5 Armor (For any class)\n"
+						"2: 400G Magic Shield - A little pendant that absorbs damage that you may take. +10 Armor (For any class)\n"
 						"3: 2000G Battle Wand - A stick. It just looks like a stick. +15 Damage(For Black Mage only)\n"
 						"4: 500G Healing Wand - A unicorn lost it's horn for this. +10 Healing(For White Mage only)\n"
 						"5: 1000G Great Hammer - The perfect hammer. Made by the Dwarves of Dwarvington, +10 Damage(For Warrior Gnome class)\n"

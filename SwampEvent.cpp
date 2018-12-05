@@ -19,11 +19,17 @@ SwampEvent::SwampEvent(Team *heroes, Space *swamp){
 	setSpace(swamp);
 	if(areMonstersAlive()){
 		int chance = rand() %10;
-		if(chance < 6){
+		if(chance < 5){
 			encounter();
+			if(getHeroes()->getIsTeamAlive()){
+				int reward = rand() % 1000 + 1;	
+				std::cout << "The monsters drop some gold." << std:: endl;
+				getHeroes()->setGold(getHeroes()->getGold() + reward);
+				std::cout << "You have " << getHeroes()->getGold() << "G." << std::endl << std::endl;
+			}
 		}
 		else{
-			std::cout << "You stay quiet and move quickly. You escape without confrontation.\n\n";
+			std::cout << "You stay quiet and move quickly. You escape without confrontation. It's creepy being in the swamp!\n\n";
 		}
 	}
 	else{

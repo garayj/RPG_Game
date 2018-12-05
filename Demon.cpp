@@ -10,14 +10,14 @@ defend with 3d3.
 
 Demon::Demon(){
 	setIsAlive(true);
-	setArmor(5);
-	setMaxHealth(10);
+	setArmor(8);
+	setMaxHealth(30);
 	setSpeed(6);
 	setHealth(getMaxHealth());
-	setNumberDefDie(3);
+	setNumberDefDie(4);
 	setNumberAttDie(6);
-	setDefDieSides(3);
-	setAttDieSides(4);
+	setDefDieSides(4);
+	setAttDieSides(6);
 	setCharacterType(MONSTER);
 	setCharacterClass(DEMON);
 	setSlot1(nullptr);
@@ -27,3 +27,4 @@ Demon::Demon(){
 Demon::~Demon(){
 
 }
+

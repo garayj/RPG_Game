@@ -1,3 +1,9 @@
+/**************************************************************************************************
+** Author: Jose Garay
+** Date: 12/4/2018
+** Description: The PhoenixDown Class inherits from the Potion class. If a hero is killed from 
+battle, another hero may revive him using a Phoenix Down.
+**************************************************************************************************/
 #include "PhoenixDown.hpp"
 #include "BlackMage.hpp"
 #include "WhiteMage.hpp"

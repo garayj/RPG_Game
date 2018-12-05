@@ -11,7 +11,9 @@ safe area.
 class Forest:public Space
 {
 public:
+	//Constructor for the Forest Class.
 	Forest();
+	//Deconstructor for the Forest Class.
 	~Forest();
 	
 };

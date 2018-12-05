@@ -24,7 +24,7 @@ DungeonEvent::DungeonEvent(Team *heroes, Space *dungeon){
 				Item *key = new Key();
 				heroes->getInventory()->push_back(key);
 				std::cout << "You also found some gold on the ground." << std::endl;
-				std::cout << "You got" << gold << "G."<< std::endl;
+				std::cout << "You got " << gold << "G."<< std::endl;
 				getHeroes()->setGold(getHeroes()->getGold() + gold);
 				std::cout << "You now have " << getHeroes()->getGold() << "G." << std::endl;
 
