@@ -90,16 +90,11 @@ void Menu::addMenuLine(string str){
 /**************************************************************************************************
 ** Description: Public Method. Prints the menu to the console. Takes no arguments and returns void.
 **************************************************************************************************/
-void Menu::printMenu(){
+void Menu::printMenu(string str){
+	menu.push_back(str);
 	for(int n = 0; n < menu.size(); n++){
 		cout << menu[n] << endl;
 	}
-}
-
-/**************************************************************************************************
-** Description: Public Method. Clears the string vector. Takes no arguments and returns void.
-**************************************************************************************************/
-void Menu::clear(){
 	menu.clear();
 }
 

@@ -17,6 +17,11 @@ private:
 	int col;
 	Space ***board;
 	Team *heroes;
+
+	//Randomly adds spaces to the board. Takes in an integer that acts as a counter for the amount 
+	//of spaces to be added.
+	void addSpace(int, spaceType);
+	
 	//Links the entire board together.
 	void connect(int,int);
 public:
@@ -40,6 +45,7 @@ public:
 	~Map();
 	//Prints a visual representation of the Map to the console.
 	void printMap();
-	
+
+
 };
 #endif

@@ -37,7 +37,6 @@ public:
 	int searchForInput(int);
 
 	void addMenuLine(string);
-	void printMenu();
-	void clear();
+	void printMenu(string);
 };
 #endif

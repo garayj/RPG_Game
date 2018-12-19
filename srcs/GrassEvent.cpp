@@ -21,8 +21,7 @@ GrassEvent::GrassEvent(Team *heroes){
 	setHeroes(heroes);
 	setMenu(new Menu());
 
-	getMenu()->addMenuLine(MAIN_MENU);
-	getMenu()->printMenu();
+	getMenu()->printMenu(MAIN_MENU);
 
 	int selection = getMenu()->checkInputInt(ERROR_MENU, 0, 3);
 	//Go into the inventory and either equip weapons and armor or use a potion.
@@ -32,30 +31,22 @@ GrassEvent::GrassEvent(Team *heroes){
 		while(noActionMade){
 			noActionMade = inventoryAction();
 		}
-		getMenu()->clear();
-		getMenu()->addMenuLine(MAIN_MENU);	
-		getMenu()->printMenu();
+		getMenu()->printMenu(MAIN_MENU);
 		selection = getMenu()->checkInputInt(ERROR_MENU, 0, 3);
 	}
 	//Quit the Game
 	if(selection == 0){
 		getHeroes()->setIsTeamAlive(false);	
-		getMenu()->clear();
-		getMenu()->addMenuLine(QUIT);
-		getMenu()->printMenu();
+		getMenu()->printMenu(QUIT);
 	}
 	//Rest for the night.
 	else if(selection == 2){
-		getMenu()->clear();
-		getMenu()->addMenuLine(REST);
-		getMenu()->printMenu();
+		getMenu()->printMenu(REST);
 		rest();
 	}
 	//Mosey on.
 	else{
-		getMenu()->clear();
-		getMenu()->addMenuLine(CONTINUE);
-		getMenu()->printMenu();
+		getMenu()->printMenu(CONTINUE);
 	}
 	delete menu;
 }

@@ -37,71 +37,17 @@ Map::Map(){
 
 	//Randomize the board
 
-	int count = 0;
-	int randRow;
-	int randCol;
+	//4 Dungeons are added to the map.
+	addSpace(4, DUNGEON);
+	//6 Villages are added to the map.
+	addSpace(6, VILLAGE);
+	//6 Swamps are added to the map.
+	addSpace(6, SWAMP);
+	//7 Forests are added to the map.
+	addSpace(7, FOREST);
+	//3 Caves are added to the map.
+	addSpace(3, CAVE);
 
-	//4 Dungeons placed on the board randomly.
-	while(count < 4){
-		randRow = rand() % 6;
-		randCol = rand() % 6;
-		if(board[randRow][randCol] == nullptr){
-			board[randRow][randCol] = new Dungeon();
-			connect(randRow,randCol);
-			count++;
-		}
-	}
-	count = 0;
-
-	//6 Villages will be placed on the board.
-	while(count < 6){
-		randRow = rand() % 6;
-		randCol = rand() % 6;
-		if(board[randRow][randCol] == nullptr){
-			board[randRow][randCol] = new Village();
-			connect(randRow,randCol);
-			count++;
-		}
-	}
-	
-	count = 0;
-
-	//6 Swamps will be placed on the board.
-	while(count < 6){
-		randRow = rand() % 6;
-		randCol = rand() % 6;
-		if(board[randRow][randCol] == nullptr){
-			board[randRow][randCol] = new Swamp();
-			connect(randRow,randCol);
-			count++;
-		}
-	}
-
-	count = 0;
-
-	//7 Forests will be placed on the board.
-	while(count < 7){
-		randRow = rand() % 6;
-		randCol = rand() % 6;
-		if(board[randRow][randCol] == nullptr){
-			board[randRow][randCol] = new Forest();
-			connect(randRow,randCol);
-			count++;
-		}
-	}
-
-	count = 0;
-
-	//3 Caves will be placed on the board.
-	while(count < 3){
-		randRow = rand() % 6;
-		randCol = rand() % 6;
-		if(board[randRow][randCol] == nullptr){
-			board[randRow][randCol] = new Cave();
-			connect(randRow,randCol);
-			count++;
-		}
-	}
 
 	//9 other Grasslands will be placed on the board.
 	
@@ -198,6 +144,36 @@ void Map::connect(int n, int p){
 		board[n][p]->setLeft(board[n][p-1]);	
 		if(board[n][p-1] != nullptr){
 			board[n][p-1]->setRight(board[n][p]);
+		}
+	}
+}
+
+void Map::addSpace(int counter, spaceType space){
+	int count  = 0;
+	int randCol, randRow;	
+	while(count < counter){
+		randRow = rand() % 6;
+		randCol = rand() % 6;
+		if(board[randRow][randCol] == nullptr){
+			switch(space){
+				case VILLAGE:
+					board[randRow][randCol] = new Village();
+					break;
+				case CAVE:
+					board[randRow][randCol] = new Cave();
+					break;
+				case DUNGEON:
+					board[randRow][randCol] = new Dungeon();
+					break;
+				case FOREST:
+					board[randRow][randCol] = new Forest();
+					break;
+				case SWAMP:
+					board[randRow][randCol] = new Swamp();
+					break;
+			}
+			connect(randRow,randCol);
+			count++;
 		}
 	}
 }

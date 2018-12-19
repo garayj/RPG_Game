@@ -61,25 +61,19 @@ void Game::run(){
 
 void Game::startMenu(){	
 	clearScreen();
-	menu.addMenuLine(MAIN_MENU);
-	menu.printMenu();
+	menu.printMenu(MAIN_MENU);
 	setIsRunning(menu.checkInputInt(ERROR + MAIN_MENU, 0, 1));	
-	menu.clear();
 	clearScreen();
 }
 
 void Game::setup(){
 	string pause;
 
-	menu.clear();
-	menu.addMenuLine(WELCOME);
-	menu.printMenu();
+	menu.printMenu(WELCOME);
 
 	cout << endl;
 
-	menu.clear();
-	menu.addMenuLine(PRESS);
-	menu.printMenu();
+	menu.printMenu(PRESS);
 
 	getline(cin,pause);
 	clearScreen();
@@ -87,35 +81,25 @@ void Game::setup(){
 	int selection;
 	heroes = new Team(3);
 
-	menu.clear();
-	menu.addMenuLine(TEAM_CREATION_HEADER);
-	menu.printMenu();
+	menu.printMenu(TEAM_CREATION_HEADER);
 
 	//Team selection
 	for(int n = 0; n < heroes->getTeamSize(); n++){
-		menu.clear();
-		menu.addMenuLine(CHARACTER_SELECTION_MENU);
-		menu.printMenu();
+		menu.printMenu(CHARACTER_SELECTION_MENU);
 		selection  = menu.checkInputInt(ERROR + CHARACTER_SELECTION_MENU, 1, 6);
 		heroes->getCharacters()[n] = characterSelection(selection);
-		menu.clear();
-		menu.addMenuLine(CHARACTER_NAME_MENU);
-		menu.printMenu();
+		menu.printMenu(CHARACTER_NAME_MENU);
 		heroes->getCharacters()[n]->setName(menu.checkInputString(ERROR_CHARACTER_NAME_MENU));
 	}
 
 	//Print out team.
 	clearScreen();
 
-	menu.clear();
-	menu.addMenuLine(THIS_IS_YOUR_TEAM);
-	menu.printMenu();
+	menu.printMenu(THIS_IS_YOUR_TEAM);
 
 	heroes->printCharacters();
 
-	menu.clear();
-	menu.addMenuLine(PRESS);
-	menu.printMenu();
+	menu.printMenu(PRESS);
 
 	getline(cin,pause);
 
@@ -169,9 +153,7 @@ void Game::gameplay(){
 		cout << endl;
 		event();
 		if(isRunning){
-			menu.clear();
-			menu.addMenuLine(CONTINUE);
-			menu.printMenu();
+			menu.printMenu(CONTINUE);
 			setIsRunning(menu.checkInputInt(ERROR + CONTINUE, 0, 1));
 		}
 		clearScreen();
@@ -183,21 +165,15 @@ void Game::gameplay(){
 void Game::end(){
 	//Then case that the party died during combat.
 	if(!heroes->getIsTeamAlive() && !checkTeamHealth()){
-		menu.clear();
-		menu.addMenuLine(DIED);
-		menu.printMenu();
+		menu.printMenu(DIED);
 	}
 	//The case that the user has run out of time.
 	else if(timer >= 30 && !won){
-		menu.clear();
-		menu.addMenuLine(LOST_TIMER);
-		menu.printMenu();
+		menu.printMenu(LOST_TIMER);
 	}
 	//The case that the user has won!
 	else if(timer < 30 && won){
-		menu.clear();
-		menu.addMenuLine(WON);
-		menu.printMenu();
+		menu.printMenu(WON);
 	}
 	delete heroes;
 }
@@ -208,14 +184,11 @@ void Game::move(Team *team){
 	//All needed variables for the method.
 	string input;
 	int direction;
-	bool isValidMove = true, isInArray = false;
+	bool isValidMove = true;
 	vector<char> validDirection = {'w', 'a', 's', 'd'};
 
 	//Print movement options menu.
-	menu.clear();
-	menu.addMenuLine(MOVEMENT_PROMPT);
-	menu.printMenu();
-	menu.clear();
+	menu.printMenu(MOVEMENT_PROMPT);
 
 	char c = menu.searchForInput(validDirection);
 
@@ -229,9 +202,7 @@ void Game::move(Team *team){
 					isValidMove = false;
 				}
 				else{
-					menu.clear();
-					menu.addMenuLine(FALL_OFF_MAP);
-					menu.printMenu();
+					menu.printMenu(FALL_OFF_MAP);
 					c = menu.searchForInput(validDirection);
 				}
 				break;
@@ -241,9 +212,7 @@ void Game::move(Team *team){
 					isValidMove = false;
 				}
 				else{
-					menu.clear();
-					menu.addMenuLine(FALL_OFF_MAP);
-					menu.printMenu();
+					menu.printMenu(FALL_OFF_MAP);
 					c = menu.searchForInput(validDirection);
 				}
 				break;
@@ -253,9 +222,7 @@ void Game::move(Team *team){
 					isValidMove = false;
 				}
 				else{
-					menu.clear();
-					menu.addMenuLine(FALL_OFF_MAP);
-					menu.printMenu();
+					menu.printMenu(FALL_OFF_MAP);
 					c = menu.searchForInput(validDirection);
 				}
 				break;
@@ -266,9 +233,7 @@ void Game::move(Team *team){
 				}
 
 				else{
-					menu.clear();
-					menu.addMenuLine(FALL_OFF_MAP);
-					menu.printMenu();
+					menu.printMenu(FALL_OFF_MAP);
 					c = menu.searchForInput(validDirection);
 				}
 				break;

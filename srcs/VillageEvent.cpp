@@ -36,8 +36,7 @@ VillageEvent::VillageEvent(Team *heroes){
 	//Vector holding all the prices of the items.
 	std::vector<int>prices = {1000,400,2000,500,1000,2000,1500,100,1000,1000};
 
-	getMenu()->addMenuLine(MAIN_MENU);
-	getMenu()->printMenu();
+	getMenu()->printMenu(MAIN_MENU);
 
 	int selection = getMenu()->checkInputInt(ERROR_MENU, 0, 4);
 	bool noActionMade = true;
@@ -53,9 +52,7 @@ VillageEvent::VillageEvent(Team *heroes){
 				break;
 			//The user chooses to buy something from the shop.
 			case 4:
-				getMenu()->clear();
-				getMenu()->addMenuLine(MERCHANT);
-				getMenu()->printMenu();
+				getMenu()->printMenu(MERCHANT);
 				std::cout << std::endl << "You have:" << getHeroes()->getGold() << "G." << std::endl << std::endl;
 				//Select an option.
 				itemSelection = getMenu()->checkInputInt(ERROR,0 ,10);
@@ -70,38 +67,28 @@ VillageEvent::VillageEvent(Team *heroes){
 						}
 					}
 					else{
-						getMenu()->clear();
-						getMenu()->addMenuLine(INVENTORY_FULL);
-						getMenu()->printMenu();
+						getMenu()->printMenu(INVENTORY_FULL);
 					}
 				}
 				break;
 		}
 		//Reprompt the main menu if either merchant or look at inventory is chosen.
-		getMenu()->clear();
-		getMenu()->addMenuLine(MAIN_MENU);	
-		getMenu()->printMenu();
+		getMenu()->printMenu(MAIN_MENU);
 		selection = getMenu()->checkInputInt(ERROR_MENU, 0, 4);
 	}
 	//Quit the Game
 	if(selection == 0){
 		heroes->setIsTeamAlive(false);	
-		getMenu()->clear();
-		getMenu()->addMenuLine(QUIT);
-		getMenu()->printMenu();
+		getMenu()->printMenu(QUIT);
 	}
 	//Sleep at the inn for the night.
 	else if(selection == 2){
-		getMenu()->clear();
-		getMenu()->addMenuLine(REST);
-		getMenu()->printMenu();
+		getMenu()->printMenu(REST);
 		rest();
 	}
 	//Mosey on.
 	else{
-		getMenu()->clear();
-		getMenu()->addMenuLine(CONTINUE);
-		getMenu()->printMenu();
+		getMenu()->printMenu(CONTINUE);
 	}
 	delete menu;
 }

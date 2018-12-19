@@ -14,15 +14,11 @@ Event::~Event(){}
 bool Event::inventoryAction(){
 	bool noActionMade;	
 	int selection;
-	getMenu()->clear();
-	getMenu()->addMenuLine(INVENTORY);
-	getMenu()->printMenu();
+	getMenu()->printMenu(INVENTORY);
 	//Print out all the things in the inventory.
 	getHeroes()->printInventory();
 
-	getMenu()->clear();
-	getMenu()->addMenuLine(USE_ITEM);
-	getMenu()->printMenu();
+	getMenu()->printMenu(USE_ITEM);
 
 	selection = getMenu()->checkInputInt(ERROR + USE_ITEM, 0, getHeroes()->getInventory()->size());
 
@@ -31,9 +27,7 @@ bool Event::inventoryAction(){
 		noActionMade = false;
 	}
 	else if(getHeroes()->getInventory()->at(selection - 1)->getItemType() == KEY){
-		getMenu()->clear();
-		getMenu()->addMenuLine(KEY_WARNING);
-		getMenu()->printMenu();
+		getMenu()->printMenu(KEY_WARNING);
 		noActionMade = false;
 	}
 	else{
