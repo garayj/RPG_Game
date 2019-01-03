@@ -20,14 +20,14 @@ using std::setw;
 using std::cout;
 using std::endl;
 
-DangerEvent::DangerEvent(){}
-DangerEvent::~DangerEvent(){}
+DangerEvent::DangerEvent(){
+}
+DangerEvent::~DangerEvent(){
+}
 
 
 
 void DangerEvent::encounter(){
-	int count = 1;;
-	string holder;
 	vector<Character*>allFighters;
 	vector<Character*>temp;
 
@@ -39,57 +39,80 @@ void DangerEvent::encounter(){
 
 	//Loop the fight sequence until one team wins.
 	while(areMonstersAlive() && getHeroes()->getIsTeamAlive()){
-		temp = allFighters;
-		Character *fighter;
+		fight(allFighters);
+	}
+}
 
-		//Loop until all the characters in the vector have been popped off.
-		cout << endl;
-		while(temp.size() != 0 && areMonstersAlive() && getHeroes()->getIsTeamAlive()){
-			cout << "Fighting order:\n\n";
-			for(int n = temp.size() - 1; n >= 0; n--){
-				if(temp.at(n)->getIsAlive()){
-					cout << count << ".) " << temp.at(n)->getCharacterClassString() << endl;
-					count++;
-				}
+void DangerEvent::fight(vector<Character*>temp){
+	Character *fighter;
+
+	//Loop until all the characters in the vector have been popped off.
+	while(temp.size() != 0 && areMonstersAlive() && getHeroes()->getIsTeamAlive()){
+
+		//print a list of all fighters that are still in combat to the console.
+		printFightOrder(temp);
+
+		//Clear the screen
+		clearScreen();
+
+		//Select the character with the current fastest speed rating.
+		fighter = temp.back();
+
+		//Check if the fighter object is pointing to something and if it is, checks to see if it is alive.
+		//If either condition is true, remove the last character until one that is alive is found.
+		while(temp.size() > 0  && (fighter == nullptr || !fighter->getIsAlive())){
+			temp.pop_back();
+			if(temp.size() != 0){
+				fighter = temp.back();
 			}
-			count = 1;
-			cout << endl;
-			cout << "Press enter to continue." << endl;
-			getline(std::cin, holder);
-
-			for(int n = 0; n < 1000; n++){
-				cout << endl;
-			}
-			//Select the character with the current fastest speed rating.
-			fighter = temp.back();
-
-			//Check if the fighter object is pointing to something and if it is, checks to see if it is alive.
-			//If either condition is true, remove the last character until one that is alive is found.
-			while(temp.size() > 0  && (fighter == nullptr || !fighter->getIsAlive())){
-
-				temp.pop_back();
-				if(temp.size() != 0){
-					fighter = temp.back();
-				}
-			}
-			if(temp.size() > 0){
-				//If that character is a monster.
-				if(fighter->getType() == MONSTER){
-					monsterAttacks(fighter);
-					cout << endl;
-				}
-				else{
-					heroes->teamStats();
-					heroAttacks(fighter);
-					cout << endl;
-				}
-				temp.pop_back();
-
-			}
-
-
+		}
+		//fork between events of the 
+		if(temp.size() > 0){
+			fork(fighter, &temp);
 		}
 	}
+}
+
+void DangerEvent::fork(Character *fighter, vector<Character*> *temp){
+	//If that character is a monster.
+	if(fighter->getType() == MONSTER){
+		monsterAttacks(fighter);
+		cout << endl;
+	}
+	else{
+		heroes->teamStats();
+		heroAttacks(fighter);
+		cout << endl;
+	}
+	(*temp).pop_back();
+}
+
+
+void DangerEvent::clearScreen(){
+	for(int n = 0; n < 1000; n++){
+		cout << endl;
+	}
+}
+
+void DangerEvent::printFightOrder(vector<Character*> temp){
+	int count = 1;	
+	string holder;
+
+	cout << "Fighting order:\n\n";
+
+	//The Characters are ordered from the slowest at index 0 and fastest at index temp.size()-1
+	for(int n = temp.size() - 1; n >= 0; n--){
+		if(temp.at(n)->getIsAlive()){
+			cout << count << ".) " << temp.at(n)->getCharacterClassString() << endl;
+			count++;
+		}
+	}
+
+	cout << endl
+		<< "Press enter to continue." 
+		<< endl;
+
+	getline(std::cin, holder);
 }
 
 bool DangerEvent::useMagic(Character *magicUser){
@@ -101,7 +124,7 @@ bool DangerEvent::useMagic(Character *magicUser){
 			cout << "Would you like to use Magic Missle? Costs 1 Mana.\n" 
 					"1.) Yes\n"
 					"0.) No\n";
-			selection = getMenu()->checkInputInt("Make a selection:", 0 , 1);	
+			selection = getMenu().checkInputInt("Make a selection:", 0 , 1);	
 			if(selection){
 				if(dynamic_cast<BlackMage*>(magicUser)->getMana() > 0){
 
@@ -109,7 +132,7 @@ bool DangerEvent::useMagic(Character *magicUser){
 					cout << "\nWhich monster would you like to cast Magic Missle on?\n"
 					"Select 0 to go back.\n\n";
 
-					monster = getMenu()->checkInputInt("Select a menu option.\n", 0, getSpace()->getMonsterCount());
+					monster = getMenu().checkInputInt("Select a menu option.\n", 0, getSpace()->getMonsterCount());
 
 					if(monster == 0){
 						return true;
@@ -119,7 +142,7 @@ bool DangerEvent::useMagic(Character *magicUser){
 						displayMonsters();
 						cout << endl;
 
-						monster = getMenu()->checkInputInt("Select a monster on the menu.\n", 0, getSpace()->getMonsterCount());
+						monster = getMenu().checkInputInt("Select a monster on the menu.\n", 0, getSpace()->getMonsterCount());
 
 						if(monster == 0){
 							return true;
@@ -137,7 +160,7 @@ bool DangerEvent::useMagic(Character *magicUser){
 
 					//The case that the monster dies to the attack.
 					if(getSpace()->getMonsters()[monster]->getHealth() <= 0 ){
-						monsterDies(getSpace()->getMonsters()[monster]);
+						characterDies(getSpace()->getMonsters()[monster]);
 						std::cout << getSpace()->getMonsters()[monster]->getCharacterClassString() << " has fallen!" << std::endl;
 					return false;
 					}
@@ -160,7 +183,7 @@ bool DangerEvent::useMagic(Character *magicUser){
 					"2.) Healing Aura - Costs 5 Mana and heals all Heroes\n"
 					"0.) Return\n";
 
-			selection = getMenu()->checkInputInt("Select an option on the menu", 0, 2);
+			selection = getMenu().checkInputInt("Select an option on the menu", 0, 2);
 			//switch depending on the spell
 			switch(selection){
 				//The case that you want to heal one hero.
@@ -173,7 +196,7 @@ bool DangerEvent::useMagic(Character *magicUser){
 						cout << "\nWhich hero would you like to heal?\n"
 						"Select 0 to go back.\n\n";
 
-						hero = getMenu()->checkInputInt("Select a menu option.\n", 0, getHeroes()->getTeamSize());
+						hero = getMenu().checkInputInt("Select a menu option.\n", 0, getHeroes()->getTeamSize());
 
 						if(hero == 0){
 							return true;
@@ -183,7 +206,7 @@ bool DangerEvent::useMagic(Character *magicUser){
 							getHeroes()->teamStats();
 							cout << endl;
 
-							hero = getMenu()->checkInputInt("Select a hero on the menu.\n", 0, getHeroes()->getTeamSize());
+							hero = getMenu().checkInputInt("Select a hero on the menu.\n", 0, getHeroes()->getTeamSize());
 
 							if(hero == 0){
 								return true;
@@ -222,12 +245,9 @@ bool DangerEvent::useMagic(Character *magicUser){
 }
 
 void DangerEvent::monsterAttacks(Character *fighter){
-	int damage;
 	//Select an index at random until a hero that is alive is chosen.
-	int randomHero = rand() % getHeroes()->getTeamSize();
-	while(!getHeroes()->getCharacters()[randomHero]->getIsAlive()){
-		randomHero = rand() % getHeroes()->getTeamSize();
-	}
+	int randomHero = selectHero();
+
 	cout << fighter->getCharacterClassString() << " is attacking." << endl;
 
 	//The monster attacks. If the heroes speed happens to be higher than a random roll, he dodges and takes no damage.
@@ -235,18 +255,30 @@ void DangerEvent::monsterAttacks(Character *fighter){
 		std::cout << getHeroes()->getCharacters()[randomHero]->getName() << " the " << getHeroes()->getCharacters()[randomHero]->getCharacterClassString() << " dodged the attack." << std::endl;
 	}
 	else{
-		damage = fighter->attack();
-		cout << fighter->getCharacterClassString() << " is attacks for " << damage << " points." << endl;
-
-		getHeroes()->getCharacters()[randomHero]->defend(damage);
-
-		//The case that the hero dies to the attack.
-		if(getHeroes()->getCharacters()[randomHero]->getHealth() <= 0 ){
-			heroDies(getHeroes()->getCharacters()[randomHero]);
-			std::cout << getHeroes()->getCharacters()[randomHero]->getName() << " the " << getHeroes()->getCharacters()[randomHero]->getCharacterClassString() << " has fallen!" << std::endl;
-			getHeroes()->teamAliveStatus();
-		}
+		monsterDamages(fighter, randomHero);
 	}
+}
+
+void DangerEvent::monsterDamages(Character *fighter, int randomHero){
+	int damage = fighter->attack();
+	cout << fighter->getCharacterClassString() << " is attacks for " << damage << " points." << endl;
+
+	getHeroes()->getCharacters()[randomHero]->defend(damage);
+
+	//The case that the hero dies to the attack.
+	if(getHeroes()->getCharacters()[randomHero]->getHealth() <= 0 ){
+		characterDies(getHeroes()->getCharacters()[randomHero]);
+		std::cout << getHeroes()->getCharacters()[randomHero]->getName() << " the " << getHeroes()->getCharacters()[randomHero]->getCharacterClassString() << " has fallen!" << std::endl;
+		getHeroes()->teamAliveStatus();
+	}
+}
+
+int DangerEvent::selectHero(){
+	int randomHero = rand() % getHeroes()->getTeamSize();
+	while(!getHeroes()->getCharacters()[randomHero]->getIsAlive()){
+		randomHero = rand() % getHeroes()->getTeamSize();
+	}
+	return randomHero;
 }
 
 bool DangerEvent::magicUserMove(Character* hero){
@@ -254,7 +286,7 @@ bool DangerEvent::magicUserMove(Character* hero){
 			"1.) Attack\n"
 			"2.) Use Item\n"
 			"3.) Use Magic\n";
-	int selection = getMenu()->checkInputInt("Error!\nMake a selection that's on the screen", 1, 3);
+	int selection = getMenu().checkInputInt("Error!\nMake a selection that's on the screen", 1, 3);
 	if(selection == 1){
 		return heroAttacking(hero);
 	}
@@ -297,7 +329,7 @@ bool DangerEvent::nonMagicUserMove(Character *hero){
 	cout << "What would you like to to?\n"
 			"1.) Attack\n"
 			"2.) Use Item\n";
-	int selection = getMenu()->checkInputInt("Error!\nMake a selection that's on the screen", 1, 2);
+	int selection = getMenu().checkInputInt("Error!\nMake a selection that's on the screen", 1, 2);
 	blankScreen();
 	if(selection == 1){
 		return heroAttacking(hero);
@@ -326,7 +358,7 @@ bool DangerEvent::heroAttacking(Character *fighter){
 	cout << "\nWhich monster would you like to attack?\n";
 	cout << "Press 0 to go back\n";
 
-	int monster = getMenu()->checkInputInt("Select a monster on the menu.\n", 0, getSpace()->getMonsterCount());
+	int monster = getMenu().checkInputInt("Select a monster on the menu.\n", 0, getSpace()->getMonsterCount());
 
 	if(monster == 0){
 		return true;
@@ -337,7 +369,7 @@ bool DangerEvent::heroAttacking(Character *fighter){
 		displayMonsters();
 		cout << endl;
 
-		monster = getMenu()->checkInputInt("Select a monster on the menu.\n", 0, getSpace()->getMonsterCount());
+		monster = getMenu().checkInputInt("Select a monster on the menu.\n", 0, getSpace()->getMonsterCount());
 
 		if(monster == 0){
 			return true;
@@ -357,7 +389,7 @@ bool DangerEvent::heroAttacking(Character *fighter){
 
 		//The case that the monster dies to the attack.
 		if(getSpace()->getMonsters()[monster]->getHealth() <= 0 ){
-			monsterDies(getSpace()->getMonsters()[monster]);
+			characterDies(getSpace()->getMonsters()[monster]);
 			std::cout << getSpace()->getMonsters()[monster]->getCharacterClassString() << " has fallen!" << std::endl;
 		}
 		return false;
@@ -392,8 +424,7 @@ void DangerEvent::displayMonsters(){
 		cout << setw(4);
 		cout << n;
 		cout << "|";
-		cout << setw(12);
-		if(getSpace()->getMonsters()[n -1]->getIsAlive()){
+		cout << setw(12); if(getSpace()->getMonsters()[n -1]->getIsAlive()){
 			cout << getSpace()->getMonsters()[n - 1]->getCharacterClassString();
 			cout << "|";
 			cout << setw(6);
@@ -414,12 +445,8 @@ bool DangerEvent::areMonstersAlive(){
 	}
 	return false;
 }
-void DangerEvent::monsterDies(Character* monster){
-	monster->setHealth(0);
-	monster->setIsAlive(false);
-}
 
-void DangerEvent::heroDies(Character *hero){
+void DangerEvent::characterDies(Character *hero){
 	hero->setHealth(0);
 	hero->setIsAlive(false);
 }

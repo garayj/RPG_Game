@@ -27,11 +27,8 @@ protected:
 	//Checks to see if there are monsters alive in the space.
 	bool areMonstersAlive();
 
-	//The case that a monster dies.
-	void monsterDies(Character*);
-	
 	//The case that a hero dies.
-	void heroDies(Character*);
+	void characterDies(Character*);
 
 	//Method that simulates the encounter between the heroes and monsters on the space.
 	void encounter();
@@ -53,6 +50,12 @@ protected:
 
 	//Simulates a hero attacking returns a bool on whether or not the user went through with the attack.
 	bool heroAttacking(Character*);
+	void fight(vector<Character*>);
+	void printFightOrder(vector<Character*>);
+	void clearScreen();
+	void fork(Character*, vector<Character*>*);
+	int selectHero();
+	void monsterDamages(Character *, int);
 public:
 	//Constructor for the DangerEvent Class.
 	DangerEvent();

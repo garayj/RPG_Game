@@ -36,7 +36,7 @@ public:
 	Space* getRight(){return right;};
 	spaceType getSpaceType(){return type;};
 	Character **getMonsters(){return monsters;};
-	int getMonsterCount(){return monsterCount;};
+	int getMonsterCount(){return  monsterCount;};
 
 
 	//Setter Functions for the protected data members of the Space Class.

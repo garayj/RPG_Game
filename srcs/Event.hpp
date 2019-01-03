@@ -13,7 +13,7 @@ class Event
 {
 protected:
 	Space *space;
-	Menu *menu;
+	Menu menu;
 	Team *heroes;
 
 public:
@@ -25,12 +25,12 @@ public:
 	bool inventoryAction();	
 
 	//Getter functions for the private data members.
-	Menu *getMenu(){return menu;};
+	Menu getMenu(){return menu;};
 	Team *getHeroes(){return heroes;};
 	Space *getSpace(){return space;};
 
 	//Setter functions for the private data members.
-	void setMenu(Menu *menu){this->menu = menu;};
+	void setMenu(Menu menu){this->menu = menu;};
 	void setHeroes(Team *heroes){this->heroes = heroes;};
 	void setSpace(Space *space){this->space = space;};
 	
