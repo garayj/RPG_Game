@@ -56,6 +56,7 @@ protected:
 	void fork(Character*, vector<Character*>*);
 	int selectHero();
 	void monsterDamages(Character *, int);
+	bool blackMageAttack(Character*);
 public:
 	//Constructor for the DangerEvent Class.
 	DangerEvent();

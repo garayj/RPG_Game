@@ -103,9 +103,14 @@ void Character::defend(int attack){
 	setHealth(getHealth()- damage);
 
 	//Displays stats to the console.
-
-	cout << getName() << " the " << getCharacterClassString() << " defended for " << defense + getArmor() 
-						<< " and took " << damage << " points of damage." << endl;
+	if(getType() == HERO){
+		cout << getName() << " the " << getCharacterClassString() << " defended for " << defense + getArmor() 
+							<< " and took " << damage << " points of damage." << endl;
+	}
+	else{
+		cout << getCharacterClassString() << " defended for " << defense + getArmor() 
+							<< " and took " << damage << " points of damage." << endl;
+	}
 	cout << getCharacterClassString() << " has " << getHealth() << " HP." << endl;
 }
 

@@ -12,6 +12,7 @@ the user can choose which monster to attack that is alive.
 #include "WhiteMage.hpp"
 #include "BlackMage.hpp"
 #include "quickSort.hpp"
+#include "dangerEventStrings.hpp"
 #include <iomanip>
 #include <iostream>
 #include <string>
@@ -24,8 +25,6 @@ DangerEvent::DangerEvent(){
 }
 DangerEvent::~DangerEvent(){
 }
-
-
 
 void DangerEvent::encounter(){
 	vector<Character*>allFighters;
@@ -121,60 +120,7 @@ bool DangerEvent::useMagic(Character *magicUser){
 	int selection;
 	switch(magicUser->getCharacterClass()){
 		case BLACK_MAGE:
-			cout << "Would you like to use Magic Missle? Costs 1 Mana.\n" 
-					"1.) Yes\n"
-					"0.) No\n";
-			selection = getMenu().checkInputInt("Make a selection:", 0 , 1);	
-			if(selection){
-				if(dynamic_cast<BlackMage*>(magicUser)->getMana() > 0){
-
-					displayMonsters();
-					cout << "\nWhich monster would you like to cast Magic Missle on?\n"
-					"Select 0 to go back.\n\n";
-
-					monster = getMenu().checkInputInt("Select a menu option.\n", 0, getSpace()->getMonsterCount());
-
-					if(monster == 0){
-						return true;
-					}
-					while(!getSpace()->getMonsters()[monster - 1]->getIsAlive()){
-						cout << "That monster is already dead! Pick another!\n\n";
-						displayMonsters();
-						cout << endl;
-
-						monster = getMenu().checkInputInt("Select a monster on the menu.\n", 0, getSpace()->getMonsterCount());
-
-						if(monster == 0){
-							return true;
-						}
-					}
-
-					monster--;
-
-					int attack = dynamic_cast<BlackMage*>(magicUser)->magicMissle();	
-					cout << "Black Mage used Magic Missle!\n"
-							"It's super effective!\n"
-							"Black Mage attacked for " << attack << "damage!\n";
-
-					getSpace()->getMonsters()[monster]->defend(attack);
-
-					//The case that the monster dies to the attack.
-					if(getSpace()->getMonsters()[monster]->getHealth() <= 0 ){
-						characterDies(getSpace()->getMonsters()[monster]);
-						std::cout << getSpace()->getMonsters()[monster]->getCharacterClassString() << " has fallen!" << std::endl;
-					return false;
-					}
-					return false;
-				}
-
-				else{
-					cout << "You do not have enough mana to cast that!" << endl;
-					return true;
-				}
-			}
-			else{
-				return true;
-			}
+			return blackMageAttack(magicUser);
 			break;
 		case WHITE_MAGE:
 			//select a spell to cast
@@ -183,7 +129,7 @@ bool DangerEvent::useMagic(Character *magicUser){
 					"2.) Healing Aura - Costs 5 Mana and heals all Heroes\n"
 					"0.) Return\n";
 
-			selection = getMenu().checkInputInt("Select an option on the menu", 0, 2);
+			selection = getMenu()->checkInputInt("Select an option on the menu", 0, 2);
 			//switch depending on the spell
 			switch(selection){
 				//The case that you want to heal one hero.
@@ -196,7 +142,7 @@ bool DangerEvent::useMagic(Character *magicUser){
 						cout << "\nWhich hero would you like to heal?\n"
 						"Select 0 to go back.\n\n";
 
-						hero = getMenu().checkInputInt("Select a menu option.\n", 0, getHeroes()->getTeamSize());
+						hero = getMenu()->checkInputInt("Select a menu option.\n", 0, getHeroes()->getTeamSize());
 
 						if(hero == 0){
 							return true;
@@ -206,7 +152,7 @@ bool DangerEvent::useMagic(Character *magicUser){
 							getHeroes()->teamStats();
 							cout << endl;
 
-							hero = getMenu().checkInputInt("Select a hero on the menu.\n", 0, getHeroes()->getTeamSize());
+							hero = getMenu()->checkInputInt("Select a hero on the menu.\n", 0, getHeroes()->getTeamSize());
 
 							if(hero == 0){
 								return true;
@@ -244,11 +190,62 @@ bool DangerEvent::useMagic(Character *magicUser){
 	return false;
 }
 
+bool DangerEvent::blackMageAttack(Character *magicUser){
+	int monster;
+
+	getMenu()->printMenu(BLACK_MAGE_MENU);
+	int selection = getMenu()->checkInputInt("Make a selection:", 0 , 1);	
+	if(selection){
+		if(dynamic_cast<BlackMage*>(magicUser)->getMana() > 0){
+
+			displayMonsters();
+			getMenu()->printMenu(MAGIC_MISSLE_SELECT);
+
+			monster = getMenu()->checkInputInt("Select a menu option.\n", 0, getSpace()->getMonsterCount());
+
+			if(monster == 0){
+				return true;
+			}
+			while(!getSpace()->getMonsters()[monster - 1]->getIsAlive()){
+				cout << "That monster is already dead! Pick another!\n\n";
+				displayMonsters();
+				cout << endl;
+
+				monster = getMenu()->checkInputInt("Select a monster on the menu.\n", 0, getSpace()->getMonsterCount());
+
+				if(monster == 0){
+					return true;
+				}
+			}
+
+			monster--;
+
+			int attack = dynamic_cast<BlackMage*>(magicUser)->magicMissle();	
+			getMenu()->printMenu(SUPER_EFFECTIVE + std::to_string(attack) + "damage\n");
+			getSpace()->getMonsters()[monster]->defend(attack);
+
+			//The case that the monster dies to the attack.
+			if(getSpace()->getMonsters()[monster]->getHealth() <= 0 ){
+				characterDies(getSpace()->getMonsters()[monster]);
+				std::cout << getSpace()->getMonsters()[monster]->getCharacterClassString() << " has fallen!" << std::endl;
+			return false;
+			}
+			return false;
+		}
+
+		else{
+			cout << "You do not have enough mana to cast that!" << endl;
+			return true;
+		}
+	}
+	else{
+		return true;
+	}
+}
+
 void DangerEvent::monsterAttacks(Character *fighter){
 	//Select an index at random until a hero that is alive is chosen.
 	int randomHero = selectHero();
-
-	cout << fighter->getCharacterClassString() << " is attacking." << endl;
 
 	//The monster attacks. If the heroes speed happens to be higher than a random roll, he dodges and takes no damage.
 	if(getHeroes()->getCharacters()[randomHero]->getSpeed() > rand() % 12 + 1){
@@ -286,7 +283,7 @@ bool DangerEvent::magicUserMove(Character* hero){
 			"1.) Attack\n"
 			"2.) Use Item\n"
 			"3.) Use Magic\n";
-	int selection = getMenu().checkInputInt("Error!\nMake a selection that's on the screen", 1, 3);
+	int selection = getMenu()->checkInputInt("Error!\nMake a selection that's on the screen", 1, 3);
 	if(selection == 1){
 		return heroAttacking(hero);
 	}
@@ -329,7 +326,7 @@ bool DangerEvent::nonMagicUserMove(Character *hero){
 	cout << "What would you like to to?\n"
 			"1.) Attack\n"
 			"2.) Use Item\n";
-	int selection = getMenu().checkInputInt("Error!\nMake a selection that's on the screen", 1, 2);
+	int selection = getMenu()->checkInputInt("Error!\nMake a selection that's on the screen", 1, 2);
 	blankScreen();
 	if(selection == 1){
 		return heroAttacking(hero);
@@ -358,7 +355,7 @@ bool DangerEvent::heroAttacking(Character *fighter){
 	cout << "\nWhich monster would you like to attack?\n";
 	cout << "Press 0 to go back\n";
 
-	int monster = getMenu().checkInputInt("Select a monster on the menu.\n", 0, getSpace()->getMonsterCount());
+	int monster = getMenu()->checkInputInt("Select a monster on the menu.\n", 0, getSpace()->getMonsterCount());
 
 	if(monster == 0){
 		return true;
@@ -369,7 +366,7 @@ bool DangerEvent::heroAttacking(Character *fighter){
 		displayMonsters();
 		cout << endl;
 
-		monster = getMenu().checkInputInt("Select a monster on the menu.\n", 0, getSpace()->getMonsterCount());
+		monster = getMenu()->checkInputInt("Select a monster on the menu.\n", 0, getSpace()->getMonsterCount());
 
 		if(monster == 0){
 			return true;
