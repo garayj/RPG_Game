@@ -25,4 +25,8 @@ const string CONTINUE = "\nPress enter to continue.\n";
 
 const string SELECT_OPTION = "Select an option on the menu";
 
+const string MONSTER_SELECT = "\nWhich monster would you like to attack?\nPress 0 to go back\n";
+
+const string DEAD_MONSTER = "That monster is already dead! Another!\n\n";
+
 #endif

@@ -239,6 +239,10 @@ bool DangerEvent::blackMageAttack(Character *magicUser){
 	}
 }
 
+
+
+
+
 void DangerEvent::monsterAttacks(Character *fighter){
 	//Select an index at random until a hero that is alive is chosen.
 	int randomHero = selectHero();
@@ -252,11 +256,20 @@ void DangerEvent::monsterAttacks(Character *fighter){
 	}
 }
 
+
+
+
+
 void DangerEvent::heroDodges(int randomHero){
 	std::cout << "%s the %s dodged the attack.\n",
 		getHeroes()->getCharacters()[randomHero]->getName(),
 		getHeroes()->getCharacters()[randomHero]->getCharacterClassString();
 }
+
+
+
+
+
 void DangerEvent::monsterDamages(Character *fighter, int randomHero){
 	int damage = fighter->attack();
 	cout << "%s is attacks for %d points.\n",
@@ -275,6 +288,10 @@ void DangerEvent::monsterDamages(Character *fighter, int randomHero){
 	}
 }
 
+
+
+
+
 int DangerEvent::selectHero(){
 	int randomHero = rand() % getHeroes()->getTeamSize();
 	while(!getHeroes()->getCharacters()[randomHero]->getIsAlive()){
@@ -282,6 +299,10 @@ int DangerEvent::selectHero(){
 	}
 	return randomHero;
 }
+
+
+
+
 
 bool DangerEvent::magicUserMove(Character* hero){
 	cout << "What would you like to to?\n"
@@ -305,6 +326,10 @@ bool DangerEvent::magicUserMove(Character* hero){
 	}
 }
 
+
+
+
+
 void DangerEvent::heroAttacks(Character *fighter){
 	//Display who is attacking.
 	std::cout << endl;
@@ -327,6 +352,10 @@ void DangerEvent::heroAttacks(Character *fighter){
 	}
 }
 
+
+
+
+
 bool DangerEvent::nonMagicUserMove(Character *hero){
 	cout << "What would you like to to?\n"
 			"1.) Attack\n"
@@ -347,19 +376,25 @@ bool DangerEvent::nonMagicUserMove(Character *hero){
 
 }
 
+
+
+
+
 void DangerEvent::blankScreen(){
 	for(int n = 0; n < 1000; n++){
 		cout << endl;
 	}
 }
 
+
+
+
+
 bool DangerEvent::heroAttacking(Character *fighter){
 	displayMonsters();
 	int damage;
 
-	cout << "\nWhich monster would you like to attack?\n";
-	cout << "Press 0 to go back\n";
-
+	getMenu()->printMenu(MONSTER_SELECT);	
 	int monster = getMenu()->checkInputInt("Select a monster on the menu.\n", 0, getSpace()->getMonsterCount());
 
 	if(monster == 0){
@@ -367,10 +402,9 @@ bool DangerEvent::heroAttacking(Character *fighter){
 	}
 
 	while(!getSpace()->getMonsters()[monster - 1]->getIsAlive()){
-		cout << "That monster is already dead! Pick another!\n\n";
+		getMenu()->printMenu(DEAD_MONSTER);
 		displayMonsters();
 		cout << endl;
-
 		monster = getMenu()->checkInputInt("Select a monster on the menu.\n", 0, getSpace()->getMonsterCount());
 
 		if(monster == 0){
@@ -386,7 +420,10 @@ bool DangerEvent::heroAttacking(Character *fighter){
 	}
 	else{
 		damage = fighter->attack();
-		cout << fighter->getName() << " the " << fighter->getCharacterClassString() << " is attacking for " << damage << " points." << endl;
+		cout << "%s the %s is attacking for %d points.\n",
+			fighter->getName(),
+			fighter->getCharacterClassString(),
+			damage;
 		getSpace()->getMonsters()[monster]->defend(damage);
 
 		//The case that the monster dies to the attack.
@@ -397,6 +434,10 @@ bool DangerEvent::heroAttacking(Character *fighter){
 	}
 
 }
+
+
+
+
 
 void DangerEvent::addFightersToVector(vector<Character*>*allFighters){
 	//Add heroes to a vector.
@@ -409,21 +450,20 @@ void DangerEvent::addFightersToVector(vector<Character*>*allFighters){
 	}
 }
 
+
+
+
+
 void DangerEvent::displayMonsters(){
-	cout << setw(4);
-	cout << "#|";
-	cout << setw(12);
-	cout << "Monster|";
-	cout << setw(6);
-	cout << "Health\n";
+	//Header information for the Monsters table.
+	cout << setw(4) << "#|" << setw(12) << "Monster|" << setw(6) << "Health\n";
 
 	for(int n = 1; n <= getSpace()->getMonsterCount(); n++){
-		cout << setw(4);
-		cout << n;
-		cout << "|";
-		cout << setw(12); if(getSpace()->getMonsters()[n -1]->getIsAlive()){
-			cout << getSpace()->getMonsters()[n - 1]->getCharacterClassString();
-			cout << "|";
+		cout << setw(4) << "%d|",n;
+		cout << setw(12); 
+
+		if(getSpace()->getMonsters()[n -1]->getIsAlive()){
+			cout << "%d|",getSpace()->getMonsters()[n - 1]->getCharacterClassString();
 			cout << setw(6);
 			// Print out current health over max health.
 			cout << "%d/%d\n",
@@ -436,6 +476,10 @@ void DangerEvent::displayMonsters(){
 	}	
 }
 
+
+
+
+
 bool DangerEvent::areMonstersAlive(){
 	for(int n = 0; n < getSpace()->getMonsterCount(); n++){
 		if(getSpace()->getMonsters()[n]->getIsAlive()){
@@ -445,8 +489,11 @@ bool DangerEvent::areMonstersAlive(){
 	return false;
 }
 
-//Characters health is set to 0, the characters alive status is set to false, and a death message appears.
 
+
+	
+
+//Characters health is set to 0, the characters alive status is set to false, and a death message appears.
 void DangerEvent::characterDies(Character *character){
 	character->setHealth(0);
 	character->setIsAlive(false);
