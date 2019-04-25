@@ -65,24 +65,28 @@ void DangerEvent::fight(vector<Character*>temp){
 				fighter = temp.back();
 			}
 		}
-		//fork between events of the 
+		// Fork in the road. If the fighter is a monster, they do monster things and attack. Else, they do
+		// hero things.
 		if(temp.size() > 0){
 			fork(fighter, &temp);
 		}
 	}
 }
 
+
 void DangerEvent::fork(Character *fighter, vector<Character*> *temp){
-	//If that character is a monster.
+	//If that character is a monster, it attacks.
 	if(fighter->getType() == MONSTER){
 		monsterAttacks(fighter);
 		cout << endl;
 	}
+	// The heroes stats are displayed and the user gets to control the hero.
 	else{
 		heroes->teamStats();
 		heroAttacks(fighter);
 		cout << endl;
 	}
+	// Remove the character from the vector
 	(*temp).pop_back();
 }
 
@@ -96,8 +100,7 @@ void DangerEvent::clearScreen(){
 void DangerEvent::printFightOrder(vector<Character*> temp){
 	int count = 1;	
 	string holder;
-
-	cout << "Fighting order:\n\n";
+	getMenu()->printMenu(FIGHT_ORDER_HEADER);
 
 	//The Characters are ordered from the slowest at index 0 and fastest at index temp.size()-1
 	for(int n = temp.size() - 1; n >= 0; n--){
@@ -106,11 +109,7 @@ void DangerEvent::printFightOrder(vector<Character*> temp){
 			count++;
 		}
 	}
-
-	cout << endl
-		<< "Press enter to continue." 
-		<< endl;
-
+	getMenu()->printMenu(CONTINUE);
 	getline(std::cin, holder);
 }
 
@@ -124,12 +123,9 @@ bool DangerEvent::useMagic(Character *magicUser){
 			break;
 		case WHITE_MAGE:
 			//select a spell to cast
-			cout << "What healing spell would you like to cast?\n"
-					"1.) Healing Touch - Costs 1 Mana and heals one Hero\n"
-					"2.) Healing Aura - Costs 5 Mana and heals all Heroes\n"
-					"0.) Return\n";
+			getMenu()->printMenu(WHITE_MAGE_MENU);
 
-			selection = getMenu()->checkInputInt("Select an option on the menu", 0, 2);
+			selection = getMenu()->checkInputInt(SELECT_OPTION, 0, 2);
 			//switch depending on the spell
 			switch(selection){
 				//The case that you want to heal one hero.
@@ -249,23 +245,32 @@ void DangerEvent::monsterAttacks(Character *fighter){
 
 	//The monster attacks. If the heroes speed happens to be higher than a random roll, he dodges and takes no damage.
 	if(getHeroes()->getCharacters()[randomHero]->getSpeed() > rand() % 12 + 1){
-		std::cout << getHeroes()->getCharacters()[randomHero]->getName() << " the " << getHeroes()->getCharacters()[randomHero]->getCharacterClassString() << " dodged the attack." << std::endl;
+		heroDodges(randomHero);
 	}
 	else{
 		monsterDamages(fighter, randomHero);
 	}
 }
 
+void DangerEvent::heroDodges(int randomHero){
+	std::cout << "%s the %s dodged the attack.\n",
+		getHeroes()->getCharacters()[randomHero]->getName(),
+		getHeroes()->getCharacters()[randomHero]->getCharacterClassString();
+}
 void DangerEvent::monsterDamages(Character *fighter, int randomHero){
 	int damage = fighter->attack();
-	cout << fighter->getCharacterClassString() << " is attacks for " << damage << " points." << endl;
+	cout << "%s is attacks for %d points.\n",
+		getHeroes()->getCharacters()[randomHero]->getName(),
+		damage; 
 
 	getHeroes()->getCharacters()[randomHero]->defend(damage);
 
 	//The case that the hero dies to the attack.
 	if(getHeroes()->getCharacters()[randomHero]->getHealth() <= 0 ){
 		characterDies(getHeroes()->getCharacters()[randomHero]);
-		std::cout << getHeroes()->getCharacters()[randomHero]->getName() << " the " << getHeroes()->getCharacters()[randomHero]->getCharacterClassString() << " has fallen!" << std::endl;
+		std::cout << "%s the %s has fallen!\n",
+			getHeroes()->getCharacters()[randomHero]->getName(),
+			getHeroes()->getCharacters()[randomHero]->getCharacterClassString();
 		getHeroes()->teamAliveStatus();
 	}
 }
@@ -387,7 +392,6 @@ bool DangerEvent::heroAttacking(Character *fighter){
 		//The case that the monster dies to the attack.
 		if(getSpace()->getMonsters()[monster]->getHealth() <= 0 ){
 			characterDies(getSpace()->getMonsters()[monster]);
-			std::cout << getSpace()->getMonsters()[monster]->getCharacterClassString() << " has fallen!" << std::endl;
 		}
 		return false;
 	}
@@ -395,7 +399,6 @@ bool DangerEvent::heroAttacking(Character *fighter){
 }
 
 void DangerEvent::addFightersToVector(vector<Character*>*allFighters){
-
 	//Add heroes to a vector.
 	for(int n = 0; n < getHeroes()->getTeamSize(); n++){
 		allFighters->push_back(getHeroes()->getCharacters()[n]);
@@ -408,14 +411,11 @@ void DangerEvent::addFightersToVector(vector<Character*>*allFighters){
 
 void DangerEvent::displayMonsters(){
 	cout << setw(4);
-	cout << "#";
-	cout << "|";
+	cout << "#|";
 	cout << setw(12);
-	cout << "Monster";
-	cout << "|";
+	cout << "Monster|";
 	cout << setw(6);
-	cout << "Health";
-	cout << endl;
+	cout << "Health\n";
 
 	for(int n = 1; n <= getSpace()->getMonsterCount(); n++){
 		cout << setw(4);
@@ -425,8 +425,10 @@ void DangerEvent::displayMonsters(){
 			cout << getSpace()->getMonsters()[n - 1]->getCharacterClassString();
 			cout << "|";
 			cout << setw(6);
-			cout << getSpace()->getMonsters()[n - 1]->getHealth() << "/" << getSpace()->getMonsters()[n - 1]->getMaxHealth();
-			cout << endl;
+			// Print out current health over max health.
+			cout << "%d/%d\n",
+				getSpace()->getMonsters()[n - 1]->getHealth(),
+				getSpace()->getMonsters()[n - 1]->getMaxHealth();
 		}
 		else{
 			cout << "Dead\n";
@@ -443,7 +445,16 @@ bool DangerEvent::areMonstersAlive(){
 	return false;
 }
 
-void DangerEvent::characterDies(Character *hero){
-	hero->setHealth(0);
-	hero->setIsAlive(false);
+//Characters health is set to 0, the characters alive status is set to false, and a death message appears.
+
+void DangerEvent::characterDies(Character *character){
+	character->setHealth(0);
+	character->setIsAlive(false);
+	if(character->getType() == MONSTER){
+			std::cout << "%s has fallen!",
+				character->getName();
+	}
+	else{
+
+	}
 }

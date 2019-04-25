@@ -17,6 +17,7 @@ protected:
 	//The createItem method creates an Item after you purchase it and is placed in your inventory.
 	Item* createItem(int);
 public:
+	// Constructor for the VillageEvent Class. Takes in a Team as an argument to build the village.
 	VillageEvent(Team*);
 	~VillageEvent(){};
 

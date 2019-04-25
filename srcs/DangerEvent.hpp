@@ -19,12 +19,14 @@ class DangerEvent :public  Event
 protected:
 	//Returns nothing and takes no arguements. Clears the screen of any text.
 	void blankScreen();
+
 	//Returns a boolean if the user actually made a magic attack or not using a magical hero.
 	bool useMagic(Character*);
+
 	//Displays the monsters to the screen.
 	void displayMonsters();
 
-	//Checks to see if there are monsters alive in the space.
+	//Checks to see if there are monsters alive in the space. Returns a boolean.
 	bool areMonstersAlive();
 
 	//The case that a hero dies.
@@ -50,12 +52,32 @@ protected:
 
 	//Simulates a hero attacking returns a bool on whether or not the user went through with the attack.
 	bool heroAttacking(Character*);
+
+	//The fight method simulates the characters on a space fighting.
 	void fight(vector<Character*>);
+
+	// The printFightOrder takes a vector of character pointers and prints out the order in which the 
+	// characters will fight.
 	void printFightOrder(vector<Character*>);
+
+	//Clears the console screen.
 	void clearScreen();
+
+	// The method acts as a "fork" in the road for the characters. If monsters, continue down the monster
+	// path. Heroes continue down a different path. Glorified if statement quite literally.
 	void fork(Character*, vector<Character*>*);
+
+	// Randomly selects a hero for the monster to attack.
 	int selectHero();
+
+	// Monster attacks a Character. Takes a character and integer in as arguments. The Character pointer is the monster
+	// that is dealing damage and the integer is the position in the team the monster will hit.	
 	void monsterDamages(Character *, int);
+
+	//The hero dodges the attack. Takes an integer as an argument and 
+	void heroDodges(int);
+
+
 	bool blackMageAttack(Character*);
 public:
 	//Constructor for the DangerEvent Class.
