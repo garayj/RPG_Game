@@ -16,10 +16,12 @@ the user can choose which monster to attack that is alive.
 #include <iomanip>
 #include <iostream>
 #include <string>
+#include <boost/format.hpp>
 
 using std::setw;
 using std::cout;
 using std::endl;
+using boost::format;
 
 DangerEvent::DangerEvent(){
 }
@@ -44,19 +46,11 @@ void DangerEvent::encounter(){
 
 void DangerEvent::fight(vector<Character*>temp){
 	Character *fighter;
-
 	//Loop until all the characters in the vector have been popped off.
 	while(temp.size() != 0 && areMonstersAlive() && getHeroes()->getIsTeamAlive()){
-
-		//print a list of all fighters that are still in combat to the console.
 		printFightOrder(temp);
-
-		//Clear the screen
 		clearScreen();
-
-		//Select the character with the current fastest speed rating.
 		fighter = temp.back();
-
 		//Check if the fighter object is pointing to something and if it is, checks to see if it is alive.
 		//If either condition is true, remove the last character until one that is alive is found.
 		while(temp.size() > 0  && (fighter == nullptr || !fighter->getIsAlive())){
@@ -113,80 +107,87 @@ void DangerEvent::printFightOrder(vector<Character*> temp){
 	getline(std::cin, holder);
 }
 
+
 bool DangerEvent::useMagic(Character *magicUser){
-	int monster;
-	int hero;
-	int selection;
 	switch(magicUser->getCharacterClass()){
 		case BLACK_MAGE:
-			return blackMageAttack(magicUser);
+			return blackMageAction(magicUser);
 			break;
 		case WHITE_MAGE:
-			//select a spell to cast
-			getMenu()->printMenu(WHITE_MAGE_MENU);
-
-			selection = getMenu()->checkInputInt(SELECT_OPTION, 0, 2);
-			//switch depending on the spell
-			switch(selection){
-				//The case that you want to heal one hero.
-				case 1:
-					//case Healing Touch if there is mana available.
-					if(dynamic_cast<WhiteMage*>(magicUser)->getMana() > 0){
-
-						//Select a hero.	
-						getHeroes()->teamStats();
-						cout << "\nWhich hero would you like to heal?\n"
-						"Select 0 to go back.\n\n";
-
-						hero = getMenu()->checkInputInt("Select a menu option.\n", 0, getHeroes()->getTeamSize());
-
-						if(hero == 0){
-							return true;
-						}
-						while(!getHeroes()->getCharacters()[hero - 1]->getIsAlive()){
-							cout << "That hero is downed! Cannot heal a downed hero. Pick another!\n\n";
-							getHeroes()->teamStats();
-							cout << endl;
-
-							hero = getMenu()->checkInputInt("Select a hero on the menu.\n", 0, getHeroes()->getTeamSize());
-
-							if(hero == 0){
-								return true;
-							}
-						}
-
-						hero--;
-						dynamic_cast<WhiteMage*>(magicUser)->healOne(getHeroes()->getCharacters()[hero]);
-						return false;
-					}
-					else{
-						cout << "You don't have enough Mana!" << endl;
-						return true;
-					}
-
-					break;
-				case 2:
-					//heal all heroes if the mana is available.
-					if(dynamic_cast<WhiteMage*>(magicUser)->getMana() > 0){
-						dynamic_cast<WhiteMage*>(magicUser)->healParty(getHeroes());
-						return false;
-					}
-					else{
-						cout << "You do not have enough mana to cast that." << endl;
-						return true;
-					}
-					break;
-				//The case the the user wants to just go back.
-				case 0:
-					return true;
-					break;
-			}	
+			return whiteMageAction(magicUser);
 			break;
 	}
 	return false;
 }
 
-bool DangerEvent::blackMageAttack(Character *magicUser){
+
+bool DangerEvent::whiteMageAction(Character *magicUser){
+	int selection;
+	//select a spell to cast
+	getMenu()->printMenu(WHITE_MAGE_MENU);
+
+	selection = getMenu()->checkInputInt(SELECT_OPTION, 0, 2);
+	//switch depending on the spell
+	switch(selection){
+		//The case that you want to heal one hero.
+		case 1:
+			return useHealingTouch(magicUser);
+			break;
+		case 2:
+			//heal all heroes if the mana is available.
+			if(dynamic_cast<WhiteMage*>(magicUser)->getMana() > 0){
+				dynamic_cast<WhiteMage*>(magicUser)->healParty(getHeroes());
+				return false;
+			}
+			else{
+				cout << "You do not have enough mana to cast that." << endl;
+				return true;
+			}
+			break;
+		//The case the the user wants to just go back.
+		case 0:
+			return true;
+			break;
+	}	
+}
+
+bool DangerEvent::useHealingTouch(Character *magicUser){
+	int hero;
+	//case Healing Touch if there is mana available.
+	if(dynamic_cast<WhiteMage*>(magicUser)->getMana() > 0){
+		//Select a hero.	
+		getHeroes()->teamStats();
+		cout << "\nWhich hero would you like to heal?\n"
+		"Select 0 to go back.\n\n";
+
+		hero = getMenu()->checkInputInt("Select a menu option.\n", 0, getHeroes()->getTeamSize());
+
+		if(hero == 0){
+			return true;
+		}
+		while(!getHeroes()->getCharacters()[hero - 1]->getIsAlive()){
+			cout << "That hero is downed! Cannot heal a downed hero. Pick another!\n\n";
+			getHeroes()->teamStats();
+			cout << endl;
+
+			hero = getMenu()->checkInputInt("Select a hero on the menu.\n", 0, getHeroes()->getTeamSize());
+
+			if(hero == 0){
+				return true;
+			}
+		}
+
+		hero--;
+		dynamic_cast<WhiteMage*>(magicUser)->healOne(getHeroes()->getCharacters()[hero]);
+		return false;
+	}
+	else{
+		cout << "You don't have enough Mana!" << endl;
+		return true;
+	}
+}
+
+bool DangerEvent::blackMageAction(Character *magicUser){
 	int monster;
 
 	getMenu()->printMenu(BLACK_MAGE_MENU);
@@ -272,18 +273,18 @@ void DangerEvent::heroDodges(int randomHero){
 
 void DangerEvent::monsterDamages(Character *fighter, int randomHero){
 	int damage = fighter->attack();
-	cout << "%s is attacks for %d points.\n",
-		getHeroes()->getCharacters()[randomHero]->getName(),
-		damage; 
+	cout << format("%1% is attacks for %2% points.\n")
+		% getHeroes()->getCharacters()[randomHero]->getName()
+		% damage; 
 
 	getHeroes()->getCharacters()[randomHero]->defend(damage);
 
 	//The case that the hero dies to the attack.
 	if(getHeroes()->getCharacters()[randomHero]->getHealth() <= 0 ){
 		characterDies(getHeroes()->getCharacters()[randomHero]);
-		std::cout << "%s the %s has fallen!\n",
-			getHeroes()->getCharacters()[randomHero]->getName(),
-			getHeroes()->getCharacters()[randomHero]->getCharacterClassString();
+		cout << format("%1% the %2% has fallen!\n")
+			% getHeroes()->getCharacters()[randomHero]->getName()
+			% getHeroes()->getCharacters()[randomHero]->getCharacterClassString();
 		getHeroes()->teamAliveStatus();
 	}
 }
@@ -332,8 +333,8 @@ bool DangerEvent::magicUserMove(Character* hero){
 
 void DangerEvent::heroAttacks(Character *fighter){
 	//Display who is attacking.
-	std::cout << endl;
-	std::cout << fighter->getName() << " the " << fighter->getCharacterClassString() << "'s turn!" << endl << endl;
+	cout << endl;
+	cout << fighter->getName() << " the " << fighter->getCharacterClassString() << "'s turn!" << endl << endl;
 	bool madeAction = true;
 	while(madeAction){
 		switch(fighter->getCharacterClass()){
@@ -420,10 +421,10 @@ bool DangerEvent::heroAttacking(Character *fighter){
 	}
 	else{
 		damage = fighter->attack();
-		cout << "%s the %s is attacking for %d points.\n",
-			fighter->getName(),
-			fighter->getCharacterClassString(),
-			damage;
+		cout << boost::format("%1% the %2% is attacking for %3% points.\n")
+			% fighter->getName()
+			% fighter->getCharacterClassString()
+			% damage;
 		getSpace()->getMonsters()[monster]->defend(damage);
 
 		//The case that the monster dies to the attack.
@@ -459,16 +460,16 @@ void DangerEvent::displayMonsters(){
 	cout << setw(4) << "#|" << setw(12) << "Monster|" << setw(6) << "Health\n";
 
 	for(int n = 1; n <= getSpace()->getMonsterCount(); n++){
-		cout << setw(4) << "%d|",n;
+		cout << setw(4) << format("%1%|") % n;
 		cout << setw(12); 
 
 		if(getSpace()->getMonsters()[n -1]->getIsAlive()){
-			cout << "%d|",getSpace()->getMonsters()[n - 1]->getCharacterClassString();
+			cout << format("%1%|") % getSpace()->getMonsters()[n - 1]->getCharacterClassString();
 			cout << setw(6);
 			// Print out current health over max health.
-			cout << "%d/%d\n",
-				getSpace()->getMonsters()[n - 1]->getHealth(),
-				getSpace()->getMonsters()[n - 1]->getMaxHealth();
+			cout << format("%1%/%2%\n")
+				% getSpace()->getMonsters()[n - 1]->getHealth()
+				% getSpace()->getMonsters()[n - 1]->getMaxHealth();
 		}
 		else{
 			cout << "Dead\n";
@@ -498,8 +499,8 @@ void DangerEvent::characterDies(Character *character){
 	character->setHealth(0);
 	character->setIsAlive(false);
 	if(character->getType() == MONSTER){
-			std::cout << "%s has fallen!",
-				character->getName();
+			cout << format("%1% has fallen!")
+				% character->getName();
 	}
 	else{
 
