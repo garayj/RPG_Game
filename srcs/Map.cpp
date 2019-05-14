@@ -98,7 +98,7 @@ void Map::printMap(){
 					cout << " \033[1;34mS\033[0m ";
 				}
 				else if(board[n][p]->getSpaceType() == CAVE){
-					cout << " \033[1;30mC\033[0m ";
+					cout << " \033[1;36mC\033[0m ";
 				}
 			}
 			cout <<"|";
@@ -112,7 +112,7 @@ void Map::printMap(){
 	cout << "\033[1;33mV\033[0m: Village\n";
 	cout << "\033[1;31mD\033[0m: Dungeon\n";
 	cout << "\033[1;34mS\033[0m: Swamp\n";
-	cout << "\033[1;30mC\033[0m: Cave\n";
+	cout << "\033[1;36mC\033[0m: Cave\n";
 	cout << "\n\n";
 
 }
