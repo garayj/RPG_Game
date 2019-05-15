@@ -54,7 +54,7 @@ void Game::run(){
 	startMenu();
 	while(isRunning){
 		setup();
-		gameplay();
+		gameCycle();
 		end();
 	}
 }
@@ -70,9 +70,7 @@ void Game::setup(){
 	string pause;
 
 	menu.printMenu(WELCOME);
-
 	cout << endl;
-
 	menu.printMenu(PRESS);
 
 	getline(cin,pause);
@@ -94,13 +92,9 @@ void Game::setup(){
 
 	//Print out team.
 	clearScreen();
-
 	menu.printMenu(THIS_IS_YOUR_TEAM);
-
 	heroes->printCharacters();
-
 	menu.printMenu(PRESS);
-
 	getline(cin,pause);
 
 	//Add the Heroes to the map so the map can know the location of the heroes.
@@ -135,31 +129,30 @@ Character* Game::characterSelection(int selection){
 	return newCharacter;
 }
 
-void Game::gameplay(){
+void Game::gameCycle(){
 	clearScreen();
 
-	//While the game is running, the timer is less than 30 and tthe user has not won, the game will continue.
-	//The format of the game is the hero stats are printed to the screen, the map is printed, the heroes move
-	//the screen is cleared and an event occurs. If the game is still running after the event, the user is 
-	//prompted to continue.
 	while(isRunning && timer <= 30 && !won){
-
-		cout << "Day "<< timer << "\n\n";
-		heroes->teamStats();
-		map.printMap();
-		move(heroes);
-		clearScreen();
-		heroes->teamStats();
-		cout << endl;
-		event();
-		if(isRunning){
-			menu.printMenu(CONTINUE);
-			setIsRunning(menu.checkInputInt(ERROR + CONTINUE, 0, 1));
-		}
-		clearScreen();
-		timer++;
+		play();
 	}	
 	setIsRunning(false);
+}
+
+void Game::play(){
+	cout << "Day "<< timer << "\n\n";
+	heroes->teamStats();
+	map.printMap();
+	move(heroes);
+	clearScreen();
+	heroes->teamStats();
+	cout << endl;
+	event();
+	if(isRunning){
+		menu.printMenu(CONTINUE);
+		setIsRunning(menu.checkInputInt(ERROR + CONTINUE, 0, 1));
+	}
+	clearScreen();
+	timer++;
 }
 
 void Game::end(){
@@ -195,6 +188,7 @@ void Game::move(Team *team){
 	//Checks if the move is a valid move.
 	while(isValidMove){
 		direction  = c;
+		//TODO Think of better logic for this. Redundant.
 		switch(direction){
 			case 119:
 				if(team->getLocation()->getUp() != nullptr){
@@ -243,6 +237,7 @@ void Game::move(Team *team){
 
 
 void Game::event(){
+	//TODO Think of better logic for this. Redundant.
 	switch(heroes->getLocation()->getSpaceType()){
 		case GRASS:
 			spaceEvent = new GrassEvent(heroes);

@@ -2,7 +2,7 @@
 ** Author: Jose Garay
 ** Date: 11/27/2018
 ** Description: Interface file for the Game Class. The Game Class organizes and conducts all the 
-phases of the game.
+** phases of the game.
 **************************************************************************************************/
 #ifndef GAME_HPP
 #define GAME_HPP 
@@ -31,7 +31,7 @@ private:
 
 /**************************************************************************************************
 ** Description: Checks to see if the player has all the four keys to win the game! Sets the won
-bool.
+** bool.
 **************************************************************************************************/
    void fourKeys();
 
@@ -48,7 +48,7 @@ has health above 0 and false if they are all dead.
 
 /**************************************************************************************************
 ** Description: The check team method checks to see if the party is alive. Sets the isRunning data
-member to false if the party is dead.
+** member to false if the party is dead.
 **************************************************************************************************/
    void checkTeam();
 
@@ -73,8 +73,17 @@ be initialized.
 /**************************************************************************************************
 ** Description: The main portion of the game. calls the fight function and keeps track of rounds. 
 **************************************************************************************************/
-   void gameplay();
+   void gameCycle();
 
+/**************************************************************************************************
+** Description: While the game is running, the timer is less than 30 and tthe user has not won, the 
+** game will continue. The format of the game is the hero stats are printed to the screen, the map 
+** is printed, the heroes move the screen is cleared and an event occurs. If the game is still 
+** running after the event, the user is prompted to continue. 
+**************************************************************************************************/
+   void play();
+
+   
 /**************************************************************************************************
 ** Description: Setter Function. Takes a boolean as input and sets the isRunning data member.
 **************************************************************************************************/
@@ -82,13 +91,13 @@ be initialized.
 
 /**************************************************************************************************
 ** Description: Takes an integer as input and returns a Character pointer. The characterSelection
-method returns one of the five hero characters to add to the Queue in the createTeam method.
+** method returns one of the five hero characters to add to the Queue in the createTeam method.
 **************************************************************************************************/
    Character* characterSelection(int);
 
 /**************************************************************************************************
 ** Description: Method takes a Team pointer as an argument and returns nothing. The move Method 
-moves the team into another space if the space is on the board.
+** moves the team into another space if the space is on the board.
 **************************************************************************************************/
    void move(Team*);
 
