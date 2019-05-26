@@ -207,7 +207,6 @@ bool Team::inventoryMenu(int itemIndex){
 }
 
 bool Team::useItem(int itemIndex){
-
 	//Check if the item the user wants to use is a potion.
 	if(getInventory()->at(itemIndex - 1)->getItemType() == POTION){
 		return usePotion(itemIndex);

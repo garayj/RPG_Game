@@ -188,52 +188,48 @@ void Game::move(Team *team){
 	//Checks if the move is a valid move.
 	while(isValidMove){
 		direction  = c;
-		//TODO Think of better logic for this. Redundant.
+		team->setLocation(validateDirection(team, direction, validDirection));
+		isValidMove = false;
+	}
+}
+
+Space* Game::validateDirection(Team *team, int direction, vector<char> validDirection){
+	bool isValidSpace = false;
+	Space* teamMove = team->getLocation();
+	while(teamMove == team->getLocation()){
 		switch(direction){
 			case 119:
-				if(team->getLocation()->getUp() != nullptr){
-					team->setLocation(team->getLocation()->getUp());
-					isValidMove = false;
-				}
-				else{
-					menu.printMenu(FALL_OFF_MAP);
-					c = menu.searchForInput(validDirection);
+				if(teamMove->getUp() != nullptr){
+					teamMove = teamMove->getUp();
 				}
 				break;
 			case 97:
-				if(team->getLocation()->getLeft() != nullptr){
-					team->setLocation(team->getLocation()->getLeft());
-					isValidMove = false;
-				}
-				else{
-					menu.printMenu(FALL_OFF_MAP);
-					c = menu.searchForInput(validDirection);
+				if(teamMove->getLeft() != nullptr){
+					teamMove = teamMove->getLeft();
 				}
 				break;
 			case 115:
-				if(team->getLocation()->getDown() != nullptr){
-					team->setLocation(team->getLocation()->getDown());
-					isValidMove = false;
-				}
-				else{
-					menu.printMenu(FALL_OFF_MAP);
-					c = menu.searchForInput(validDirection);
+				if(teamMove->getDown() != nullptr){
+					teamMove = teamMove->getDown();
 				}
 				break;
 			case 100:
-				if(team->getLocation()->getRight() != nullptr){
-					team->setLocation(team->getLocation()->getRight());
-					isValidMove = false;
-				}
-
-				else{
-					menu.printMenu(FALL_OFF_MAP);
-					c = menu.searchForInput(validDirection);
+				if(teamMove->getRight() != nullptr){
+					teamMove = teamMove->getRight();
 				}
 				break;
 		}
+		if(teamMove == team->getLocation()){
+			menu.printMenu(FALL_OFF_MAP);
+			direction = menu.searchForInput(validDirection);
+		}
+		else{
+			isValidSpace = true;
+		}
 	}
+	return teamMove;
 }
+
 
 
 void Game::event(){

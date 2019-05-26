@@ -112,6 +112,7 @@ be initialized.
    void setTeam(Team* heroes){this->heroes = heroes;};
 
 
+   Space* validateDirection(Team*,int,vector <char>);
 
 
 
