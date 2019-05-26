@@ -233,40 +233,29 @@ Space* Game::validateDirection(Team *team, int direction, vector<char> validDire
 
 
 void Game::event(){
-	//TODO Think of better logic for this. Redundant.
 	switch(heroes->getLocation()->getSpaceType()){
 		case GRASS:
 			spaceEvent = new GrassEvent(heroes);
-			delete spaceEvent;
-			checkTeam();
 			break;
 		case FOREST:
 			spaceEvent = new ForestEvent(heroes, heroes->getLocation());
-			delete spaceEvent;
-			checkTeam();
 			break;
 		case CAVE:
 			spaceEvent = new CaveEvent(heroes, heroes->getLocation());
-			delete spaceEvent;
-			checkTeam();
 			break;
 		case VILLAGE:
 			spaceEvent = new VillageEvent(heroes);
-			delete spaceEvent;
-			checkTeam();
 			break;
 		case DUNGEON:
 			spaceEvent = new DungeonEvent(heroes, heroes->getLocation());
-			delete spaceEvent;
-			checkTeam();
 			fourKeys();
 			break;
 		case SWAMP:
 			spaceEvent = new SwampEvent(heroes, heroes->getLocation());
-			delete spaceEvent;
-			checkTeam();
 			break;
 	}
+	delete spaceEvent;
+	checkTeam();
 }
 
 void Game::checkTeam(){
