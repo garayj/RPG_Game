@@ -106,15 +106,12 @@ void DangerEvent::printFightOrder(vector<Character*> temp){
 
 
 bool DangerEvent::useMagic(Character *magicUser){
-	switch(magicUser->getCharacterClass()){
-		case BLACK_MAGE:
-			return blackMageAction(magicUser);
-			break;
-		case WHITE_MAGE:
-			return whiteMageAction(magicUser);
-			break;
+	if(magicUser->getCharacterClass() == BLACK_MAGE){
+		return blackMageAction(magicUser);
 	}
-	return false;
+	else{
+		return whiteMageAction(magicUser);
+	}
 }
 
 
@@ -186,52 +183,47 @@ bool DangerEvent::useHealingTouch(Character *magicUser){
 
 bool DangerEvent::blackMageAction(Character *magicUser){
 	int monster;
-
+	// Print Action Menu
 	getMenu()->printMenu(BLACK_MAGE_MENU);
 	int selection = getMenu()->checkInputInt("Make a selection:", 0 , 1);	
-	if(selection){
-		if(dynamic_cast<BlackMage*>(magicUser)->getMana() > 0){
 
+	// If a valid selection is made and the mage has enough mana.
+	if(selection && dynamic_cast<BlackMage*>(magicUser)->getMana() > 0){
+		// Monster attack selection menu.
+		displayMonsters();
+		getMenu()->printMenu(MAGIC_MISSLE_SELECT);
+		monster = getMenu()->checkInputInt("Select a menu option.\n", 0, getSpace()->getMonsterCount());
+
+		// 
+		if(monster == 0){
+			return true;
+		}
+		while(!getSpace()->getMonsters()[monster - 1]->getIsAlive()){
+			cout << "That monster is already dead! Pick another!\n\n";
 			displayMonsters();
-			getMenu()->printMenu(MAGIC_MISSLE_SELECT);
-
-			monster = getMenu()->checkInputInt("Select a menu option.\n", 0, getSpace()->getMonsterCount());
-
+			monster = getMenu()->checkInputInt("Select a monster on the menu.\n", 0, getSpace()->getMonsterCount());
 			if(monster == 0){
 				return true;
 			}
-			while(!getSpace()->getMonsters()[monster - 1]->getIsAlive()){
-				cout << "That monster is already dead! Pick another!\n\n";
-				displayMonsters();
-				cout << endl;
+		}
 
-				monster = getMenu()->checkInputInt("Select a monster on the menu.\n", 0, getSpace()->getMonsterCount());
+		monster--;
 
-				if(monster == 0){
-					return true;
-				}
-			}
+		int attack = dynamic_cast<BlackMage*>(magicUser)->magicMissle();	
+		getMenu()->printMenu(SUPER_EFFECTIVE + std::to_string(attack) + " damage\n");
+		getSpace()->getMonsters()[monster]->defend(attack);
 
-			monster--;
-
-			int attack = dynamic_cast<BlackMage*>(magicUser)->magicMissle();	
-			getMenu()->printMenu(SUPER_EFFECTIVE + std::to_string(attack) + " damage\n");
-			getSpace()->getMonsters()[monster]->defend(attack);
-
-			//The case that the monster dies to the attack.
-			if(getSpace()->getMonsters()[monster]->getHealth() <= 0 ){
-				characterDies(getSpace()->getMonsters()[monster]);
-			return false;
-			}
+		//The case that the monster dies to the attack.
+		if(getSpace()->getMonsters()[monster]->getHealth() <= 0 ){
+			characterDies(getSpace()->getMonsters()[monster]);
 			return false;
 		}
 
-		else{
-			cout << "You do not have enough mana to cast that!" << endl;
-			return true;
-		}
+		return false;
+
 	}
 	else{
+		cout << "You do not have enough mana to cast that!" << endl;
 		return true;
 	}
 }
@@ -365,29 +357,26 @@ void DangerEvent::blankScreen(){
 }
 
 bool DangerEvent::heroAttacking(Character *fighter){
-	displayMonsters();
 	int damage;
 
+	displayMonsters();
 	getMenu()->printMenu(MONSTER_SELECT);	
 	int monster = getMenu()->checkInputInt("Select a monster on the menu.\n", 0, getSpace()->getMonsterCount());
 
+	// 0 to go back to the main menu.
 	if(monster == 0){
 		return true;
 	}
-
 	while(!getSpace()->getMonsters()[monster - 1]->getIsAlive()){
 		getMenu()->printMenu(DEAD_MONSTER);
 		displayMonsters();
-		cout << endl;
 		monster = getMenu()->checkInputInt("Select a monster on the menu.\n", 0, getSpace()->getMonsterCount());
-
+		// 0 to go back o the main menu.
 		if(monster == 0){
 			return true;
 		}
 	}
-
 	monster--;
-
 	if(getSpace()->getMonsters()[monster]->getSpeed() > rand() % 12 + 1){
 		cout << getSpace()->getMonsters()[monster]->getCharacterClassString() << " dodged the attack." << endl;
 		return false;
@@ -447,10 +436,10 @@ void DangerEvent::displayMonsters(){
 			cout << getSpace()->getMonsters()[n - 1]->getHealth() 
 					<< "/"
 					<< getSpace()->getMonsters()[n - 1]->getMaxHealth() 
-					<< "\n";
+					<< "\n\n";
 		}
 		else{
-			cout << "Dead\n";
+			cout << "Dead\n\n";
 		}
 	}	
 }
@@ -488,3 +477,4 @@ void DangerEvent::characterDies(Character *character){
 	}
 	return;
 }
+
