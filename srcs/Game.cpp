@@ -72,16 +72,20 @@ void Game::setup(){
 	menu.printMenu(WELCOME);
 	cout << endl;
 	menu.printMenu(PRESS);
-
 	getline(cin,pause);
 	clearScreen();
+	characterSelectionMenu();	
+	//Add the Heroes to the map so the map can know the location of the heroes.
+	map.setHeroes(heroes);
+	//Set the heroes on the map so they can move around.
+	heroes->setLocation(map.getBoard()[0][0]);
+}
 
+void Game::characterSelectionMenu(){
+	string pause;
 	int selection;
 	heroes = new Team(3);
-
 	menu.printMenu(TEAM_CREATION_HEADER);
-
-	//Team selection
 	for(int n = 0; n < heroes->getTeamSize(); n++){
 		menu.printMenu(CHARACTER_SELECTION_MENU);
 		selection  = menu.checkInputInt(ERROR + CHARACTER_SELECTION_MENU, 1, 6);
@@ -89,18 +93,12 @@ void Game::setup(){
 		menu.printMenu(CHARACTER_NAME_MENU);
 		heroes->getCharacters()[n]->setName(menu.checkInputString(ERROR_CHARACTER_NAME_MENU));
 	}
-
 	//Print out team.
 	clearScreen();
 	menu.printMenu(THIS_IS_YOUR_TEAM);
 	heroes->printCharacters();
 	menu.printMenu(PRESS);
 	getline(cin,pause);
-
-	//Add the Heroes to the map so the map can know the location of the heroes.
-	map.setHeroes(heroes);
-	//Set the heroes on the map so they can move around.
-	heroes->setLocation(map.getBoard()[0][0]);
 }
 
 
@@ -173,7 +171,6 @@ void Game::end(){
 
 
 void Game::move(Team *team){
-
 	//All needed variables for the method.
 	string input;
 	int direction;
@@ -182,9 +179,7 @@ void Game::move(Team *team){
 
 	//Print movement options menu.
 	menu.printMenu(MOVEMENT_PROMPT);
-
 	char c = menu.searchForInput(validDirection);
-
 	//Checks if the move is a valid move.
 	while(isValidMove){
 		direction  = c;
@@ -197,6 +192,7 @@ Space* Game::validateDirection(Team *team, int direction, vector<char> validDire
 	bool isValidSpace = false;
 	Space* teamMove = team->getLocation();
 	while(teamMove == team->getLocation()){
+		// Check if the direction is a null pointer.
 		switch(direction){
 			case 119:
 				if(teamMove->getUp() != nullptr){
@@ -233,6 +229,8 @@ Space* Game::validateDirection(Team *team, int direction, vector<char> validDire
 
 
 void Game::event(){
+	// Switch between all the different spaces in the game. 
+	// Each space has a spaceType which determines which event will occur.
 	switch(heroes->getLocation()->getSpaceType()){
 		case GRASS:
 			spaceEvent = new GrassEvent(heroes);
@@ -265,9 +263,9 @@ void Game::checkTeam(){
 }
 
 void Game::fourKeys(){
+	// Checks to see if the four keys have been found.
 	int counter = 0;
 	for(int n = 0; n < heroes->getInventory()->size(); n++){
-
 		if(heroes->getInventory()->at(n)->getItemType() == KEY){
 			counter++;
 		}
@@ -281,16 +279,12 @@ void Game::fourKeys(){
 
 bool Game::checkTeamHealth(){
 	for(int n = 0; n < heroes->getTeamSize(); n++){
-		if(heroes->getCharacters()[n]->getHealth() > 0){
-			return true;
-		}
+		if(heroes->getCharacters()[n]->getHealth() > 0){ return true; }
 	}
 	return false;
 }
 
 void Game::clearScreen(){
-	for(int n = 0; n < 1000; n++){
-		cout << "\n";
-	}
+	for(int n = 0; n < 1000; n++){ cout << "\n"; }
 }
 

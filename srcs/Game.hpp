@@ -114,6 +114,7 @@ be initialized.
 
    Space* validateDirection(Team*,int,vector <char>);
 
+   void characterSelectionMenu();
 
 
 

@@ -322,35 +322,21 @@ bool DangerEvent::magicUserMove(Character* hero){
 	}
 }
 
-
-
-
-
 void DangerEvent::heroAttacks(Character *fighter){
 	//Display who is attacking.
 	cout << endl;
 	cout << fighter->getName() << " the " << fighter->getCharacterClassString() << "'s turn!" << endl << endl;
 	bool madeAction = true;
 	while(madeAction){
-		switch(fighter->getCharacterClass()){
-			case BLACK_MAGE:
-			case WHITE_MAGE:
-				madeAction = magicUserMove(fighter);
-				break;
-			case RANGER:
-			case WARRIOR_GNOME:
-			case PALADIN:
-			case ROGUE:
-				madeAction = nonMagicUserMove(fighter);
-				break;
+		if (fighter->getCharacterClass() == BLACK_MAGE || fighter->getCharacterClass() == WHITE_MAGE){
+			madeAction = magicUserMove(fighter);
+		}
+		else{
+			madeAction = nonMagicUserMove(fighter);
 		}
 
 	}
 }
-
-
-
-
 
 bool DangerEvent::nonMagicUserMove(Character *hero){
 	cout << "What would you like to to?\n"
@@ -372,19 +358,11 @@ bool DangerEvent::nonMagicUserMove(Character *hero){
 
 }
 
-
-
-
-
 void DangerEvent::blankScreen(){
 	for(int n = 0; n < 1000; n++){
 		cout << endl;
 	}
 }
-
-
-
-
 
 bool DangerEvent::heroAttacking(Character *fighter){
 	displayMonsters();
