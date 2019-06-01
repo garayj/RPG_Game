@@ -262,8 +262,9 @@ void DangerEvent::heroDodges(int randomHero){
 
 void DangerEvent::monsterDamages(Character *fighter, int randomHero){
 	int damage = fighter->attack();
-	cout << getHeroes()->getCharacters()[randomHero]->getName()
-		<< " is attacks for "
+		//FIX THIS
+	cout << fighter->getCharacterClassString()
+		<< " attacks for "
 		<< damage
 		<< " points.\n";
 
@@ -436,10 +437,10 @@ void DangerEvent::displayMonsters(){
 			cout << getSpace()->getMonsters()[n - 1]->getHealth() 
 					<< "/"
 					<< getSpace()->getMonsters()[n - 1]->getMaxHealth() 
-					<< "\n\n";
+					<< "\n";
 		}
 		else{
-			cout << "Dead\n\n";
+			cout << "Dead\n";
 		}
 	}	
 }
