@@ -67,34 +67,26 @@ void Team::printCharacters(){
 }
 
 void Team::teamStats(){
-	cout << "You have " << getGold() << "G." << endl << endl;	
-	cout << "#";
-	cout << "|";
+	cout << "You have " << getGold() << "G.\n\n";	
+	cout << "#|";
 	cout << setw(10);
-	cout << "Name";
-	cout << "|";
+	cout << "Name|";
 	cout << setw(15);
-	cout << "Class";
-	cout << "|";
+	cout << "Class|";
 	cout << setw(6);
-	cout << "Armor";
-	cout << "|";
+	cout << "Armor|";
 	cout << setw(6);
-	cout << "Speed";
-	cout << "|";
+	cout << "Speed|";
 	cout << setw(4);
-	cout << "HP";
-	cout << "|";
+	cout << "HP|";
 	cout << setw(6);
-	cout << "Max HP";
-	cout << "|";
+	cout << "Max HP|";
 	cout << setw(4);
-	cout << "Mana";
-	cout << "|";
+	cout << "Mana|";
 	cout << setw(9);
 	cout << "Max Mana";
 	cout << endl;
-	cout << "----------------------------------------------------------------"<< endl;
+	cout << "-------------------------------------------------------------------"<< endl;
 	for(int n = 1; n <= getTeamSize(); n++){
 		cout << n;
 		cout << "|";
@@ -133,12 +125,13 @@ void Team::teamStats(){
 					cout << setw(9);
 					cout << dynamic_cast<WhiteMage*>(getCharacters()[n -1])->getMaxMana();
 					break;
+				default:
+					break;
 			}
 		}
 		else{
 			cout << setw(4);
-			cout << "N/A";
-			cout << "|";
+			cout << "N/A|";
 			cout << setw(9);
 			cout << "N/A";
 		}

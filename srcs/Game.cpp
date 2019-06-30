@@ -60,20 +60,18 @@ void Game::run(){
 }
 
 void Game::startMenu(){	
-	clearScreen();
+	menu.clearScreen();
 	menu.printMenu(MAIN_MENU);
 	setIsRunning(menu.checkInputInt(ERROR + MAIN_MENU, 0, 1));	
-	clearScreen();
+	menu.clearScreen();
 }
 
 void Game::setup(){
 	string pause;
-
 	menu.printMenu(WELCOME);
-	cout << endl;
 	menu.printMenu(PRESS);
 	getline(cin,pause);
-	clearScreen();
+	menu.clearScreen();
 	characterSelectionMenu();	
 	//Add the Heroes to the map so the map can know the location of the heroes.
 	map.setHeroes(heroes);
@@ -83,15 +81,10 @@ void Game::setup(){
 
 void Game::characterSelectionMenu(){
 	string pause;
-	int selection;
 	heroes = new Team(3);
 	menu.printMenu(TEAM_CREATION_HEADER);
 	for(int n = 0; n < heroes->getTeamSize(); n++){
-		menu.printMenu(CHARACTER_SELECTION_MENU);
-		selection  = menu.checkInputInt(ERROR + CHARACTER_SELECTION_MENU, 1, 6);
-		heroes->getCharacters()[n] = characterSelection(selection);
-		menu.printMenu(CHARACTER_NAME_MENU);
-		heroes->getCharacters()[n]->setName(menu.checkInputString(ERROR_CHARACTER_NAME_MENU));
+		heroes->getCharacters()[n] = characterSelection();
 	}
 	//Print out team.
 	clearScreen();
@@ -102,7 +95,9 @@ void Game::characterSelectionMenu(){
 }
 
 
-Character* Game::characterSelection(int selection){
+Character* Game::characterSelection(){
+	menu.printMenu(CHARACTER_SELECTION_MENU);
+	int selection  = menu.checkInputInt(ERROR + CHARACTER_SELECTION_MENU, 1, 6);	
 	Character *newCharacter;
 	switch(selection){
 		case 1:
@@ -124,12 +119,13 @@ Character* Game::characterSelection(int selection){
 			newCharacter = new WarriorGnome();
 			break;
 	}
+	menu.printMenu(CHARACTER_NAME_MENU);
+	newCharacter->setName(menu.checkInputString(ERROR_CHARACTER_NAME_MENU));
 	return newCharacter;
 }
 
 void Game::gameCycle(){
-	clearScreen();
-
+	menu.clearScreen();
 	while(isRunning && timer <= 30 && !won){
 		play();
 	}	
@@ -141,7 +137,7 @@ void Game::play(){
 	heroes->teamStats();
 	map.printMap();
 	move(heroes);
-	clearScreen();
+	menu.clearScreen();
 	heroes->teamStats();
 	cout << endl;
 	event();
@@ -149,7 +145,7 @@ void Game::play(){
 		menu.printMenu(CONTINUE);
 		setIsRunning(menu.checkInputInt(ERROR + CONTINUE, 0, 1));
 	}
-	clearScreen();
+	menu.clearScreen();
 	timer++;
 }
 
@@ -189,41 +185,38 @@ void Game::move(Team *team){
 }
 
 Space* Game::validateDirection(Team *team, int direction, vector<char> validDirection){
-	bool isValidSpace = false;
+	bool isNotValidated = true;
 	Space* teamMove = team->getLocation();
-	while(teamMove == team->getLocation()){
+	while(isNotValidated){
 		// Check if the direction is a null pointer.
 		switch(direction){
 			case 119:
-				if(teamMove->getUp() != nullptr){
-					teamMove = teamMove->getUp();
-				}
+				teamMove = checkSpace(teamMove->getUp());
 				break;
 			case 97:
-				if(teamMove->getLeft() != nullptr){
-					teamMove = teamMove->getLeft();
-				}
+				teamMove = checkSpace(teamMove->getLeft());
 				break;
 			case 115:
-				if(teamMove->getDown() != nullptr){
-					teamMove = teamMove->getDown();
-				}
+				teamMove = checkSpace(teamMove->getDown());
 				break;
 			case 100:
-				if(teamMove->getRight() != nullptr){
-					teamMove = teamMove->getRight();
-				}
+				teamMove = checkSpace(teamMove->getRight());
 				break;
 		}
-		if(teamMove == team->getLocation()){
+		if(teamMove == nullptr){
 			menu.printMenu(FALL_OFF_MAP);
 			direction = menu.searchForInput(validDirection);
+			teamMove = team->getLocation();
 		}
 		else{
-			isValidSpace = true;
+			return teamMove;
 		}
 	}
-	return teamMove;
+}
+
+Space* Game::checkSpace(Space* space){
+	if(space != nullptr){ return space; }
+	return nullptr;
 }
 
 
@@ -266,9 +259,7 @@ void Game::fourKeys(){
 	// Checks to see if the four keys have been found.
 	int counter = 0;
 	for(int n = 0; n < heroes->getInventory()->size(); n++){
-		if(heroes->getInventory()->at(n)->getItemType() == KEY){
-			counter++;
-		}
+		if(heroes->getInventory()->at(n)->getItemType() == KEY){ counter++; }
 	}
 	if(counter == 4){
 		setIsRunning(false);
@@ -284,7 +275,4 @@ bool Game::checkTeamHealth(){
 	return false;
 }
 
-void Game::clearScreen(){
-	for(int n = 0; n < 1000; n++){ cout << "\n"; }
-}
 

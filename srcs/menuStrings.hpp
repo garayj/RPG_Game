@@ -68,7 +68,7 @@ const string WELCOME = "Welcome to my game!\n"
 						"Black Mage's magic always hits.\n"
 						"Dungeons are pretty hard so at least have weapons on each one of your heroes before attempting.\n"
 						"Characters have two slots for any combination of weapons or shield\n"
-						"My girlfriend was frustrated that she couldn't beat this game so this is why these tips are here.\n";
+						"My girlfriend was frustrated that she couldn't beat this game so this is why these tips are here.\n\n";
 
 
 						

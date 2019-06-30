@@ -38,5 +38,6 @@ public:
 
 	void addMenuLine(string);
 	void printMenu(string);
+	void clearScreen();
 };
 #endif

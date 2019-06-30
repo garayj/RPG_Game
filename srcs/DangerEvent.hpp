@@ -18,9 +18,6 @@ using std::vector;
 class DangerEvent :public  Event
 {
 protected:
-	//Returns nothing and takes no arguements. Clears the screen of any text.
-	void blankScreen();
-
 	//Returns a boolean if the user actually made a magic attack or not using a magical hero.
 	bool useMagic(Character*);
 
@@ -70,9 +67,6 @@ protected:
 	// The printFightOrder takes a vector of character pointers and prints out the order in which the 
 	// characters will fight.
 	void printFightOrder(vector<Character *>);
-
-	//Clears the console screen.
-	void clearScreen();
 
 	// The method acts as a "fork" in the road for the characters. If monsters, continue down the monster
 	// path. Heroes continue down a different path. Glorified if statement quite literally.

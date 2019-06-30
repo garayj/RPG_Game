@@ -42,11 +42,6 @@ has health above 0 and false if they are all dead.
    bool checkTeamHealth();
 
 /**************************************************************************************************
-** Description: My probably not the best way to clear the screen.
-**************************************************************************************************/
-   void clearScreen();
-
-/**************************************************************************************************
 ** Description: The check team method checks to see if the party is alive. Sets the isRunning data
 ** member to false if the party is dead.
 **************************************************************************************************/
@@ -93,7 +88,7 @@ be initialized.
 ** Description: Takes an integer as input and returns a Character pointer. The characterSelection
 ** method returns one of the five hero characters to add to the Queue in the createTeam method.
 **************************************************************************************************/
-   Character* characterSelection(int);
+   Character* characterSelection();
 
 /**************************************************************************************************
 ** Description: Method takes a Team pointer as an argument and returns nothing. The move Method 
@@ -116,6 +111,7 @@ be initialized.
 
    void characterSelectionMenu();
 
+   Space* checkSpace(Space*);
 
 
 public:

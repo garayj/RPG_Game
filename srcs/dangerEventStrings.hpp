@@ -17,16 +17,21 @@ const string MAGIC_MISSLE_SELECT = "\nWhich monster would you like to cast Magic
 
 const string SUPER_EFFECTIVE ="Black Mage used Magic Missle!\n"
 								"It's super effective!\n"
-								"Black Mage attacked for " ;
+								"Black Mage attacked for ";
 
 const string FIGHT_ORDER_HEADER = "Fighting order:\n\n";
 
 const string CONTINUE = "\nPress enter to continue.\n";
 
-const string SELECT_OPTION = "Select an option on the menu";
+const string SELECT_OPTION = "Select a menu option";
 
 const string MONSTER_SELECT = "\nWhich monster would you like to attack?\nPress 0 to go back\n";
 
 const string DEAD_MONSTER = "That monster is already dead! Another!\n\n";
 
+const string NOT_ENOUGH_MANA = "You do not have enough mana to cast that.\n";
+
+const string HEALING_TOUCH_MENU = "\nWhich hero would you like to heal?\n"
+									"Select 0 to go back.\n\n";
+const string ERROR_DOWNED_HERO = "That hero is downed! Cannot heal a downed hero. Pick another!\n\n\n";
 #endif

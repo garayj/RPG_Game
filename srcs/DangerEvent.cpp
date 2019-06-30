@@ -46,7 +46,7 @@ void DangerEvent::fight(vector<Character*>temp){
 	//Loop until all the characters in the vector have been popped off.
 	while(temp.size() != 0 && areMonstersAlive() && getHeroes()->getIsTeamAlive()){
 		printFightOrder(temp);
-		clearScreen();
+		getMenu()->clearScreen();
 		fighter = temp.back();
 		//Check if the fighter object is pointing to something and if it is, checks to see if it is alive.
 		//If either condition is true, remove the last character until one that is alive is found.
@@ -81,12 +81,6 @@ void DangerEvent::fork(Character *fighter, vector<Character*> *temp){
 	(*temp).pop_back();
 }
 
-
-void DangerEvent::clearScreen(){
-	for(int n = 0; n < 1000; n++){
-		cout << endl;
-	}
-}
 
 void DangerEvent::printFightOrder(vector<Character*> temp){
 	int count = 1;	
@@ -126,7 +120,6 @@ bool DangerEvent::whiteMageAction(Character *magicUser){
 		//The case that you want to heal one hero.
 		case 1:
 			return useHealingTouch(magicUser);
-			break;
 		case 2:
 			//heal all heroes if the mana is available.
 			if(dynamic_cast<WhiteMage*>(magicUser)->getMana() > 0){
@@ -137,11 +130,9 @@ bool DangerEvent::whiteMageAction(Character *magicUser){
 				cout << "You do not have enough mana to cast that." << endl;
 				return true;
 			}
-			break;
 		//The case the the user wants to just go back.
 		case 0:
 			return true;
-			break;
 	}	
 }
 
@@ -336,7 +327,7 @@ bool DangerEvent::nonMagicUserMove(Character *hero){
 			"1.) Attack\n"
 			"2.) Use Item\n";
 	int selection = getMenu()->checkInputInt("Error!\nMake a selection that's on the screen", 1, 2);
-	blankScreen();
+	getMenu()->clearScreen();
 	if(selection == 1){
 		return heroAttacking(hero);
 	}
@@ -351,11 +342,6 @@ bool DangerEvent::nonMagicUserMove(Character *hero){
 
 }
 
-void DangerEvent::blankScreen(){
-	for(int n = 0; n < 1000; n++){
-		cout << endl;
-	}
-}
 
 bool DangerEvent::heroAttacking(Character *fighter){
 	int damage;

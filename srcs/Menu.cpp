@@ -272,6 +272,11 @@ char Menu::searchForInput(vector<char>key){
     return c;
 }
 
+void Menu::clearScreen()
+{
+	for(int n = 0; n < 1000; n++){ cout << "\n"; }
+}
+
 int Menu::searchForInput(int arrSize){
 	struct termios old_tio, new_tio;
     unsigned char c;

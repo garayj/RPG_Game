@@ -106,13 +106,9 @@ void VillageEvent::rest(){
 					dynamic_cast<BlackMage*>(getHeroes()->getCharacters()[n])->setMana(dynamic_cast<BlackMage*>(getHeroes()->getCharacters()[n])->getMaxMana());
 					getHeroes()->getCharacters()[n]->setHealth(getHeroes()->getCharacters()[n]->getMaxHealth());
 					break;
-				case PALADIN:
-				case ROGUE:
-				case RANGER:
-				case WARRIOR_GNOME:
+				default:
 					getHeroes()->getCharacters()[n]->setHealth(getHeroes()->getCharacters()[n]->getMaxHealth());
 					break;
-
 			}
 		}
 	}
