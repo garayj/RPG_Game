@@ -87,7 +87,7 @@ void Game::characterSelectionMenu(){
 		heroes->getCharacters()[n] = characterSelection();
 	}
 	//Print out team.
-	clearScreen();
+	// clearScreen();
 	menu.printMenu(THIS_IS_YOUR_TEAM);
 	heroes->printCharacters();
 	menu.printMenu(PRESS);
